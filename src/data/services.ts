@@ -11,27 +11,22 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    id: "speaking",
+    id: "consulting",
     number: "01",
-    label: "SPEAKING",
-    headline: "Ideas built for the stage — and the Monday after.",
-    description: "I speak about modern marketing, organic growth, AI, content, search, brand building and the changing role of marketers. Sessions combine strategic thinking, practical frameworks, real-world examples and perspectives teams can immediately discuss and apply.",
+    label: "CONSULTING",
+    headline: "Strategy for teams that have outgrown random acts of marketing.",
+    description: "I work with founders, CMOs and marketing teams to diagnose growth problems, identify leverage points and design practical systems across organic growth, content, SEO, AI, brand and digital acquisition.",
     topics: [
-      "The Future of Search in an AI-First World",
-      "Building Organic Growth Engines",
-      "Marketing in the Age of Generative AI",
-      "How AI Changes Content Strategy",
-      "From Traffic to Brand Demand",
-      "Modern SEO Beyond Rankings",
-      "Building High-Performance Marketing Teams",
-      "AI-Powered Marketing Workflows"
+      "Marketing Strategy", "SEO Strategy", "Content Strategy", "Organic Growth",
+      "AI Transformation", "Marketing Systems", "Growth Audits", "Digital Positioning",
+      "Website Strategy", "Team Capability Building"
     ],
     metrics: [
-      { value: "85+", label: "Talks Delivered" },
-      { value: "12", label: "Countries" },
-      { value: "15K+", label: "Attendees Reached" }
+      { value: "60+", label: "Engagements" },
+      { value: "40+", label: "Industries" },
+      { value: "3×", label: "Avg. ROI" }
     ],
-    cta: "Invite Me to Speak"
+    cta: "Discuss a Consulting Engagement"
   },
   {
     id: "coaching",
@@ -52,26 +47,8 @@ export const services: Service[] = [
     cta: "Explore Coaching"
   },
   {
-    id: "consulting",
-    number: "03",
-    label: "CONSULTING",
-    headline: "Strategy for teams that have outgrown random acts of marketing.",
-    description: "I work with founders, CMOs and marketing teams to diagnose growth problems, identify leverage points and design practical systems across organic growth, content, SEO, AI, brand and digital acquisition.",
-    topics: [
-      "Marketing Strategy", "SEO Strategy", "Content Strategy", "Organic Growth",
-      "AI Transformation", "Marketing Systems", "Growth Audits", "Digital Positioning",
-      "Website Strategy", "Team Capability Building"
-    ],
-    metrics: [
-      { value: "60+", label: "Engagements" },
-      { value: "40+", label: "Industries" },
-      { value: "3×", label: "Avg. ROI" }
-    ],
-    cta: "Discuss a Consulting Engagement"
-  },
-  {
     id: "training",
-    number: "04",
+    number: "03",
     label: "TRAINING",
     headline: "Turn marketing knowledge into organizational capability.",
     description: "Practical training programs for marketing teams and professionals designed around real workflows, frameworks, exercises and implementation — not passive presentations.",
@@ -86,6 +63,29 @@ export const services: Service[] = [
       { value: "4.9", label: "Avg. Rating" }
     ],
     cta: "Explore Training Programs"
+  },
+  {
+    id: "speaking",
+    number: "04",
+    label: "SPEAKING",
+    headline: "Ideas built for the stage — and the Monday after.",
+    description: "I speak about modern marketing, organic growth, AI, content, search, brand building and the changing role of marketers. Sessions combine strategic thinking, practical frameworks, real-world examples and perspectives teams can immediately discuss and apply.",
+    topics: [
+      "The Future of Search in an AI-First World",
+      "Building Organic Growth Engines",
+      "Marketing in the Age of Generative AI",
+      "How AI Changes Content Strategy",
+      "From Traffic to Brand Demand",
+      "Modern SEO Beyond Rankings",
+      "Building High-Performance Marketing Teams",
+      "AI-Powered Marketing Workflows"
+    ],
+    metrics: [
+      { value: "85+", label: "Talks Delivered" },
+      { value: "12", label: "Countries" },
+      { value: "15K+", label: "Attendees Reached" }
+    ],
+    cta: "Invite Me to Speak"
   }
 ];
 

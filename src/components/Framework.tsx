@@ -6,10 +6,10 @@ import { compoundFramework } from '../data/framework';
 
 export default function Framework() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-24 md:py-32 lg:py-40 bg-gradient-to-br from-bg to-purple/5">
+    <section className="py-20 md:py-32 lg:py-40 bg-gradient-to-br from-bg to-purple/5 overflow-hidden">
       <Container>
         <div className="text-center mb-16">
           <Reveal>

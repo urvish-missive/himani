@@ -14,10 +14,10 @@ const frameworkSteps = [
 
 export default function Positioning() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-24 md:py-32 lg:py-40 bg-gradient-to-br from-bg-alt/50 to-purple/5">
+    <section className="py-20 md:py-32 lg:py-40 bg-gradient-to-br from-bg-alt/50 to-purple/5 overflow-hidden">
       <Container>
         {/* Header */}
         <div className="mb-16">

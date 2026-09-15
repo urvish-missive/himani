@@ -12,13 +12,13 @@ interface RevealProps {
 
 export default function Reveal({ children, className = '', delay = 0, direction = 'up', once = true }: RevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: "-80px" });
+  const isInView = useInView(ref, { once, margin: "-30px 0px" });
 
   const directionMap = {
-    up: { y: 30, x: 0 },
-    down: { y: -30, x: 0 },
-    left: { y: 0, x: -30 },
-    right: { y: 0, x: 30 },
+    up: { y: 24, x: 0 },
+    down: { y: -24, x: 0 },
+    left: { y: 0, x: -16 },
+    right: { y: 0, x: 16 },
   };
 
   const { x, y } = directionMap[direction];

@@ -11,7 +11,7 @@ import speakerThumb from '../images/himanispeaker.jpg';
 export default function ConferenceShowcase() {
   const ref = useRef(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
@@ -60,7 +60,7 @@ export default function ConferenceShowcase() {
   };
 
   return (
-    <section id="speaking" className="relative py-24 md:py-32 lg:py-40 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
+    <section id="speaking" className="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
       {/* Gradient orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[150px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange/20 rounded-full blur-[150px]" />
@@ -70,9 +70,9 @@ export default function ConferenceShowcase() {
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
       }} />
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 px-5 md:px-8">
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-10 md:mb-16">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange/60 mb-4">
               Speaking
@@ -89,7 +89,7 @@ export default function ConferenceShowcase() {
         <Reveal>
           <div className="relative mb-16">
             <div className="absolute -inset-1 bg-gradient-to-br from-purple to-orange rounded-2xl opacity-30" />
-            <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden">
+            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden">
               <img
                 src={stagePhoto}
                 alt="Himani Sharma speaking at a conference"

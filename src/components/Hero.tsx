@@ -28,67 +28,68 @@ const itemVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-20">
-      {/* Background */}
+    <section className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden pt-28 sm:pt-32 md:pt-36 pb-8 md:pb-12">
+      {/* Background with soft ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple/5 via-bg to-orange/5" />
-      <div className="absolute top-20 right-20 w-72 h-72 bg-purple/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-orange/10 rounded-full blur-[120px]" />
+      <div className="absolute top-16 right-10 md:right-20 w-64 md:w-80 h-64 md:h-80 bg-purple/10 rounded-full blur-[90px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 left-10 md:left-20 w-72 md:w-96 h-72 md:h-96 bg-orange/10 rounded-full blur-[100px] md:blur-[130px] pointer-events-none" />
 
-      <Container className="relative z-10 w-full py-8 md:py-0">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-center">
+      <Container className="relative z-10 w-full my-auto py-4 md:py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_340px] gap-8 lg:gap-12 items-center">
           {/* Left: Content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="min-w-0"
+            className="min-w-0 text-center lg:text-left"
           >
-            <motion.p
-              variants={itemVariants}
-              className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4"
-            >
-              Marketing Strategist · Speaker · Coach · Consultant
-            </motion.p>
+            {/* Pill Badge */}
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/5 border border-purple/20 backdrop-blur-sm mb-5 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple to-orange animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-purple">
+                Marketing Strategist · Speaker · Coach · Consultant
+              </span>
+            </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="font-serif text-[2.25rem] md:text-5xl lg:text-[3rem] xl:text-[3.5rem] leading-[1.08] text-primary mb-5"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.15rem] xl:text-[3.5rem] leading-[1.12] text-primary mb-5"
             >
               Helping brands and marketers master growth in an AI-first world.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mb-7"
+              className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 mb-7"
             >
               I work with ambitious marketing teams, leaders and professionals to turn SEO, content, social media, AI and digital strategy into scalable growth systems.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-5">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
               <CTAButton variant="primary" size="lg">Work With Me</CTAButton>
               <CTAButton variant="secondary" size="lg" href="#services">Explore My Work</CTAButton>
             </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-xs text-secondary/50 tracking-wide"
+              className="text-xs text-secondary/60 tracking-wide"
             >
               Speaking · Consulting · Coaching · Corporate Training
             </motion.p>
           </motion.div>
 
-          {/* Right: Portrait - tightly constrained */}
+          {/* Right: Portrait - Visible on both mobile and desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative hidden lg:block"
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
+            className="relative flex justify-center lg:justify-end mt-4 lg:mt-0"
           >
-            <div className="relative w-full max-w-[280px] xl:max-w-[320px] ml-auto">
-              {/* Gradient frame */}
-              <div className="absolute -inset-[3px] bg-gradient-to-br from-purple to-orange rounded-2xl opacity-60" />
+            <div className="relative w-full max-w-[240px] sm:max-w-[270px] lg:max-w-[300px] xl:max-w-[330px]">
+              {/* Gradient frame glow */}
+              <div className="absolute -inset-[3px] bg-gradient-to-br from-purple via-purple-light to-orange rounded-2xl opacity-60 blur-xs" />
               
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-bg-alt">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-bg-alt shadow-xl shadow-purple/10">
                 <img
                   src={heroImage}
                   alt="Himani Sharma - Marketing Strategist and Speaker"
@@ -97,46 +98,54 @@ export default function Hero() {
                 />
 
                 {/* Floating labels */}
-                {floatingLabels.map((label) => (
-                  <motion.div
-                    key={label.text}
-                    className="absolute text-[10px] font-semibold tracking-wider text-purple/60 uppercase"
-                    style={{ left: label.x, top: label.y }}
-                    animate={{ y: [0, -5, 0], opacity: [0.4, 0.7, 0.4] }}
-                    transition={{ duration: 6, repeat: Infinity, delay: label.delay, ease: 'easeInOut' }}
-                  >
-                    <span className="px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-purple/20 shadow-sm">
-                      {label.text}
-                    </span>
-                  </motion.div>
-                ))}
+                <div className="hidden sm:block">
+                  {floatingLabels.map((label) => (
+                    <motion.div
+                      key={label.text}
+                      className="absolute text-[10px] font-semibold tracking-wider text-purple/70 uppercase pointer-events-none"
+                      style={{ left: label.x, top: label.y }}
+                      animate={{ y: [0, -4, 0], opacity: [0.6, 0.9, 0.6] }}
+                      transition={{ duration: 5, repeat: Infinity, delay: label.delay, ease: 'easeInOut' }}
+                    >
+                      <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-purple/20 shadow-xs">
+                        {label.text}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-bg/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/20 via-transparent to-transparent pointer-events-none" />
               </div>
-            </div>
 
-            {/* Corner accents */}
-            <div className="absolute -top-2 -left-2 w-10 h-10 border-l-2 border-t-2 border-purple rounded-tl-xl opacity-40" />
-            <div className="absolute -bottom-2 -right-2 w-10 h-10 border-r-2 border-b-2 border-orange rounded-br-xl opacity-40" />
+              {/* Corner accents */}
+              <div className="absolute -top-2 -left-2 w-8 h-8 border-l-2 border-t-2 border-purple rounded-tl-xl opacity-60 pointer-events-none" />
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 border-r-2 border-b-2 border-orange rounded-br-xl opacity-60 pointer-events-none" />
+            </div>
           </motion.div>
         </div>
       </Container>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - cleanly positioned below content, hidden on small mobile to avoid any overlap */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-5 left-1/2 -translate-x-1/2"
+        className="relative z-10 hidden md:flex flex-col items-center justify-center pt-4 pb-2"
       >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-5 h-8 border-2 border-purple/30 rounded-full flex items-start justify-center pt-1.5"
-        >
-          <div className="w-1 h-1.5 bg-gradient-to-b from-purple to-orange rounded-full" />
-        </motion.div>
+        <a href="#services" aria-label="Scroll down to explore" className="group flex flex-col items-center gap-1.5">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-secondary/40 group-hover:text-purple transition-colors">Scroll</span>
+          <div className="w-5 h-8 border-2 border-purple/25 group-hover:border-purple/50 rounded-full flex items-start justify-center pt-1.5 transition-colors">
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-1 h-1.5 bg-gradient-to-b from-purple to-orange rounded-full"
+            />
+          </div>
+        </a>
       </motion.div>
+
+      {/* Bottom transition border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/20 to-transparent" />
     </section>
   );
 }

@@ -68,7 +68,7 @@ export default function FinalCTA() {
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="mailto:hello@himanisharma.com"
+                href=""
                 className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 Say Hello
@@ -79,7 +79,7 @@ export default function FinalCTA() {
 
           <Reveal delay={0.3}>
             <p className="text-sm text-white/40">
-              hello@himanisharma.com
+              [EMAIL_ADDRESS]
             </p>
           </Reveal>
         </div>

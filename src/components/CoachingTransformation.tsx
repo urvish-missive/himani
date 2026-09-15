@@ -24,10 +24,10 @@ const afterItems = [
 
 export default function CoachingTransformation() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-24 md:py-32 lg:py-40 bg-bg">
+    <section className="py-20 md:py-28 lg:py-36 bg-bg overflow-hidden">
       <Container>
         <div className="text-center mb-16">
           <Reveal>

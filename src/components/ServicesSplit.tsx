@@ -10,24 +10,24 @@ import coachImg from '../images/himanimarketing.jpg';
 import consultantImg from '../images/himanimainsection.jpg';
 import trainingImg from '../images/Himani-Kankaria4-684x1024.jpg';
 
-const serviceIcons = [Mic, Target, Lightbulb, GraduationCap];
-const serviceImages = [speakerImg, coachImg, consultantImg, trainingImg];
+const serviceIcons = [Lightbulb, Target, GraduationCap, Mic];
+const serviceImages = [consultantImg, coachImg, trainingImg, speakerImg];
 const bgStyles = [
-  'bg-gradient-to-br from-purple/5 via-bg to-bg',
-  'bg-gradient-to-br from-bg via-orange/5 to-bg',
   'bg-gradient-to-br from-bg via-bg to-purple/5',
+  'bg-gradient-to-br from-bg via-orange/5 to-bg',
   'bg-gradient-to-br from-orange/5 via-bg to-purple/5',
+  'bg-gradient-to-br from-purple/5 via-bg to-bg',
 ];
 
 function SpeakingSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const service = services[0];
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
+  const service = services[3];
 
   return (
-    <div id="speaking-service" ref={ref} className={`py-24 md:py-32 ${bgStyles[0]}`}>
+    <div id="speaking" ref={ref} className={`py-20 md:py-32 ${bgStyles[0]} overflow-hidden`}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div>
             <Reveal>
@@ -84,8 +84,8 @@ function SpeakingSection() {
 
           {/* Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative"
           >
@@ -118,7 +118,7 @@ function SpeakingSection() {
 
 function CoachingSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
   const service = services[1];
 
   const capabilityMap = [
@@ -129,13 +129,13 @@ function CoachingSection() {
   ];
 
   return (
-    <div id="coaching-service" ref={ref} className={`py-24 md:py-32 ${bgStyles[1]}`}>
+    <div id="coaching-overview" ref={ref} className={`py-20 md:py-32 ${bgStyles[1]} overflow-hidden`}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Visual first on desktop */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative order-2 lg:order-1"
           >
@@ -220,8 +220,8 @@ function CoachingSection() {
 
 function ConsultingSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const service = services[2];
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
+  const service = services[0];
 
   const framework = ['DIAGNOSE', 'PRIORITIZE', 'DESIGN', 'IMPLEMENT', 'MEASURE'];
   const questions = [
@@ -232,9 +232,9 @@ function ConsultingSection() {
   ];
 
   return (
-    <div id="consulting-service" ref={ref} className={`py-24 md:py-32 ${bgStyles[2]}`}>
+    <div id="consulting" ref={ref} className={`py-20 md:py-32 ${bgStyles[2]} overflow-hidden`}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div>
             <Reveal>
@@ -278,10 +278,10 @@ function ConsultingSection() {
             </Reveal>
           </div>
 
-          {/* Visual - Consulting Blueprint */}
+          {/* Visual - Questions Framework */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative"
           >
@@ -329,8 +329,8 @@ function ConsultingSection() {
 
 function TrainingSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const service = services[3];
+  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
+  const service = services[2];
 
   const journey = ['LEARN', 'PRACTICE', 'APPLY', 'REVIEW', 'MASTER'];
   const courseClusters = [
@@ -340,13 +340,13 @@ function TrainingSection() {
   ];
 
   return (
-    <div id="training-service" ref={ref} className={`py-24 md:py-32 ${bgStyles[3]}`}>
+    <div id="training" ref={ref} className={`py-20 md:py-32 ${bgStyles[3]} overflow-hidden`}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Visual - Learning Journey */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative order-2 lg:order-1"
           >
@@ -479,10 +479,10 @@ export default function ServicesSplit() {
         </div>
       </Container>
 
-      <SpeakingSection />
-      <CoachingSection />
       <ConsultingSection />
+      <CoachingSection />
       <TrainingSection />
+      <SpeakingSection />
     </section>
   );
 }
