@@ -11,6 +11,7 @@ import ConferenceShowcase from '../components/ConferenceShowcase';
 import CaseStudies from '../components/CaseStudies';
 import CoachingTransformation from '../components/CoachingTransformation';
 import Testimonials from '../components/Testimonials';
+import TrainingShowcase from '../components/TrainingShowcase';
 import Insights from '../components/Insights';
 import About from '../components/About';
 import WhoIWorkWith from '../components/WhoIWorkWith';
@@ -32,6 +33,7 @@ export default function Home() {
         <Framework />
         <ConferenceShowcase />
         <CaseStudies />
+        <TrainingShowcase />
         <CoachingTransformation />
         <Testimonials />
         <Insights />
