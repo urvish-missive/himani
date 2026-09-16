@@ -45,7 +45,7 @@ export default function Hero() {
           >
             {/* Pill Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/5 border border-purple/20 backdrop-blur-sm mb-5 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple to-orange animate-pulse" />
+              <span className="!min-w-2 h-2 rounded-full bg-gradient-to-r from-purple to-orange animate-pulse" />
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-purple">
                 Founder, Missive Digital · Organic Strategist · Speaker · Consultant
               </span>
