@@ -51,7 +51,28 @@ export default function AboutPage() {
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
-            <div className="flex flex-col">
+            <Reveal delay={0.15} direction="left" className="order-1 lg:order-2">
+              <div className="relative max-w-sm mx-auto lg:h-full lg:max-w-md">
+                <div className="absolute -inset-1 bg-gradient-to-br from-purple to-orange rounded-2xl opacity-50" />
+                <div className="relative aspect-[3/4] lg:aspect-auto lg:h-full rounded-2xl overflow-hidden bg-bg-alt">
+                  <img
+                    src={aboutPortrait}
+                    alt="Himani Kankaria, Founder of Missive Digital"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="absolute -inset-6 bg-gradient-to-br from-purple/15 to-orange/15 rounded-3xl blur-2xl -z-10" />
+
+                {/* Floating badge */}
+                <div className="absolute -bottom-4 -left-2 sm:-left-5 md:-left-8 bg-white rounded-2xl shadow-lg shadow-purple/10 border border-purple/10 px-5 py-4">
+                  <p className="text-2xl font-bold gradient-text leading-none">15+</p>
+                  <p className="text-[11px] text-secondary/70 uppercase tracking-wider mt-1">Years in Search</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <div className="order-2 lg:order-1 flex flex-col">
               <Reveal>
                 <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4">
                   About
@@ -87,27 +108,6 @@ export default function AboutPage() {
                 </div>
               </Reveal>
             </div>
-
-            <Reveal delay={0.15} direction="left">
-              <div className="relative max-w-sm mx-auto lg:h-full lg:max-w-md">
-                <div className="absolute -inset-1 bg-gradient-to-br from-purple to-orange rounded-2xl opacity-50" />
-                <div className="relative aspect-[3/4] lg:aspect-auto lg:h-full rounded-2xl overflow-hidden bg-bg-alt">
-                  <img
-                    src={aboutPortrait}
-                    alt="Himani Kankaria, Founder of Missive Digital"
-                    className="w-full h-full object-cover object-top"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="absolute -inset-6 bg-gradient-to-br from-purple/15 to-orange/15 rounded-3xl blur-2xl -z-10" />
-
-                {/* Floating badge */}
-                <div className="absolute -bottom-4 -left-2 sm:-left-5 md:-left-8 bg-white rounded-2xl shadow-lg shadow-purple/10 border border-purple/10 px-5 py-4">
-                  <p className="text-2xl font-bold gradient-text leading-none">15+</p>
-                  <p className="text-[11px] text-secondary/70 uppercase tracking-wider mt-1">Years in Search</p>
-                </div>
-              </div>
-            </Reveal>
           </div>
         </Container>
       </section>
