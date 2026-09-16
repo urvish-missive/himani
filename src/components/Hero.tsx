@@ -41,7 +41,7 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="min-w-0 text-center lg:text-left"
+            className="min-w-0 text-center lg:text-left order-2 lg:order-1"
           >
             {/* Pill Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/5 border border-purple/20 backdrop-blur-sm mb-5 shadow-xs">
@@ -90,7 +90,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative flex justify-center lg:justify-end mt-4 lg:mt-0"
+            className="relative flex justify-center lg:justify-end mb-6 lg:mb-0 order-1 lg:order-2"
           >
             <div className="relative w-full max-w-[240px] sm:max-w-[270px] lg:max-w-[300px] xl:max-w-[330px]">
               {/* Gradient frame glow */}
