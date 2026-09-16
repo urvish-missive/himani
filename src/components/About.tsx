@@ -5,12 +5,12 @@ import Reveal from './ui/Reveal';
 import aboutPortrait from '../images/Himani-Kankaria4-684x1024.jpg';
 
 const timeline = [
-  { year: '2008', event: 'Started in Marketing' },
-  { year: '2012', event: 'Built & Led Teams' },
-  { year: '2016', event: 'Advised Brands' },
-  { year: '2019', event: 'Started Teaching' },
-  { year: '2022', event: 'Conference Speaking' },
-  { year: '2024', event: 'AI & Modern Marketing' },
+  { year: '2008', event: 'Started in Organic Search & Content' },
+  { year: '2012', event: 'Built & Led High-Performing Marketing Teams' },
+  { year: '2016', event: 'Advised Global SaaS & E-Commerce Brands' },
+  { year: '2020', event: 'Founded Missive Digital Agency' },
+  { year: '2022', event: 'BrightonSEO & Global Conference Stages' },
+  { year: '2024+', event: 'Pioneered AI Search (GEO) & Citation Architecture' },
 ];
 
 export default function About() {
@@ -40,7 +40,7 @@ export default function About() {
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-bg-alt">
                 <img
                   src={aboutPortrait}
-                  alt="Himani Sharma - Marketing Strategist"
+                  alt="Himani Kankaria - Founder of Missive Digital"
                   className="w-full h-full object-cover object-top"
                   loading="lazy"
                 />
@@ -55,10 +55,10 @@ export default function About() {
             <Reveal delay={0.2}>
               <div className="space-y-4">
                 <p className="text-base text-secondary leading-relaxed">
-                  My career has lived at the intersection of strategy, execution and education. I've spent years studying how people discover brands, how ideas spread, how marketing systems compound and how technology changes the way teams work.
+                  For over 15 years, I've worked at the intersection of technical search architecture, commercial user intent, and organic content systems. As the founder of Missive Digital, I help B2B SaaS, technology, and global brands transform chaotic marketing activities into predictable, compounding revenue engines.
                 </p>
                 <p className="text-base text-secondary leading-relaxed">
-                  Today I divide my time between advising organizations, mentoring marketers, teaching teams and speaking about where marketing is heading next.
+                  Beyond running Missive Digital, I write regularly for Search Engine Journal (SEJ) and Search Engine Land, speak on international stages like BrightonSEO and the International Search Summit, and mentor the next generation of modern organic growth leaders.
                 </p>
               </div>
             </Reveal>

@@ -3,24 +3,24 @@ import Reveal from './ui/Reveal';
 
 const audiences = [
   {
-    title: "CMOs & Marketing Leaders",
-    description: "Build clearer priorities, stronger systems and more capable marketing teams."
+    title: "B2B SaaS & Tech Founders",
+    description: "Turn organic search into a predictable, inbound customer acquisition engine without endless ad spend."
   },
   {
-    title: "Founders",
-    description: "Turn marketing from scattered activities into a strategic growth function."
+    title: "CMOs & Marketing VPs",
+    description: "Re-architect channel silos, safeguard against AI search disruption, and scale compounding pipeline."
   },
   {
-    title: "Marketing Teams",
-    description: "Develop the frameworks, skills and operating systems needed for modern marketing."
+    title: "Growth & Inbound Teams",
+    description: "Upskill internal marketers with modern Citation Architecture, intent mapping, and execution playbooks."
   },
   {
-    title: "Marketing Professionals",
-    description: "Build stronger thinking, execution skills and career leverage."
+    title: "E-Commerce & Enterprise Brands",
+    description: "Recover traffic penalties, eliminate keyword cannibalization, and architect high-converting commercial hubs."
   },
   {
-    title: "Conference Organizers",
-    description: "Bring practical, provocative and relevant marketing ideas to your audience."
+    title: "Conference & Event Organizers",
+    description: "Bring high-energy, actionable, stage-tested keynotes on SEO, AI search, and modern organic growth."
   }
 ];
 

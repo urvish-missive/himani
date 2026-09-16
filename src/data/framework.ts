@@ -1,15 +1,16 @@
 export const compoundFramework = {
-  name: "COMPOUND",
-  fullName: "The COMPOUND Growth System",
-  tagline: "Tools change. Principles compound.",
+  name: "RE-ARCHITECT",
+  fullName: "The RE-ARCHITECT Organic System",
+  tagline: "We don't optimize. We re-architect.",
   steps: [
-    { letter: "C", word: "Customer Understanding", description: "Deep understanding of who you serve, what they need, and how they discover solutions." },
-    { letter: "O", word: "Organic Visibility", description: "Building discoverability across search, AI discovery, and content distribution channels." },
-    { letter: "M", word: "Message Clarity", description: "Clear, compelling positioning that resonates with your audience and differentiates from competition." },
-    { letter: "P", word: "Publishing Systems", description: "Systematic content creation and distribution workflows that compound over time." },
-    { letter: "O", word: "Owned Audience", description: "Building direct relationships through email, community and owned channels." },
-    { letter: "U", word: "Useful Technology", description: "Integrating AI and modern tools that serve strategy rather than replacing thinking." },
-    { letter: "N", word: "Network Effects", description: "Creating systems where each action amplifies the next — partnerships, referrals, and community." },
-    { letter: "D", word: "Data & Iteration", description: "Continuous measurement, learning and optimization based on real performance data." }
+    { letter: "R", word: "Research & Intent Mapping", description: "Uncovering true buyer search intent, commercial journeys, and high-value conversion pathways." },
+    { letter: "E", word: "Entity & Knowledge Graph", description: "Establishing brand entities, structured schema, and authentic E-E-A-T signals across search engines." },
+    { letter: "A", word: "Architecture & Health", description: "Building frictionless site taxonomy, lightning-fast rendering, and optimal crawl accessibility." },
+    { letter: "R", word: "Relevance & Topic Clusters", description: "Designing interconnected semantic content hubs that establish undeniable topical authority." },
+    { letter: "C", word: "Citation & AI Discovery", description: "Engineering content and data layers to be directly cited by ChatGPT, Perplexity, and AI Overviews." },
+    { letter: "H", word: "High-Converting UX & CRO", description: "Aligning user experience and page conversion flows to turn organic visitors into MQLs and SQLs." },
+    { letter: "I", word: "Iteration & ROI Analytics", description: "Continuous measurement and optimization focused strictly on pipeline and revenue impact." },
+    { letter: "T", word: "Total Brand Compounding", description: "Transforming search discoverability into enduring category dominance that outperforms paid ads." }
   ]
 };
+

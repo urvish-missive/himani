@@ -11,10 +11,10 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'YouTube', href: '#' },
-  { label: 'X / Twitter', href: '#' },
-  { label: 'Instagram', href: '#' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/himanikankaria/' },
+  { label: 'Missive Digital', href: 'https://missivedigital.com/' },
+  { label: 'X / Twitter', href: 'https://twitter.com/missivedigital' },
+  { label: 'YouTube', href: 'https://www.youtube.com/channel/UCr9k1x9bFRxfTHcH2fBJOoA' },
 ];
 
 export default function Footer() {
@@ -25,10 +25,10 @@ export default function Footer() {
           {/* Left: Brand */}
           <div>
             <a href="#" className="font-serif text-2xl gradient-text">
-              Himani
+              Himani Kankaria
             </a>
             <p className="mt-4 text-sm text-secondary leading-relaxed max-w-xs">
-              Marketing strategist, speaker, coach and consultant helping brands and marketers navigate modern growth.
+              Founder of Missive Digital. Organic growth strategist, global speaker, and consultant helping B2B SaaS, tech, and ambitious brands re-architect search and AI discovery.
             </p>
           </div>
 
@@ -69,7 +69,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-purple/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-secondary/50">
-            © {new Date().getFullYear()} Himani Sharma. All rights reserved.
+            © {new Date().getFullYear()} Himani Kankaria · Missive Digital. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-xs text-secondary/50 hover:text-purple transition-colors">

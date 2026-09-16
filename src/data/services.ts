@@ -14,17 +14,17 @@ export const services: Service[] = [
     id: "consulting",
     number: "01",
     label: "CONSULTING",
-    headline: "Strategy for teams that have outgrown random acts of marketing.",
-    description: "I work with founders, CMOs and marketing teams to diagnose growth problems, identify leverage points and design practical systems across organic growth, content, SEO, AI, brand and digital acquisition.",
+    headline: "Organic strategy for brands ready to re-architect growth.",
+    description: "We work directly with founders, CMOs, and marketing teams to audit digital footprints, resolve indexing and crawl barriers, and engineer sustainable organic engines across SEO, Generative Engine Optimization (GEO), and intent-led content.",
     topics: [
-      "Marketing Strategy", "SEO Strategy", "Content Strategy", "Organic Growth",
-      "AI Transformation", "Marketing Systems", "Growth Audits", "Digital Positioning",
-      "Website Strategy", "Team Capability Building"
+      "Organic Growth Strategy", "AI Search & GEO", "SEO Audits", "Citation Architecture",
+      "Intent-First Content", "Entity & Schema Mapping", "Technical Crawlability", "Conversion Architecture",
+      "E-Commerce SEO", "B2B SaaS Acquisition"
     ],
     metrics: [
-      { value: "60+", label: "Engagements" },
-      { value: "40+", label: "Industries" },
-      { value: "3×", label: "Avg. ROI" }
+      { value: "60+", label: "Brands Advised" },
+      { value: "4.15×", label: "Avg. Organic Lift" },
+      { value: "15+", label: "Years in Search" }
     ],
     cta: "Discuss a Consulting Engagement"
   },
@@ -32,60 +32,60 @@ export const services: Service[] = [
     id: "coaching",
     number: "02",
     label: "COACHING",
-    headline: "Become the marketer people come to for answers.",
-    description: "One-to-one and small-group coaching designed for marketers, founders and marketing leaders who want stronger strategic thinking — not another list of tactics.",
+    headline: "Become the authoritative marketing leader in your space.",
+    description: "One-on-one and executive advisory designed for marketing leaders, founders, and strategists who want to master strategic thinking, embed custom AI workflows, and lead organic growth with conviction.",
     topics: [
-      "Content Strategy", "SEO", "Social Media Strategy", "Email Marketing",
-      "Personal Branding", "AI Marketing", "Video Generation", "AI Content Workflows",
-      "Website Generation", "Marketing Automation", "Growth Strategy", "Analytics", "Team Leadership"
+      "Organic Search Strategy", "Content Architecture", "Citation Readiness", "Executive Presence",
+      "Personal Branding", "Generative AI Workflows", "Prompt Architecture", "Marketing Systems",
+      "Conversion Optimization", "Data-Driven Decisions", "Team Leadership"
     ],
     metrics: [
       { value: "500+", label: "Coaching Hours" },
-      { value: "80+", label: "Active Clients" },
+      { value: "80+", label: "Leaders Mentored" },
       { value: "95%", label: "Satisfaction Rate" }
     ],
-    cta: "Explore Coaching"
+    cta: "Explore Executive Advisory"
   },
   {
     id: "training",
     number: "03",
     label: "TRAINING",
-    headline: "Turn marketing knowledge into organizational capability.",
-    description: "Practical training programs for marketing teams and professionals designed around real workflows, frameworks, exercises and implementation — not passive presentations.",
+    headline: "Turn organic and AI search knowledge into organizational capability.",
+    description: "Interactive corporate training programs and hands-on workshops designed around real workflows, live audits, and proven frameworks—building autonomous, high-performing marketing teams.",
     topics: [
-      "SEO", "Content Marketing", "Social Media", "Email Marketing",
-      "AI for Marketing", "Generative AI", "AI Video Creation", "AI Website Generation",
-      "Marketing Automation", "Personal Branding", "Content Distribution", "Analytics"
+      "Modern SEO Systems", "Intent-Led Content Writing", "Generative Engine Optimization", "Entity Schema",
+      "AI for Marketing Teams", "Content Distribution", "Technical SEO Audits", "LinkedIn Thought Leadership",
+      "Marketing Automation", "Conversion Tracking", "Organic Analytics"
     ],
     metrics: [
-      { value: "120+", label: "Workshops" },
-      { value: "15+", label: "Formats" },
-      { value: "4.9", label: "Avg. Rating" }
+      { value: "120+", label: "Workshops Delivered" },
+      { value: "15+", label: "Custom Formats" },
+      { value: "4.9/5", label: "Average Rating" }
     ],
-    cta: "Explore Training Programs"
+    cta: "Explore Corporate Training"
   },
   {
     id: "speaking",
     number: "04",
     label: "SPEAKING",
-    headline: "Ideas built for the stage — and the Monday after.",
-    description: "I speak about modern marketing, organic growth, AI, content, search, brand building and the changing role of marketers. Sessions combine strategic thinking, practical frameworks, real-world examples and perspectives teams can immediately discuss and apply.",
+    headline: "High-impact perspectives built for global stages.",
+    description: "Himani Kankaria delivers keynote addresses and masterclasses at premier global conferences (BrightonSEO, International Search Summit, WordCamp). Blending deep technical search experience with actionable frameworks teams can apply immediately.",
     topics: [
       "The Future of Search in an AI-First World",
-      "Building Organic Growth Engines",
-      "Marketing in the Age of Generative AI",
-      "How AI Changes Content Strategy",
-      "From Traffic to Brand Demand",
-      "Modern SEO Beyond Rankings",
-      "Building High-Performance Marketing Teams",
-      "AI-Powered Marketing Workflows"
+      "We Don't Optimize, We Re-Architect",
+      "Remarketing SEO: Compounding Existing Traffic",
+      "Citation Architecture for ChatGPT & Perplexity",
+      "From Search Traffic to Revenue Pipeline",
+      "Zero-Click Search & AI Overviews",
+      "Building Defensible Topical Authority",
+      "AI-Powered Content Operations"
     ],
     metrics: [
-      { value: "85+", label: "Talks Delivered" },
-      { value: "12", label: "Countries" },
+      { value: "85+", label: "Keynotes Delivered" },
+      { value: "12+", label: "Countries Reached" },
       { value: "15K+", label: "Attendees Reached" }
     ],
-    cta: "Invite Me to Speak"
+    cta: "Invite Himani to Speak"
   }
 ];
 

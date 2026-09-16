@@ -5,21 +5,21 @@ import Reveal from './ui/Reveal';
 import { X, Check } from 'lucide-react';
 
 const beforeItems = [
-  "Reactive execution",
-  "Channel silos",
-  "Random content",
-  "Tool obsession",
-  "Slow experimentation",
-  "Weak measurement"
+  "Random acts of content",
+  "Chasing vanity search volume",
+  "Channel & team silos",
+  "Vulnerable to AI search disruption",
+  "Over-reliance on rising paid CAC",
+  "Disconnected revenue attribution"
 ];
 
 const afterItems = [
-  "Strategic prioritization",
-  "Connected systems",
-  "Content with purpose",
-  "Tools serving strategy",
-  "Fast learning loops",
-  "Clear decision making"
+  "Intent-led Citation Architecture",
+  "High-converting topical authority",
+  "Integrated growth operating models",
+  "Cited across ChatGPT & Perplexity",
+  "Compounding organic buyer pipeline",
+  "Measurable MQL, SQL & revenue impact"
 ];
 
 export default function CoachingTransformation() {
@@ -32,7 +32,7 @@ export default function CoachingTransformation() {
         <div className="text-center mb-16">
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary">
-              What changes when marketing<br className="hidden md:block" /> thinking gets stronger?
+              What changes when organic search<br className="hidden md:block" /> gets re-architected?
             </h2>
           </Reveal>
         </div>

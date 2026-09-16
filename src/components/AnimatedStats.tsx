@@ -3,9 +3,9 @@ import { motion, useInView } from 'framer-motion';
 import Container from './ui/Container';
 
 const words = [
-  { text: 'Think', color: 'text-purple' },
-  { text: 'Build', color: 'text-primary' },
-  { text: 'Grow', color: 'text-orange' },
+  { text: 'Audit', color: 'text-purple' },
+  { text: 'Architect', color: 'text-primary' },
+  { text: 'Compound', color: 'text-orange' },
 ];
 
 export default function AnimatedStats() {
@@ -45,7 +45,7 @@ export default function AnimatedStats() {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="text-center text-lg md:text-xl text-secondary max-w-xl mx-auto"
           >
-            That's how I approach every engagement. Strategic thinking, built systems, and measurable growth.
+            That's how Missive Digital delivers sustainable results. Data-driven audits, engineered search architecture, and compounding revenue.
           </motion.p>
 
           {/* Animated line */}

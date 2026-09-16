@@ -25,7 +25,7 @@ function SpeakingSection() {
   const service = services[3];
 
   return (
-    <div id="speaking" ref={ref} className={`py-20 md:py-32 ${bgStyles[0]} overflow-hidden`}>
+    <div id="speaking-overview" ref={ref} className={`py-20 md:py-32 ${bgStyles[0]} overflow-hidden`}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content */}
@@ -93,14 +93,14 @@ function SpeakingSection() {
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
                 <img
                   src={serviceImages[0]}
-                  alt="Himani speaking at conference"
+                  alt="Himani Kankaria speaking at international conference"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/40 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex gap-2 flex-wrap">
-                    {['AI', 'SEO', 'Content', 'Growth'].map((tag) => (
+                    {['AI Search', 'GEO', 'SEO', 'Citations', 'Topical Authority'].map((tag) => (
                       <span key={tag} className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white/80 border border-white/10">
                         {tag}
                       </span>
@@ -463,7 +463,7 @@ export default function ServicesSplit() {
         <div className="py-24 md:py-32">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4 text-center">
-              Ways to Work With Me
+              Ways to Work With Missive Digital
             </p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -473,7 +473,7 @@ export default function ServicesSplit() {
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-base text-secondary max-w-xl mx-auto text-center">
-              Four distinct ways to elevate your marketing. Each designed for different needs, budgets and goals.
+              Four tailored engagement models to re-architect your organic search, content operations, and marketing capabilities.
             </p>
           </Reveal>
         </div>

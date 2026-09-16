@@ -9,37 +9,38 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote: "Working with Himani fundamentally changed how we approached organic growth. Instead of giving us another checklist, she helped the team build a system that compounds over time.",
-    author: "Sarah Chen",
-    role: "CMO",
-    company: "Meridian Technologies"
+    quote: "Himani is one of the best SEO savvy copywriters and strategists I have had the opportunity to collaborate with! If you need compelling, comprehensive content that connects with users' needs and drives real organic impact, you need to work with her!",
+    author: "Aleyda Solis",
+    role: "International SEO Consultant & Founder",
+    company: "Orainti"
   },
   {
     id: 2,
-    quote: "One of the strongest marketing thinkers I've encountered. Her frameworks gave our team clarity we'd been missing for years.",
-    author: "Marcus Webb",
-    role: "Founder",
-    company: "Catalyst Digital"
+    quote: "We've worked with Himani on a number of important SEO deliverables and will continue to do so. She's reliable, communicative, and, most of all, good at what she does: SEO. I'd have no reservations recommending Himani to any ambitious brand.",
+    author: "Andy Chadwick",
+    role: "Co-Founder",
+    company: "Keyword Insights"
   },
   {
     id: 3,
-    quote: "The rare speaker who makes the room think differently — not just nod along. Our team still references her frameworks six months later.",
-    author: "Priya Kapoor",
-    role: "VP Marketing",
-    company: "Horizon Brands"
+    quote: "Himani is an extremely hard-working, quality-conscious, and talented individual. Having known and worked with her closely since 2008, I know very few who have her capability to lead strategy and execution. If your project has crossed Himani's eyes, results are guaranteed.",
+    author: "Pulkit Agrawal",
+    role: "Managing Director",
+    company: "UR Digital"
   },
   {
     id: 4,
-    quote: "She doesn't just teach marketing — she teaches you how to think about marketing. That distinction matters more than any tactic.",
-    author: "James Thornton",
-    role: "Head of Growth",
-    company: "Nexus Ventures"
+    quote: "Missive Digital didn't just deliver typical SEO audit spreadsheets—they re-architected our entire content ecosystem for commercial intent and AI citations. Our inbound demo requests surged and organic pipeline grew 4.15x.",
+    author: "Growth Marketing Lead",
+    role: "Head of Marketing",
+    company: "Enterprise B2B SaaS"
   },
   {
     id: 5,
-    quote: "Our team's capability transformed in weeks, not months. The training was practical, challenging and immediately applicable.",
-    author: "Elena Vasquez",
-    role: "Director of Marketing",
-    company: "Aether Corp"
+    quote: "Working with Himani transformed how our organic search channels perform. Her Citation Architecture and topic cluster methodology eliminated keyword cannibalization and generated £57K/mo in organic revenue.",
+    author: "VP of E-Commerce",
+    role: "Digital Commercial Director",
+    company: "Global Retail & E-Commerce"
   }
 ];
+

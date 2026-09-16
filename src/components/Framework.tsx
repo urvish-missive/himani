@@ -34,7 +34,7 @@ export default function Framework() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {compoundFramework.steps.map((step, i) => (
               <motion.div
-                key={step.letter}
+                key={`${step.letter}-${i}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] }}

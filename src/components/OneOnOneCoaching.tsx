@@ -137,14 +137,14 @@ export default function OneOnOneCoaching() {
                 <div className="aspect-[4/5] overflow-hidden relative">
                   <img
                     src={coachImg}
-                    alt="Himani Sharma - 1-on-1 Marketing Strategy Coach"
+                    alt="Himani Kankaria - Founder of Missive Digital & Executive Organic Growth Coach"
                     className="w-full h-full object-cover object-top"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent" />
                   <div className="absolute bottom-5 left-5 right-5 text-white">
-                    <p className="font-serif text-xl font-bold">Himani Sharma</p>
-                    <p className="text-xs text-white/80 tracking-wide">Executive Coach & Growth Strategist</p>
+                    <p className="font-serif text-xl font-bold">Himani Kankaria</p>
+                    <p className="text-xs text-white/80 tracking-wide">Founder, Missive Digital & Growth Strategist</p>
                   </div>
                 </div>
 

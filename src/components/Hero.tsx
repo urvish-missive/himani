@@ -5,12 +5,12 @@ import heroImage from '../images/himanimain.jpg';
 
 const floatingLabels = [
   { text: 'SEO', x: '8%', y: '12%', delay: 0 },
-  { text: 'Content', x: '72%', y: '8%', delay: 0.5 },
-  { text: 'AI', x: '82%', y: '42%', delay: 1 },
-  { text: 'Growth', x: '5%', y: '68%', delay: 1.5 },
-  { text: 'Social', x: '78%', y: '72%', delay: 2 },
-  { text: 'Brand', x: '10%', y: '38%', delay: 0.8 },
-  { text: 'Strategy', x: '68%', y: '22%', delay: 1.2 },
+  { text: 'GEO', x: '72%', y: '8%', delay: 0.5 },
+  { text: 'AI Search', x: '82%', y: '42%', delay: 1 },
+  { text: 'Citations', x: '5%', y: '68%', delay: 1.5 },
+  { text: 'Organic', x: '78%', y: '72%', delay: 2 },
+  { text: 'Authority', x: '10%', y: '38%', delay: 0.8 },
+  { text: 'Content', x: '68%', y: '22%', delay: 1.2 },
 ];
 
 const containerVariants = {
@@ -28,7 +28,7 @@ const itemVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden pt-28 sm:pt-32 md:pt-36 pb-8 md:pb-12">
+    <section className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden pt-16 sm:pt-32 md:pt-28 pb-8 md:pb-12">
       {/* Background with soft ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple/5 via-bg to-orange/5" />
       <div className="absolute top-16 right-10 md:right-20 w-64 md:w-80 h-64 md:h-80 bg-purple/10 rounded-full blur-[90px] md:blur-[120px] pointer-events-none" />
@@ -47,7 +47,7 @@ export default function Hero() {
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/5 border border-purple/20 backdrop-blur-sm mb-5 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple to-orange animate-pulse" />
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-purple">
-                Marketing Strategist · Speaker · Coach · Consultant
+                Founder, Missive Digital · Organic Strategist · Speaker · Consultant
               </span>
             </motion.div>
 
@@ -55,14 +55,14 @@ export default function Hero() {
               variants={itemVariants}
               className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.15rem] xl:text-[3.5rem] leading-[1.12] text-primary mb-5"
             >
-              Helping brands and marketers master growth in an AI-first world.
+              Helping brands re-architect organic growth in an AI-first world.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 mb-7"
             >
-              I work with ambitious marketing teams, leaders and professionals to turn SEO, content, social media, AI and digital strategy into scalable growth systems.
+              Led by Himani Kankaria, Missive Digital works with ambitious B2B SaaS, tech brands, and marketing leaders to turn SEO, content architecture, and AI search into compounding growth engines.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
@@ -74,7 +74,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-xs text-secondary/60 tracking-wide"
             >
-              Speaking · Consulting · Coaching · Corporate Training
+              Organic Growth Consulting · 1:1 Executive Mentorship · Corporate Training · Global Keynotes
             </motion.p>
           </motion.div>
 
@@ -92,7 +92,7 @@ export default function Hero() {
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-bg-alt shadow-xl shadow-purple/10">
                 <img
                   src={heroImage}
-                  alt="Himani Sharma - Marketing Strategist and Speaker"
+                  alt="Himani Kankaria - Founder of Missive Digital, Organic Marketing Strategist and Speaker"
                   className="w-full h-full object-cover object-top"
                   loading="eager"
                 />

@@ -11,75 +11,75 @@ export interface Article {
 export const articles: Article[] = [
   {
     id: 1,
-    category: "SEO",
-    title: "SEO Is Becoming a Brand Discipline",
-    description: "Why search optimization is evolving from technical checklists to brand strategy — and what that means for modern marketing teams navigating AI search engines.",
+    category: "AI",
+    title: "The Citation Architecture Framework: Getting Cited by ChatGPT & Perplexity",
+    description: "Traditional ranking is no longer enough. Here is Missive Digital's 5-layer methodology (Claim, Evidence, Entity, Answer, Authority) to ensure your brand is cited by generative AI engines.",
     readTime: "8 min read",
-    date: "2026-01-15",
-    slug: "seo-becoming-brand-discipline"
+    date: "2026-02-10",
+    slug: "citation-architecture-framework-ai-search"
   },
   {
     id: 2,
-    category: "AI",
-    title: "Your AI Strategy Should Start With Workflows, Not Tools",
-    description: "Most teams adopt new AI tools without redesigning core operating workflows. Here's why workflow-first architecture unlocks sustainable compounding advantage.",
-    readTime: "6 min read",
-    date: "2026-01-08",
-    slug: "ai-strategy-workflows-not-tools"
+    category: "SEO",
+    title: "Remarketing SEO: Turning Existing Search Footprints into Compounding Revenue",
+    description: "Why the fastest path to organic growth isn't publishing more articles, but re-architecting your existing search assets to capture qualified buyer intent and conversions.",
+    readTime: "7 min read",
+    date: "2026-01-20",
+    slug: "remarketing-seo-compounding-growth"
   },
   {
     id: 3,
-    category: "Growth",
-    title: "The Distribution Problem Nobody Talks About",
-    description: "Creating insightful content is table stakes in 2026. The real competitive advantage lies in systematic distribution flywheels that amplify reach repeatedly.",
-    readTime: "7 min read",
-    date: "2025-12-20",
-    slug: "distribution-problem"
+    category: "SEO",
+    title: "Why SEO Is Becoming an Entity and Brand Discipline in the AI Era",
+    description: "Search engines and LLMs now map entities, author signals, and real-world brand authority. Why technical checklists must evolve into entity-first architecture.",
+    readTime: "9 min read",
+    date: "2026-01-08",
+    slug: "seo-becoming-brand-discipline"
   },
   {
     id: 4,
     category: "AI",
-    title: "AI Overviews & Zero-Click Search: The New Organic Playbook",
-    description: "How generative search experiences and Answer Engine Optimization (AEO) are reshaping buyer discovery — and how forward-thinking brands stay visible.",
-    readTime: "9 min read",
-    date: "2025-12-14",
+    title: "AI Overviews & Zero-Click Search: The Modern Organic Playbook",
+    description: "How generative search experiences and Answer Engine Optimization (AEO) are reshaping discovery — and how forward-thinking B2B brands stay visible.",
+    readTime: "8 min read",
+    date: "2025-12-18",
     slug: "ai-overviews-zero-click-search"
   },
   {
     id: 5,
     category: "Content",
-    title: "From Random Content to Compounding Thought Leadership",
-    description: "A pragmatic blueprint for moving beyond high-volume content mills to high-affinity original perspectives that attract high-value enterprise buyers.",
-    readTime: "5 min read",
-    date: "2025-12-02",
-    slug: "compounding-thought-leadership"
+    title: "Intent-First Content Strategy: Replacing Vanity Traffic with MQLs",
+    description: "A pragmatic blueprint for moving beyond high-volume content mills to high-affinity original perspectives that attract high-value enterprise buyers and drive pipeline.",
+    readTime: "6 min read",
+    date: "2025-12-05",
+    slug: "intent-first-content-strategy"
   },
   {
     id: 6,
     category: "Personal Brand",
-    title: "Founder & Executive Visibility in the Era of AI Commoditization",
-    description: "When automated content is abundant, genuine human perspective and lived expertise become the ultimate defensible moat for B2B brands.",
+    title: "Founder & Executive Thought Leadership in the Era of AI Content",
+    description: "When AI makes content infinitely abundant, genuine human perspective, lived practitioner experience, and E-E-A-T become the ultimate defensible moat.",
     readTime: "7 min read",
-    date: "2025-11-18",
+    date: "2025-11-22",
     slug: "executive-visibility-ai-commoditization"
   },
   {
     id: 7,
     category: "Leadership",
-    title: "Building Modern Marketing Teams That Don't Burn Out",
-    description: "How CMOs and marketing leaders can design high-leverage operating cadence, eliminate channel silos, and empower teams to do deep, strategic work.",
+    title: "How to Build Modern Organic Marketing Teams That Don't Burn Out",
+    description: "Designing high-leverage operating cadence, eliminating channel silos, and empowering marketing teams to build compounding organic distribution engines.",
     readTime: "8 min read",
-    date: "2025-11-05",
+    date: "2025-11-10",
     slug: "marketing-teams-operating-cadence"
   },
   {
     id: 8,
     category: "SEO",
-    title: "Why Traditional Keyword Research Is Obsolete",
-    description: "Search engines now map intent and semantic topical authority. Why modern keyword strategy is really about audience decision-journey mapping.",
+    title: "Topic Clusters vs. Keyword Lists: Engineering Semantic Authority",
+    description: "Search engines understand interconnected topic models. Here is how to construct semantic cluster hubs that outrank massive legacy competitors.",
     readTime: "6 min read",
-    date: "2025-10-22",
-    slug: "modern-topical-authority-vs-keywords"
+    date: "2025-10-28",
+    slug: "topic-clusters-semantic-topical-authority"
   }
 ];
 

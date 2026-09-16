@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Container from './ui/Container';
 
-const words = ['Strategy', 'Systems', 'Skills'];
+const words = ['Intent', 'Structure', 'Authority'];
 
 export default function AnimatedQuote() {
   const ref = useRef(null);
@@ -33,7 +33,7 @@ export default function AnimatedQuote() {
             transition={{ duration: 0.7, delay: 0.6 }}
             className="font-serif text-2xl md:text-3xl text-secondary italic"
           >
-            For modern marketing teams.
+            We don't optimize. We re-architect.
           </motion.p>
 
           {/* Decorative line */}

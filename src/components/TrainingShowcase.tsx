@@ -10,25 +10,25 @@ const steps = [
   {
     icon: Search,
     title: 'Discover',
-    description: 'Deep-dive into your business, audience, competitors and current marketing performance.',
+    description: 'Deep-dive audit into brand entities, search intent, competitors, and technical crawl health.',
     color: '#7C3AED',
   },
   {
     icon: Lightbulb,
-    title: 'Design',
-    description: 'Build a strategic framework tailored to your goals, resources and market position.',
+    title: 'Re-Architect',
+    description: 'Design custom Citation Architecture, semantic topic clusters, and commercial intent frameworks.',
     color: '#A78BFA',
   },
   {
     icon: Rocket,
     title: 'Deploy',
-    description: 'Implement with your team using hands-on workshops, clear workflows and proven systems.',
+    description: 'Implement with your team using hands-on workshops, custom AI workflows, and structured schema.',
     color: '#F97316',
   },
   {
     icon: BarChart3,
-    title: 'Double Down',
-    description: 'Measure what works, iterate fast and scale the strategies that compound.',
+    title: 'Compound',
+    description: 'Track conversion metrics, scale authoritative citations, and compound organic pipeline ROI.',
     color: '#FB923C',
   },
 ];
@@ -101,7 +101,7 @@ export default function TrainingShowcase() {
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
                 <img
                   src={approachImg}
-                  alt="Himani Sharma - Marketing Approach"
+                  alt="Himani Kankaria - Strategic Approach at Missive Digital"
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />

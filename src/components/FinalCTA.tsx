@@ -47,13 +47,13 @@ export default function FinalCTA() {
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-white mb-6">
-              Let's build <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-light to-orange-light">better marketing</span>.
+              Let's re-architect your <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-light to-orange-light">organic growth</span>.
             </h2>
           </Reveal>
 
           <Reveal delay={0.1}>
             <p className="text-base md:text-lg text-white/60 leading-relaxed max-w-xl mx-auto mb-12">
-              Speaking engagement, consulting challenge, team training or personal growth — tell me what you're working on.
+              Whether you need strategic search consulting, team training, executive advisory, or a keynote speaker for your global conference—tell us what you're working on.
             </p>
           </Reveal>
 
@@ -61,17 +61,17 @@ export default function FinalCTA() {
           <Reveal delay={0.2}>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
               <a
-                href="#speaking"
+                href="#services"
                 className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full hover:shadow-lg hover:shadow-purple/25 transition-all duration-300 hover:scale-105"
               >
-                Work With Me
+                Work With Us
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href=""
+                href="mailto:info@missivedigital.com"
                 className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
               >
-                Say Hello
+                Book a Strategy Call
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>
@@ -79,7 +79,9 @@ export default function FinalCTA() {
 
           <Reveal delay={0.3}>
             <p className="text-sm text-white/40">
-              [EMAIL_ADDRESS]
+              <a href="mailto:info@missivedigital.com" className="hover:text-white transition-colors">
+                info@missivedigital.com
+              </a>
             </p>
           </Reveal>
         </div>

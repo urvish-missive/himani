@@ -5,11 +5,11 @@ import Reveal from './ui/Reveal';
 import positioningImg from '../images/himani.jpg';
 
 const frameworkSteps = [
-  { label: 'STRATEGY', color: '#7C3AED', desc: 'Define direction and priorities' },
-  { label: 'SYSTEMS', color: '#8B5CF6', desc: 'Build repeatable processes' },
-  { label: 'EXECUTION', color: '#A78BFA', desc: 'Implement with consistency' },
-  { label: 'MEASUREMENT', color: '#F97316', desc: 'Track what matters' },
-  { label: 'LEARNING', color: '#FB923C', desc: 'Iterate and improve' },
+  { label: 'INTENT', color: '#7C3AED', desc: 'Map true buyer commercial journeys' },
+  { label: 'STRUCTURE', color: '#8B5CF6', desc: 'Engineer entity schema & technical health' },
+  { label: 'CITATIONS', color: '#A78BFA', desc: 'Secure mentions across AI & traditional search' },
+  { label: 'CONVERSION', color: '#F97316', desc: 'Turn organic visits into MQLs and pipeline' },
+  { label: 'COMPOUNDING', color: '#FB923C', desc: 'Scale sustainable category authority' },
 ];
 
 export default function Positioning() {
@@ -23,13 +23,13 @@ export default function Positioning() {
         <div className="mb-16">
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-primary mb-5">
-              I don't teach channels.<br />
-              <span className="gradient-text">I build marketing thinking.</span>
+              We don't chase algorithms.<br />
+              <span className="gradient-text">We build compounding organic systems.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-base text-secondary leading-relaxed max-w-2xl">
-              Algorithms change. Platforms change. Tools change. Strong marketing thinking compounds. My work combines strategy, execution frameworks and modern technology to help individuals and organizations build marketing capabilities that last.
+              Algorithms shift. Search interfaces evolve. True organic authority compounds. At Missive Digital, we combine technical search architecture, intent-first content, and AI citation models to help brands establish enduring market visibility.
             </p>
           </Reveal>
         </div>
@@ -42,7 +42,7 @@ export default function Positioning() {
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-bg-alt">
                 <img
                   src={positioningImg}
-                  alt="Himani Sharma - Marketing Strategy"
+                  alt="Himani Kankaria - Founder of Missive Digital & Organic Growth Strategist"
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />

@@ -92,7 +92,7 @@ export default function ConferenceShowcase() {
             <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden">
               <img
                 src={stagePhoto}
-                alt="Himani Sharma speaking at a conference"
+                alt="Himani Kankaria speaking at BrightonSEO"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
               />
@@ -101,11 +101,11 @@ export default function ConferenceShowcase() {
               {/* Speaker badge */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/20">
-                  <img src={speakerThumb} alt="Himani" className="w-full h-full object-cover" />
+                  <img src={speakerThumb} alt="Himani Kankaria" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">Himani Sharma</p>
-                  <p className="text-xs text-white/50">Global Marketing Speaker</p>
+                  <p className="text-sm font-semibold text-white">Himani Kankaria</p>
+                  <p className="text-xs text-white/50">Founder, Missive Digital & International Speaker</p>
                 </div>
               </div>
             </div>
