@@ -1,63 +1,17 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Container from './ui/Container';
 import Reveal from './ui/Reveal';
 import CTAButton from './ui/CTAButton';
 import { speakingEngagements, speakingTestimonial } from '../data/speaking';
-import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Quote } from 'lucide-react';
 import stagePhoto from '../images/hiimanisasspeaker.jpg';
 import speakerThumb from '../images/himanispeaker.jpg';
 
 export default function ConferenceShowcase() {
   const ref = useRef(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const checkScroll = useCallback(() => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.addEventListener('scroll', checkScroll, { passive: true });
-    checkScroll();
-    return () => el.removeEventListener('scroll', checkScroll);
-  }, [checkScroll]);
-
-  // Auto-scroll every 4 seconds
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el || isPaused) return;
-
-    const cardWidth = 300; // approximate card + gap width
-    let direction = 1;
-    const timer = setInterval(() => {
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      
-      if (scrollLeft >= scrollWidth - clientWidth - 10) {
-        direction = -1;
-      } else if (scrollLeft <= 10) {
-        direction = 1;
-      }
-      
-      el.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  const scroll = (dir: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    const amount = dir === 'left' ? -300 : 300;
-    scrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
-  };
+  const doubled = [...speakingEngagements, ...speakingEngagements];
 
   return (
     <section id="speaking" className="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
@@ -112,60 +66,32 @@ export default function ConferenceShowcase() {
           </div>
         </Reveal>
 
-        {/* Timeline with auto-scroll */}
-        <div
-          ref={ref}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Navigation buttons */}
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-xs text-white/40 tracking-wider uppercase">Recent Engagements</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => scroll('left')}
-                disabled={!canScrollLeft}
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                aria-label="Scroll left"
-              >
-                <ChevronLeft className="w-4 h-4 text-white" />
-              </button>
-              <button
-                onClick={() => scroll('right')}
-                disabled={!canScrollRight}
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                aria-label="Scroll right"
-              >
-                <ChevronRight className="w-4 h-4 text-white" />
-              </button>
-            </div>
-          </div>
+        {/* Marquee */}
+        <div ref={ref}>
+          <p className="text-xs text-white/40 tracking-wider uppercase mb-5">Recent Engagements</p>
 
-          {/* Scrollable cards */}
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 md:-mx-8 md:px-8"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {speakingEngagements.map((engagement, i) => (
-              <motion.div
-                key={engagement.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="w-72 flex-shrink-0 p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-purple/30 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-semibold text-orange">{engagement.year}</span>
-                  <span className="text-xs text-white/30">{engagement.country}</span>
-                </div>
-                <h3 className="text-sm font-semibold text-white mb-1">{engagement.conference}</h3>
-                <p className="text-xs text-white/40 mb-3">{engagement.location}</p>
-                <div className="inline-block text-[10px] font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-purple/20 to-orange/20 text-white/70 border border-white/10">
-                  {engagement.topic}
-                </div>
-              </motion.div>
-            ))}
+          <div className="relative group/marquee overflow-hidden marquee-fade py-2">
+            <div className="flex w-max gap-4 marquee-track group-hover/marquee:[animation-play-state:paused]">
+              {doubled.map((engagement, i) => (
+                <motion.div
+                  key={`${engagement.id}-${i}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: (i % speakingEngagements.length) * 0.08 }}
+                  className="w-72 flex-shrink-0 p-6 rounded-xl border border-white/10 bg-dark-card/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-dark-card hover:border-purple/30 transition-colors duration-300"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-semibold text-orange">{engagement.year}</span>
+                    <span className="text-xs text-white/30">{engagement.country}</span>
+                  </div>
+                  <h3 className="text-sm font-semibold text-white mb-1">{engagement.conference}</h3>
+                  <p className="text-xs text-white/40 mb-3">{engagement.location}</p>
+                  <div className="inline-block text-[10px] font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-purple/20 to-orange/20 text-white/70 border border-white/10">
+                    {engagement.topic}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 

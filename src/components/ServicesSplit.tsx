@@ -25,8 +25,10 @@ function SpeakingSection() {
   const service = services[3];
 
   return (
-    <div id="speaking-overview" ref={ref} className={`py-20 md:py-32 ${bgStyles[0]} overflow-hidden`}>
-      <Container>
+    <div id="speaking-overview" ref={ref} className="relative py-16 md:py-24 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange/20 rounded-full blur-[150px]" />
+      <Container className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div>
@@ -35,20 +37,20 @@ function SpeakingSection() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple to-orange flex items-center justify-center shadow-lg">
                   <Mic className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-purple">
+                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-orange">
                   {service.number} — {service.label}
                 </span>
               </div>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <h3 className="font-serif text-3xl md:text-4xl leading-[1.2] text-primary mb-6">
+              <h3 className="font-serif text-3xl md:text-4xl leading-[1.2] text-white mb-6">
                 {service.headline}
               </h3>
             </Reveal>
 
             <Reveal delay={0.15}>
-              <p className="text-base text-secondary leading-relaxed mb-8">
+              <p className="text-base text-white/70 leading-relaxed mb-8">
                 {service.description}
               </p>
             </Reveal>
@@ -58,7 +60,7 @@ function SpeakingSection() {
                 {service.topics.map((topic) => (
                   <span
                     key={topic}
-                    className="text-xs font-medium px-3 py-1.5 rounded-full border border-purple/20 text-purple/70 bg-purple/5"
+                    className="text-xs font-medium px-3 py-1.5 rounded-full border border-purple/30 text-purple-light bg-purple/10"
                   >
                     {topic}
                   </span>
@@ -71,14 +73,14 @@ function SpeakingSection() {
                 {service.metrics.map((metric) => (
                   <div key={metric.label}>
                     <div className="text-2xl font-bold gradient-text">{metric.value}</div>
-                    <div className="text-xs text-secondary/60 mt-1">{metric.label}</div>
+                    <div className="text-xs text-white/50 mt-1">{metric.label}</div>
                   </div>
                 ))}
               </div>
             </Reveal>
 
             <Reveal delay={0.3}>
-              <CTAButton variant="primary">{service.cta}</CTAButton>
+              <CTAButton variant="dark">{service.cta}</CTAButton>
             </Reveal>
           </div>
 
@@ -340,7 +342,7 @@ function TrainingSection() {
   ];
 
   return (
-    <div id="training" ref={ref} className={`py-20 md:py-32 ${bgStyles[3]} overflow-hidden`}>
+    <div id="training" ref={ref} className="py-16 md:py-24 bg-gradient-to-br from-orange/15 via-orange/5 to-bg overflow-hidden">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Visual - Learning Journey */}

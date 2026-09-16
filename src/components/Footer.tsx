@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Globe } from 'lucide-react';
 import Container from './ui/Container';
+import Logo from './Logo';
 
 const footerLinks = [
   { label: 'Speaking', href: '#speaking' },
@@ -59,9 +60,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
           {/* Left: Brand */}
           <div>
-            <Link to="/" className="font-serif text-2xl gradient-text">
-              Himani Kankaria
-            </Link>
+            <Logo markSize={40} textClassName="text-2xl" />
             <p className="mt-4 text-sm text-secondary leading-relaxed max-w-xs">
               Founder of Missive Digital. Organic growth strategist, global speaker, and consultant helping B2B SaaS, tech, and ambitious brands re-architect search and AI discovery.
             </p>

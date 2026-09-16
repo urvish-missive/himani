@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from './Logo';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -11,9 +12,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const lastScrollY = useRef(0);
   const location = useLocation();
   const onHome = location.pathname === '/';
   const resolveHref = (href: string) => (href.startsWith('/') || onHome ? href : `/${href}`);
@@ -21,30 +20,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY || document.documentElement.scrollTop;
-
-      // When near the top, always keep header visible and un-scrolled
-      if (currentScrollY <= 20) {
-        setVisible(true);
-        setScrolled(false);
-        lastScrollY.current = currentScrollY;
-        return;
-      }
-
-      setScrolled(true);
-
-      const delta = currentScrollY - lastScrollY.current;
-
-      // Ignore tiny jitter movements
-      if (Math.abs(delta) < 8) return;
-
-      // Scrolling DOWN -> hide header; Scrolling UP -> reveal header
-      if (delta > 0 && currentScrollY > 80) {
-        setVisible(false);
-      } else if (delta < 0) {
-        setVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
+      setScrolled(currentScrollY > 20);
     };
 
     handleScroll();
@@ -55,7 +31,6 @@ export default function Navbar() {
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
-      setVisible(true);
     } else {
       document.body.style.overflow = '';
     }
@@ -68,7 +43,7 @@ export default function Navbar() {
     <>
       <motion.nav
         initial={{ y: 0 }}
-        animate={{ y: visible || mobileOpen ? 0 : '-100%' }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
           scrolled
@@ -82,9 +57,7 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link to="/" className="font-serif text-xl md:text-2xl tracking-tight gradient-text font-bold">
-            Himani Kankaria
-          </Link>
+          <Logo />
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
@@ -93,7 +66,6 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   to={link.href}
-                  onClick={() => setVisible(true)}
                   className="text-[13px] font-medium text-secondary hover:text-purple transition-colors duration-200 tracking-wide relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gradient-to-r after:from-purple after:to-orange after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200"
                 >
                   {link.label}
@@ -102,7 +74,6 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={resolveHref(link.href)}
-                  onClick={() => setVisible(true)}
                   className="text-[13px] font-medium text-secondary hover:text-purple transition-colors duration-200 tracking-wide relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gradient-to-r after:from-purple after:to-orange after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200"
                 >
                   {link.label}
@@ -150,10 +121,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     to={link.href}
-                    onClick={() => {
-                      setMobileOpen(false);
-                      setVisible(true);
-                    }}
+                    onClick={() => setMobileOpen(false)}
                     className="text-lg font-medium text-primary hover:text-purple transition-colors"
                   >
                     {link.label}
@@ -162,10 +130,7 @@ export default function Navbar() {
                   <a
                     key={link.href}
                     href={resolveHref(link.href)}
-                    onClick={() => {
-                      setMobileOpen(false);
-                      setVisible(true);
-                    }}
+                    onClick={() => setMobileOpen(false)}
                     className="text-lg font-medium text-primary hover:text-purple transition-colors"
                   >
                     {link.label}
@@ -176,10 +141,7 @@ export default function Navbar() {
                 href="https://calendly.com/missivedigital/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => {
-                  setMobileOpen(false);
-                  setVisible(true);
-                }}
+                onClick={() => setMobileOpen(false)}
                 className="mt-4 inline-flex items-center h-12 px-8 text-base font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full shadow-lg shadow-purple/20"
               >
                 Book a Consultation

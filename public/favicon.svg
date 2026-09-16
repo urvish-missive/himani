@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="hk-ring" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="hk-letter" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+  <!-- Circular Base in Royal Obsidian -->
+  <circle cx="32" cy="32" r="30" fill="#1A1028"/>
+  <circle cx="32" cy="32" r="29" stroke="url(#hk-ring)" stroke-width="2" stroke-opacity="0.9"/>
+  <!-- High-contrast Editorial Serif H -->
+  <text x="29" y="44" text-anchor="middle" font-family="'DM Serif Display', Georgia, serif" font-size="34" font-weight="bold" fill="url(#hk-letter)">H</text>
+  <!-- Luminous Accent Dot matching the wordmark beacon -->
+  <circle cx="46" cy="21" r="4.5" fill="#F97316"/>
+  <circle cx="46" cy="21" r="7" fill="#F97316" fill-opacity="0.3"/>
+</svg>

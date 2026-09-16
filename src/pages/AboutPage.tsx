@@ -1,21 +1,12 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
 import Container from '../components/ui/Container';
 import Reveal from '../components/ui/Reveal';
 import CTAButton from '../components/ui/CTAButton';
+import ScrollRevealWords from '../components/ui/ScrollRevealWords';
+import AboutStory from '../components/AboutStory';
 import { testimonials } from '../data/testimonials';
 import { speakingEngagements } from '../data/speaking';
 import aboutPortrait from '../images/Himani-Kankaria4-684x1024.jpg';
 import candidPhoto from '../images/Himani-.jpg';
-
-const timeline = [
-  { year: '2008', event: 'Started in Organic Search & Content' },
-  { year: '2012', event: 'Built & Led High-Performing Marketing Teams' },
-  { year: '2016', event: 'Advised Global SaaS & E-Commerce Brands' },
-  { year: '2020', event: 'Founded Missive Digital Agency' },
-  { year: '2022', event: 'BrightonSEO & Global Conference Stages' },
-  { year: '2024+', event: 'Pioneered AI Search (GEO) & Citation Architecture' },
-];
 
 const principles = [
   {
@@ -42,9 +33,6 @@ const featuredEngagements = speakingEngagements
 const pullQuote = testimonials[0];
 
 export default function AboutPage() {
-  const timelineRef = useRef(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: '-30px 0px' });
-
   return (
     <main>
       {/* Hero */}
@@ -112,45 +100,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-bg-alt/50 to-purple/5">
-        <Container narrow>
-          <Reveal>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-4 text-center">
-              The Path So Far
-            </p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] text-primary mb-16 text-center">
-              Sixteen years, one thread.
-            </h2>
-          </Reveal>
-
-          <div ref={timelineRef} className="relative max-w-xl mx-auto">
-            {timeline.map((item, i) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, x: 20 }}
-                animate={timelineInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
-                className="relative pl-12 pb-10 last:pb-0"
-              >
-                {i < timeline.length - 1 && (
-                  <div className="absolute left-[9px] top-5 w-0.5 h-full bg-gradient-to-b from-purple/30 to-orange/30" />
-                )}
-                <div className="absolute left-0 top-1 w-5 h-5 rounded-full bg-gradient-to-br from-purple to-orange shadow-md ring-4 ring-bg" />
-
-                <span className="text-xs font-semibold tracking-wider text-orange">
-                  {item.year}
-                </span>
-                <p className="text-base font-medium text-primary mt-1">
-                  {item.event}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <AboutStory />
 
       {/* Principles */}
       <section className="py-20 md:py-28 bg-bg">
@@ -189,11 +139,10 @@ export default function AboutPage() {
                 <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
               </svg>
             </Reveal>
-            <Reveal delay={0.05}>
-              <p className="font-serif text-xl md:text-2xl text-primary leading-relaxed mb-6">
-                "{pullQuote.quote}"
-              </p>
-            </Reveal>
+            <ScrollRevealWords
+              text={`"${pullQuote.quote}"`}
+              className="font-serif text-xl md:text-2xl text-primary leading-relaxed mb-6"
+            />
             <Reveal delay={0.1}>
               <p className="text-sm text-secondary">
                 <span className="font-semibold text-primary">{pullQuote.author}</span> · {pullQuote.role}, {pullQuote.company}

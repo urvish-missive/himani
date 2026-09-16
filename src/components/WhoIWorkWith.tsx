@@ -26,11 +26,11 @@ const audiences = [
 
 export default function WhoIWorkWith() {
   return (
-    <section className="py-24 md:py-32 lg:py-40 bg-bg">
+    <section className="pt-6 md:pt-10 lg:pt-12 pb-20 md:pb-28 lg:pb-36 bg-bg">
       <Container>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-10 md:mb-12">
               I work best with…
             </h2>
           </Reveal>

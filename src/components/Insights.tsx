@@ -62,7 +62,7 @@ export default function Insights() {
   }, [isPaused, filteredArticles.length]);
 
   return (
-    <section id="insights" className="py-20 md:py-28 lg:py-36 bg-bg overflow-hidden">
+    <section id="insights" className="pt-20 md:pt-28 lg:pt-36 pb-8 md:pb-12 lg:pb-14 bg-bg overflow-hidden">
       <Container>
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
