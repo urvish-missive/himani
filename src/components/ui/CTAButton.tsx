@@ -5,10 +5,14 @@ interface CTAButtonProps {
   href?: string;
   variant?: 'primary' | 'secondary' | 'dark';
   size?: 'md' | 'lg';
+  target?: string;
+  rel?: string;
   onClick?: () => void;
 }
 
-export default function CTAButton({ children, href = '#', variant = 'primary', size = 'md', onClick }: CTAButtonProps) {
+const CALENDLY = 'https://calendly.com/missivedigital/30min';
+
+export default function CTAButton({ children, href = CALENDLY, variant = 'primary', size = 'md', target, rel, onClick }: CTAButtonProps) {
   const sizeClasses = size === 'lg'
     ? 'h-14 px-8 text-base'
     : 'h-12 px-6 text-sm';
@@ -22,6 +26,8 @@ export default function CTAButton({ children, href = '#', variant = 'primary', s
   return (
     <a
       href={href}
+      target={target}
+      rel={rel}
       onClick={onClick}
       className={`inline-flex items-center gap-2.5 font-semibold tracking-wide rounded-full transition-all duration-300 ${sizeClasses} ${variantClasses[variant]} group`}
     >

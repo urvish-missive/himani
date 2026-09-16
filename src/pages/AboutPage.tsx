@@ -103,7 +103,7 @@ export default function AboutPage() {
               </div>
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap gap-4 mt-auto">
-                  <CTAButton href="/#contact" size="lg">Work With Me</CTAButton>
+                  <CTAButton size="lg" target="_blank" rel="noopener noreferrer">Work With Me</CTAButton>
                   <CTAButton href="/#services" variant="secondary" size="lg">See the Programs</CTAButton>
                 </div>
               </Reveal>
@@ -268,7 +268,7 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex flex-wrap justify-center gap-4">
-              <CTAButton href="/#contact" size="lg">Work With Me</CTAButton>
+              <CTAButton size="lg" target="_blank" rel="noopener noreferrer">Work With Me</CTAButton>
               <CTAButton href="/#services" variant="secondary" size="lg">Explore the Engagement Models</CTAButton>
             </div>
           </Reveal>

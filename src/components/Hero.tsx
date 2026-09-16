@@ -73,7 +73,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
-              <CTAButton variant="primary" size="lg">Work With Me</CTAButton>
+              <CTAButton variant="primary" size="lg" target="_blank" rel="noopener noreferrer">Work With Me</CTAButton>
               <CTAButton variant="secondary" size="lg" href="#services">Explore My Work</CTAButton>
             </motion.div>
 

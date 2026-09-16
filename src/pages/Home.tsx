@@ -8,11 +8,10 @@ import AnimatedStats from '../components/AnimatedStats';
 import Expertise from '../components/Expertise';
 import Framework from '../components/Framework';
 import ConferenceShowcase from '../components/ConferenceShowcase';
-import CaseStudies from '../components/CaseStudies';
-import CoachingTransformation from '../components/CoachingTransformation';
-import OneOnOneCoaching from '../components/OneOnOneCoaching';
-import Testimonials from '../components/Testimonials';
 import TrainingShowcase from '../components/TrainingShowcase';
+import OneOnOneCoaching from '../components/OneOnOneCoaching';
+import CoachingTransformation from '../components/CoachingTransformation';
+import Testimonials from '../components/Testimonials';
 import Insights from '../components/Insights';
 import WhoIWorkWith from '../components/WhoIWorkWith';
 import FinalCTA from '../components/FinalCTA';
@@ -30,9 +29,8 @@ export default function Home() {
       <Expertise />
       <Framework />
       <ConferenceShowcase />
-      <CaseStudies />
-      <TrainingShowcase />
       <OneOnOneCoaching />
+      <TrainingShowcase />
       <CoachingTransformation />
       <Testimonials />
       <Insights />

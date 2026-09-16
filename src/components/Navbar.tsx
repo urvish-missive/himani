@@ -114,11 +114,12 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden lg:block">
             <a
-              href={resolveHref('#contact')}
-              onClick={() => setVisible(true)}
+              href="https://calendly.com/missivedigital/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center h-10 px-5 text-sm font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full hover:shadow-lg hover:shadow-purple/25 transition-all duration-300 tracking-wide hover:opacity-95"
             >
-              Work With Me
+              Book a Consultation
             </a>
           </div>
 
@@ -172,14 +173,16 @@ export default function Navbar() {
                 )
               ))}
               <a
-                href={resolveHref('#contact')}
+                href="https://calendly.com/missivedigital/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   setMobileOpen(false);
                   setVisible(true);
                 }}
                 className="mt-4 inline-flex items-center h-12 px-8 text-base font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full shadow-lg shadow-purple/20"
               >
-                Work With Me
+                Book a Consultation
               </a>
             </div>
 

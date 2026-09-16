@@ -68,7 +68,9 @@ export default function FinalCTA() {
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="mailto:info@missivedigital.com"
+                href="https://calendly.com/missivedigital/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 Book a Strategy Call
