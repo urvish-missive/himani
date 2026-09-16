@@ -53,10 +53,17 @@ export default function Hero() {
 
             <motion.h1
               variants={itemVariants}
-              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.15rem] xl:text-[3.5rem] leading-[1.12] text-primary mb-5"
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-primary mb-4"
+            >
+              Himani Kankaria
+            </motion.h1>
+
+            <motion.p
+              variants={itemVariants}
+              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.25rem] leading-[1.18] text-primary/85 mb-5 max-w-2xl mx-auto lg:mx-0"
             >
               Helping brands re-architect organic growth in an AI-first world.
-            </motion.h1>
+            </motion.p>
 
             <motion.p
               variants={itemVariants}
