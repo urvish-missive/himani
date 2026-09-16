@@ -4,13 +4,9 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Speaking', href: '#speaking' },
-  { label: 'Coaching', href: '#coaching' },
-  { label: 'Consulting', href: '#consulting' },
-  { label: 'Training', href: '#training' },
-  { label: 'Insights', href: '#insights' },
+  { label: 'Podcast', href: '/podcast' },
 ];
 
 export default function Navbar() {

@@ -10,6 +10,7 @@ const footerLinks = [
   { label: 'Consulting', href: '#consulting' },
   { label: 'Training', href: '#training' },
   { label: 'About', href: '/about' },
+  { label: 'Podcast', href: '/podcast' },
   { label: 'Insights', href: '#insights' },
   { label: 'Contact', href: '#contact' },
 ];

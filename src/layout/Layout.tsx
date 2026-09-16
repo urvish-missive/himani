@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
+import ScrollToTop from '../components/ScrollToTop';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 
 export default function Layout() {
@@ -12,6 +13,7 @@ export default function Layout() {
       <Navbar />
       <Outlet />
       <Footer />
+      <ScrollToTop />
       <Chatbot />
     </>
   );
