@@ -140,13 +140,13 @@ function CoachingSection() {
             className="relative order-2 lg:order-1"
           >
             {/* Marketing Capability Map */}
-            <div className="relative p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-orange/20">
+            <div className="relative p-5 sm:p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-orange/20">
               <div className="text-center mb-8">
                 <div className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-purple to-orange text-white text-sm font-semibold">
                   MODERN MARKETER
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {capabilityMap.map((branch, i) => (
                   <motion.div
                     key={branch.name}
@@ -285,7 +285,7 @@ function ConsultingSection() {
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative"
           >
-            <div className="p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-purple/20">
+            <div className="p-5 sm:p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-purple/20">
               {/* Diagnostic framework */}
               <div className="flex flex-col items-center gap-0 mb-8">
                 {framework.map((step, i) => (
@@ -350,7 +350,7 @@ function TrainingSection() {
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative order-2 lg:order-1"
           >
-            <div className="p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-orange/20">
+            <div className="p-5 sm:p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-orange/20">
               {/* Learning Journey */}
               <div className="flex items-center justify-between mb-8">
                 {journey.map((step, i) => (
@@ -361,13 +361,13 @@ function TrainingSection() {
                       transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
                       className="flex flex-col items-center"
                     >
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple to-orange flex items-center justify-center text-white text-xs font-bold shadow-md">
+                      <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-purple to-orange flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shadow-md">
                         {i + 1}
                       </div>
-                      <span className="text-[10px] font-semibold tracking-wider text-primary mt-2">{step}</span>
+                      <span className="hidden sm:block text-[10px] font-semibold tracking-wider text-primary mt-2">{step}</span>
                     </motion.div>
                     {i < journey.length - 1 && (
-                      <div className="w-8 h-0.5 bg-gradient-to-r from-purple to-orange mx-1" />
+                      <div className="w-3 sm:w-8 h-0.5 bg-gradient-to-r from-purple to-orange mx-0.5 sm:mx-1" />
                     )}
                   </div>
                 ))}

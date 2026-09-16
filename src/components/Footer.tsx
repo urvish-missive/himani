@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Globe } from 'lucide-react';
 import Container from './ui/Container';
@@ -8,7 +9,7 @@ const footerLinks = [
   { label: 'Coaching', href: '#coaching' },
   { label: 'Consulting', href: '#consulting' },
   { label: 'Training', href: '#training' },
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '/about' },
   { label: 'Insights', href: '#insights' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -47,6 +48,9 @@ const socialLinks = [
 export default function Footer() {
   const socialRef = useRef(null);
   const socialInView = useInView(socialRef, { once: true, margin: '-30px 0px' });
+  const location = useLocation();
+  const onHome = location.pathname === '/';
+  const resolveHref = (href: string) => (href.startsWith('/') || onHome ? href : `/${href}`);
 
   return (
     <footer className="py-16 md:py-20 bg-gradient-to-br from-bg to-purple/5 border-t border-purple/10">
@@ -54,9 +58,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
           {/* Left: Brand */}
           <div>
-            <a href="#" className="font-serif text-2xl gradient-text">
+            <Link to="/" className="font-serif text-2xl gradient-text">
               Himani Kankaria
-            </a>
+            </Link>
             <p className="mt-4 text-sm text-secondary leading-relaxed max-w-xs">
               Founder of Missive Digital. Organic growth strategist, global speaker, and consultant helping B2B SaaS, tech, and ambitious brands re-architect search and AI discovery.
             </p>
@@ -65,13 +69,23 @@ export default function Footer() {
           {/* Center: Links */}
           <div className="flex flex-col gap-3">
             {footerLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-secondary hover:text-purple transition-colors duration-200"
-              >
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="text-sm text-secondary hover:text-purple transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={resolveHref(link.href)}
+                  className="text-sm text-secondary hover:text-purple transition-colors duration-200"
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
 

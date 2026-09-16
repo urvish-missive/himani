@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '/about' },
   { label: 'Expertise', href: '#expertise' },
   { label: 'Speaking', href: '#speaking' },
   { label: 'Coaching', href: '#coaching' },
@@ -17,6 +18,9 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const location = useLocation();
+  const onHome = location.pathname === '/';
+  const resolveHref = (href: string) => (href.startsWith('/') || onHome ? href : `/${href}`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,28 +86,39 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <a href="#" className="font-serif text-xl md:text-2xl tracking-tight gradient-text font-bold">
+          <Link to="/" className="font-serif text-xl md:text-2xl tracking-tight gradient-text font-bold">
             Himani Kankaria
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setVisible(true)}
-                className="text-[13px] font-medium text-secondary hover:text-purple transition-colors duration-200 tracking-wide relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gradient-to-r after:from-purple after:to-orange after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200"
-              >
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setVisible(true)}
+                  className="text-[13px] font-medium text-secondary hover:text-purple transition-colors duration-200 tracking-wide relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gradient-to-r after:from-purple after:to-orange after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={resolveHref(link.href)}
+                  onClick={() => setVisible(true)}
+                  className="text-[13px] font-medium text-secondary hover:text-purple transition-colors duration-200 tracking-wide relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gradient-to-r after:from-purple after:to-orange after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200"
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden lg:block">
             <a
-              href="#contact"
+              href={resolveHref('#contact')}
               onClick={() => setVisible(true)}
               className="inline-flex items-center h-10 px-5 text-sm font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full hover:shadow-lg hover:shadow-purple/25 transition-all duration-300 tracking-wide hover:opacity-95"
             >
@@ -134,20 +149,34 @@ export default function Navbar() {
           >
             <div className="flex flex-col items-center gap-6">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => {
-                    setMobileOpen(false);
-                    setVisible(true);
-                  }}
-                  className="text-lg font-medium text-primary hover:text-purple transition-colors"
-                >
-                  {link.label}
-                </a>
+                link.href.startsWith('/') ? (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setVisible(true);
+                    }}
+                    className="text-lg font-medium text-primary hover:text-purple transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={resolveHref(link.href)}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setVisible(true);
+                    }}
+                    className="text-lg font-medium text-primary hover:text-purple transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
               <a
-                href="#contact"
+                href={resolveHref('#contact')}
                 onClick={() => {
                   setMobileOpen(false);
                   setVisible(true);
