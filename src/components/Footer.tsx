@@ -47,7 +47,7 @@ export default function Footer() {
   const socialInView = useInView(socialRef, { once: true, margin: '-30px 0px' });
 
   return (
-    <footer className="py-16 md:py-20 bg-gradient-to-br from-bg to-purple/5 border-t border-purple/10">
+    <footer className="py-8 md:py-14 bg-gradient-to-br from-bg to-purple/5 border-t border-purple/10">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
           {/* Left: Brand */}
@@ -107,7 +107,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-purple/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 pt-8 border-t border-purple/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-secondary/50">
             &copy; {new Date().getFullYear()} Himani Kankaria &middot; Missive Digital. All rights reserved.
           </p>
