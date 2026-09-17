@@ -6,9 +6,9 @@ import heroImage from '../images/himanimain.jpg';
 const floatingLabels = [
   { text: 'SEO', x: '8%', y: '12%', delay: 0 },
   { text: 'GEO', x: '72%', y: '8%', delay: 0.5 },
-  { text: 'AI Search', x: '82%', y: '42%', delay: 1 },
+  { text: 'AI Search', x: '72%', y: '42%', delay: 1 },
   { text: 'Citations', x: '5%', y: '68%', delay: 1.5 },
-  { text: 'Organic', x: '78%', y: '72%', delay: 2 },
+  { text: 'Organic', x: '75%', y: '72%', delay: 2 },
   { text: 'Authority', x: '10%', y: '38%', delay: 0.8 },
   { text: 'Content', x: '68%', y: '22%', delay: 1.2 },
 ];
@@ -114,7 +114,7 @@ export default function Hero() {
                       animate={{ y: [0, -4, 0], opacity: [0.6, 0.9, 0.6] }}
                       transition={{ duration: 5, repeat: Infinity, delay: label.delay, ease: 'easeInOut' }}
                     >
-                      <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-purple/20 shadow-xs">
+                      <span className="px-2.5 py-1 whitespace-nowrap  rounded-full bg-white/90 backdrop-blur-md border border-purple/20 shadow-xs">
                         {label.text}
                       </span>
                     </motion.div>
