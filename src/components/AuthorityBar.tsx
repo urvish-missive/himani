@@ -1,50 +1,54 @@
 import Container from './ui/Container';
-import Stat from './ui/Stat';
 import Reveal from './ui/Reveal';
-import { stats, trustedLogos } from '../data/stats';
+import { homeStats, trustedLogos } from '../data/stats';
 import alyendaLogo from '../images/alyenda.png';
 import andyLogo from '../images/Andy.png';
 
 export default function AuthorityBar() {
   return (
-    <section className="py-16 md:py-20 border-y border-purple/10 bg-gradient-to-r from-purple/5 via-bg to-orange/5">
+    <section className="py-8 md:py-10 border-y border-purple/10 bg-transparent">
       <Container>
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 mb-16">
-          {stats.map((stat) => (
-            <Reveal key={stat.label} delay={stats.indexOf(stat) * 0.1}>
-              <Stat
-                value={stat.value}
-                suffix={stat.suffix}
-                label={stat.label}
-                description={stat.description}
-              />
-            </Reveal>
+        {/* Stats Strip - Slim, refined & minimal without background */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-center mb-8">
+          {homeStats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 text-center sm:text-left ${
+                i > 0 ? 'sm:border-l sm:border-purple/15 sm:pl-6' : ''
+              }`}
+            >
+              <span className="font-serif text-2xl md:text-3xl font-bold gradient-text leading-none shrink-0">
+                {stat.value}
+              </span>
+              <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-secondary/75 leading-tight max-w-[120px]">
+                {stat.label}
+              </span>
+            </div>
           ))}
         </div>
 
         {/* Trusted by */}
         <Reveal>
-          <div className="text-center">
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-purple/50 mb-8">
+          <div className="pt-6 border-t border-purple/10 text-center">
+            <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-secondary/50 mb-5">
               Trusted by teams from
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
               {/* Real logos with grayscale to color on hover */}
-              <div className="h-10 opacity-40 hover:opacity-80 transition-opacity duration-300 grayscale hover:grayscale-0">
+              <div className="h-7 opacity-45 hover:opacity-85 transition-opacity duration-300 grayscale hover:grayscale-0">
                 <img src={alyendaLogo} alt="Alyenda" className="h-full object-contain" loading="lazy" />
               </div>
-              <div className="h-10 opacity-40 hover:opacity-80 transition-opacity duration-300 grayscale hover:grayscale-0">
+              <div className="h-7 opacity-45 hover:opacity-85 transition-opacity duration-300 grayscale hover:grayscale-0">
                 <img src={andyLogo} alt="Andy" className="h-full object-contain" loading="lazy" />
               </div>
-              {/* Placeholder text logos for remaining slots */}
-              {trustedLogos.slice(2).map((logo) => (
-                <div
+              {/* Brand text logos */}
+              {trustedLogos.map((logo) => (
+                <span
                   key={logo}
-                  className="text-lg md:text-xl font-semibold text-secondary/30 hover:text-purple transition-colors duration-300 cursor-default"
+                  className="text-xs sm:text-sm font-semibold uppercase tracking-wide text-secondary/40 hover:text-purple transition-colors duration-300 cursor-default"
                 >
                   {logo}
-                </div>
+                </span>
               ))}
             </div>
           </div>

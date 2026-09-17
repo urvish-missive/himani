@@ -19,7 +19,7 @@ export default function PodcastPage() {
   return (
     <main>
       {/* Hero: text left, video right */}
-      <section className="py-24 md:py-28 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
+      <section className="pt-20 md:pt-24 pb-12 md:pb-16 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="flex flex-col">
@@ -79,7 +79,7 @@ export default function PodcastPage() {
       </section>
 
       {/* Episode Grid */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-bg-alt/40 to-purple/5">
+      <section className="py-12 md:py-16 bg-bg border-t border-purple/10">
         <Container>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
             <div>
@@ -161,7 +161,7 @@ export default function PodcastPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-dark via-dark-card to-dark text-center">
+      <section className="py-14 md:py-20 bg-gradient-to-br from-dark via-dark-card to-dark text-center">
         <Container narrow>
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl leading-[1.15] text-white mb-6">

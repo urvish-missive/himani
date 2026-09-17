@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function FinalCTA() {
   return (
-    <section id="contact" className="relative py-24 md:py-32 lg:py-40 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
+    <section id="contact" className="relative py-14 md:py-20 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
       {/* Animated gradient blobs */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-20"

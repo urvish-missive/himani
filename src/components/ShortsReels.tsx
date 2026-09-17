@@ -124,7 +124,7 @@ export default function ShortsReels() {
     <section
       ref={sectionRef}
       id="reels"
-      className="relative py-20 md:py-28 lg:py-36 bg-gradient-to-b from-dark via-dark-card to-dark text-white overflow-hidden"
+      className="relative py-12 md:py-16 bg-gradient-to-b from-dark via-dark-card to-dark text-white overflow-hidden"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-purple/15 rounded-full blur-[160px] pointer-events-none" />
@@ -132,7 +132,7 @@ export default function ShortsReels() {
 
       <Container className="relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-6">
           <div>
             <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-orange-light text-xs font-semibold uppercase tracking-widest mb-4">

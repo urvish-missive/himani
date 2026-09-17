@@ -13,7 +13,7 @@ export default function AnimatedStats() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-bg overflow-hidden">
+    <section ref={ref} className="py-12 md:py-16 bg-bg overflow-hidden">
       <Container>
         <div className="max-w-4xl mx-auto">
           {/* Large animated words */}

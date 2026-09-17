@@ -9,7 +9,7 @@ export default function AnimatedQuote() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-32 lg:py-40 bg-bg overflow-hidden">
+    <section ref={ref} className="py-12 md:py-16 bg-bg overflow-hidden">
       <Container>
         <div className="max-w-5xl mx-auto text-center">
           {/* Animated word reveal */}

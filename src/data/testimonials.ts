@@ -41,6 +41,20 @@ export const testimonials: Testimonial[] = [
     author: "VP of E-Commerce",
     role: "Digital Commercial Director",
     company: "Global Retail & E-Commerce"
+  },
+  {
+    id: 6,
+    quote: "Himani brought incredible energy, tactical clarity, and zero fluff to our keynote stage. The audience feedback was exceptional—attendees walked away with frameworks they could immediately apply.",
+    author: "Conference Chair",
+    role: "Summit Organizer",
+    company: "Global SEO & SaaS Summit"
+  },
+  {
+    id: 7,
+    quote: "Himani's corporate training upskilled our in-house content and SEO team within weeks. Her live teardown clinics and intent-led writing SOPs eliminated our dependency on outside agencies.",
+    author: "VP of Marketing",
+    role: "Marketing Director",
+    company: "Fintech SaaS Unicorn"
   }
 ];
 

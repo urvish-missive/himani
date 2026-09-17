@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import Container from './ui/Container';
 import Reveal from './ui/Reveal';
 import CTAButton from './ui/CTAButton';
-import { speakingTestimonial } from '../data/speaking';
+import { speakingTestimonial, alsoFeaturedAt } from '../data/speaking';
 import { Quote } from 'lucide-react';
 import stagePhoto from '../images/hiimanisasspeaker.jpg';
 import speakerThumb from '../images/himanispeaker.jpg';
@@ -11,7 +11,7 @@ import speakerThumb from '../images/himanispeaker.jpg';
 export default function ConferenceShowcase() {
 
   return (
-    <section id="speaking" className="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
+    <section id="speaking" className="relative py-12 md:py-16 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
       {/* Gradient orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[150px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange/20 rounded-full blur-[150px]" />
@@ -23,7 +23,7 @@ export default function ConferenceShowcase() {
 
       <Container className="relative z-10 px-5 md:px-8">
         {/* Header */}
-        <div className="mb-10 md:mb-16">
+        <div className="mb-8 md:mb-10">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange/60 mb-4">
               Speaking
@@ -38,7 +38,7 @@ export default function ConferenceShowcase() {
 
         {/* Stage photo */}
         <Reveal>
-          <div className="relative mb-16">
+          <div className="relative mb-10 md:mb-12">
             <div className="absolute -inset-1 bg-gradient-to-br from-purple to-orange rounded-2xl opacity-30" />
             <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden">
               <img
@@ -63,9 +63,22 @@ export default function ConferenceShowcase() {
           </div>
         </Reveal>
 
-
-
-        {/* Testimonial */}
+        {/* Also Featured At Tags */}
+        <Reveal delay={0.2}>
+          <div className="flex flex-wrap items-center gap-2.5 my-8">
+            <span className="text-xs font-semibold uppercase tracking-wider text-orange-light/80 mr-1">
+              Also Featured At:
+            </span>
+            {alsoFeaturedAt.map((stage) => (
+              <span
+                key={stage}
+                className="text-xs font-medium px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 text-white/80 hover:border-purple/40 hover:bg-white/10 transition-colors"
+              >
+                {stage}
+              </span>
+            ))}
+          </div>
+        </Reveal>
         <Reveal delay={0.3}>
           <div className="mt-16 flex items-start gap-4 max-w-2xl">
             <Quote className="w-8 h-8 text-orange/40 flex-shrink-0 mt-1" />

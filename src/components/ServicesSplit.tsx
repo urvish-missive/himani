@@ -25,7 +25,7 @@ function SpeakingSection() {
   const service = services[3];
 
   return (
-    <div id="speaking-overview" ref={ref} className="relative py-16 md:py-24 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
+    <div id="speaking-overview" ref={ref} className="relative py-12 md:py-16 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[150px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange/20 rounded-full blur-[150px]" />
       <Container className="relative z-10">
@@ -80,7 +80,7 @@ function SpeakingSection() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <CTAButton variant="dark">{service.cta}</CTAButton>
+              <CTAButton variant="dark" href="/speaking">{service.cta}</CTAButton>
             </Reveal>
           </div>
 
@@ -131,7 +131,7 @@ function CoachingSection() {
   ];
 
   return (
-    <div id="coaching-overview" ref={ref} className={`py-20 md:py-32 ${bgStyles[1]} overflow-hidden`}>
+    <div id="coaching-overview" ref={ref} className={`py-12 md:py-16 ${bgStyles[1]} overflow-hidden`}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Visual first on desktop */}
@@ -209,8 +209,8 @@ function CoachingSection() {
 
             <Reveal delay={0.3}>
               <div className="flex flex-wrap gap-4">
-                <CTAButton variant="primary">{service.cta}</CTAButton>
-                <CTAButton variant="secondary">Book a Strategy Call</CTAButton>
+                <CTAButton variant="primary" href="/coaching">{service.cta}</CTAButton>
+                <CTAButton variant="secondary" href="/coaching">Explore 1:1 Mentorship</CTAButton>
               </div>
             </Reveal>
           </div>
@@ -234,7 +234,7 @@ function ConsultingSection() {
   ];
 
   return (
-    <div id="consulting" ref={ref} className={`py-20 md:py-32 ${bgStyles[2]} overflow-hidden`}>
+    <div id="consulting" ref={ref} className={`py-12 md:py-16 ${bgStyles[2]} overflow-hidden`}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content */}
@@ -276,7 +276,7 @@ function ConsultingSection() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <CTAButton variant="primary">{service.cta}</CTAButton>
+              <CTAButton variant="primary" href="/consulting">{service.cta}</CTAButton>
             </Reveal>
           </div>
 
@@ -334,65 +334,83 @@ function TrainingSection() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
   const service = services[2];
 
-  const journey = ['LEARN', 'PRACTICE', 'APPLY', 'REVIEW', 'MASTER'];
-  const courseClusters = [
-    { name: 'Organic Growth', children: ['SEO', 'Content', 'Distribution'] },
-    { name: 'AI Marketing', children: ['Research', 'Content', 'Video', 'Websites', 'Automation'] },
-    { name: 'Growth', children: ['Strategy', 'Analytics', 'Experimentation'] },
+  const journey = ['AUDIT', 'FRAMEWORK', 'HANDS-ON', 'CLINIC', 'SOPs'];
+  const tracksPreview = [
+    {
+      badge: 'Editorial Architecture',
+      title: 'Content Writing & Strategy',
+      desc: 'Intent-led keyword mapping, Information Gain, and AI editorial co-piloting.',
+    },
+    {
+      badge: 'Executive Branding',
+      title: 'LinkedIn Thought Leadership',
+      desc: 'High-converting profile architecture, storytelling carousels, and inbound pipeline.',
+    },
+    {
+      badge: 'Corporate Enablement',
+      title: 'Marketing Trainer for Teams',
+      desc: 'Modern SEO, GEO citation readiness, and autonomous in-house team ops.',
+    },
+    {
+      badge: 'Flagship Event',
+      title: "Content Writers' Symposium",
+      desc: 'Live teardown clinics, hook psychology, and community masterclasses in Ahmedabad.',
+    },
   ];
 
   return (
-    <div id="training" ref={ref} className="py-16 md:py-24 bg-gradient-to-br from-orange/15 via-orange/5 to-bg overflow-hidden">
+    <div id="training" ref={ref} className="py-12 md:py-16 bg-gradient-to-br from-orange/15 via-orange/5 to-bg overflow-hidden">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-          {/* Visual - Learning Journey */}
+          {/* Visual - 4 Training Tracks Preview */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative order-2 lg:order-1"
           >
-            <div className="p-5 sm:p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-orange/20">
-              {/* Learning Journey */}
-              <div className="flex items-center justify-between mb-8">
+            <div className="p-5 sm:p-8 rounded-2xl bg-white/75 backdrop-blur-sm border border-orange/20 shadow-lg shadow-orange/5">
+              {/* Learning Journey Strip */}
+              <div className="flex items-center justify-between mb-7">
                 {journey.map((step, i) => (
                   <div key={step} className="flex items-center">
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                      transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
                       className="flex flex-col items-center"
                     >
-                      <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-purple to-orange flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shadow-md">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-purple to-orange flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shadow-md">
                         {i + 1}
                       </div>
-                      <span className="hidden sm:block text-[10px] font-semibold tracking-wider text-primary mt-2">{step}</span>
+                      <span className="hidden sm:block text-[9px] font-bold tracking-wider text-primary mt-1.5">{step}</span>
                     </motion.div>
                     {i < journey.length - 1 && (
-                      <div className="w-3 sm:w-8 h-0.5 bg-gradient-to-r from-purple to-orange mx-0.5 sm:mx-1" />
+                      <div className="w-2 sm:w-6 h-0.5 bg-gradient-to-r from-purple to-orange mx-0.5 sm:mx-1 opacity-60" />
                     )}
                   </div>
                 ))}
               </div>
 
-              {/* Course clusters */}
-              <div className="space-y-4">
-                {courseClusters.map((cluster, i) => (
+              {/* 4 Distinct Tracks Grid */}
+              <div className="space-y-3">
+                {tracksPreview.map((track, i) => (
                   <motion.div
-                    key={cluster.name}
+                    key={track.title}
                     initial={{ opacity: 0, y: 10 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
-                    className="p-4 rounded-xl border border-orange/15 hover:border-orange/30 transition-colors"
+                    transition={{ duration: 0.4, delay: 0.4 + i * 0.08 }}
+                    className="p-3.5 sm:p-4 rounded-xl border border-orange/15 bg-white/60 hover:bg-white hover:border-orange/30 hover:shadow-md transition-all"
                   >
-                    <h4 className="text-sm font-semibold text-primary mb-2">{cluster.name}</h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {cluster.children.map((child) => (
-                        <span key={child} className="text-[10px] px-2 py-0.5 rounded bg-orange/10 text-orange/70 font-medium">
-                          {child}
-                        </span>
-                      ))}
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <h4 className="text-sm font-semibold text-primary">{track.title}</h4>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange/10 text-orange font-medium border border-orange/20 shrink-0">
+                        {track.badge}
+                      </span>
                     </div>
+                    <p className="text-xs text-secondary leading-relaxed">
+                      {track.desc}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -449,7 +467,10 @@ function TrainingSection() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <CTAButton variant="primary">{service.cta}</CTAButton>
+              <div className="flex flex-wrap gap-4">
+                <CTAButton variant="primary" href="/training">{service.cta}</CTAButton>
+                <CTAButton variant="secondary" href="/training">View All 4 Tracks</CTAButton>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -462,7 +483,7 @@ export default function ServicesSplit() {
   return (
     <section id="services" className="bg-bg">
       <Container>
-        <div className="py-24 md:py-32">
+        <div className="py-12 md:py-16">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4 text-center">
               Ways to Work With Missive Digital

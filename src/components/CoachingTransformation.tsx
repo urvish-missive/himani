@@ -27,9 +27,9 @@ export default function CoachingTransformation() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-20 md:py-28 lg:py-36 bg-bg overflow-hidden">
+    <section className="py-12 md:py-16 bg-bg overflow-hidden">
       <Container>
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-10">
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary">
               What changes when organic search<br className="hidden md:block" /> gets re-architected?

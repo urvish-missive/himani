@@ -10,7 +10,7 @@ export default function CaseStudies() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 bg-gradient-to-br from-bg-alt/50 to-orange/5 overflow-hidden">
+    <section className="py-12 md:py-16 bg-gradient-to-br from-bg-alt/50 to-orange/5 overflow-hidden">
       <Container>
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-4">

@@ -14,9 +14,9 @@ const glowColors = ['var(--color-purple)', 'var(--color-orange)', 'var(--color-p
 
 export default function ProgramsStack() {
   return (
-    <section className="py-20 md:py-32 bg-gradient-to-b from-bg to-bg-alt/40">
+    <section className="py-12 md:py-16 bg-gradient-to-b from-bg to-bg-alt/40">
       <Container>
-        <div className="mb-14 md:mb-20 text-center">
+        <div className="mb-8 md:mb-10 text-center">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4">
               Engagement Models
@@ -80,8 +80,15 @@ export default function ProgramsStack() {
                   </div>
 
                   {/* CTA */}
-                  <div className="lg:self-center">
+                  <div className="lg:self-center flex flex-col items-start lg:items-end gap-2 shrink-0">
                     <CTAButton href={anchors[service.id]}>{service.cta}</CTAButton>
+                    <a
+                      href={`/${service.id}`}
+                      className="text-xs font-semibold text-purple hover:text-orange transition-colors inline-flex items-center gap-1"
+                    >
+                      <span>Explore full {service.label.toLowerCase()} details</span>
+                      <span>→</span>
+                    </a>
                   </div>
                 </div>
               </article>

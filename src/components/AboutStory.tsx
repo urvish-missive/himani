@@ -21,79 +21,79 @@ interface Chapter {
 
 const chapters: Chapter[] = [
   {
-    year: '2008',
-    label: 'The Beginning',
-    headline: 'Organic search, before it had a name',
-    description: "I started in organic search and content back in 2008, when SEO still meant keyword density and blog comments — long before brands treated organic as a serious channel.",
+    year: '2017',
+    label: 'Where It Started',
+    headline: 'Digital marketing, one campaign at a time',
+    description: "I started as a Digital Marketing Strategist at RadixWeb — running inbound and content marketing, optimizing organic traffic and lead flow, and managing Google Ads and AdRoll campaigns, tracked through GA, GSC, SpyFu, and Moz.",
     stats: [
-      { label: 'Focus', value: 'SEO & Content' },
-      { label: 'Format', value: 'On-Page & Blogging' },
-      { label: 'Mindset', value: 'Learn By Doing' },
+      { label: 'Role', value: 'Digital Marketing Strategist' },
+      { label: 'Company', value: 'RadixWeb' },
+      { label: 'Focus', value: 'Inbound & Paid' },
     ],
     image: img2008,
     imagePosition: 'top',
   },
   {
-    year: '2012',
-    label: 'Building Teams',
-    headline: 'From individual contributor to team lead',
-    description: "I moved from doing the work myself to building and leading marketing teams — the first time I had to turn what worked for me into something a whole team could repeat.",
+    year: '2018',
+    label: 'The Founding Story',
+    headline: 'Founding Missive Digital: The Organic Growth Agency',
+    description: "Frustrated by agency models focused on short-lived ranking hacks and vanity metrics, I founded Missive Digital to serve as the true marketing thinkers and business strategists for B2B, SaaS, and Tech companies. I built the agency around data-driven integrated strategies, deep research, and search-intent-focused content that compound into sustainable pipeline — scaling brands from high-growth startups to unicorns with over 800% traffic growth and 200% lead growth YoY.",
     stats: [
-      { label: 'Role', value: 'Team Lead' },
-      { label: 'Focus', value: 'Process & Training' },
-      { label: 'Shift', value: 'IC to Manager' },
+      { label: 'Agency', value: 'Missive Digital' },
+      { label: 'Specialization', value: 'B2B, SaaS & Tech' },
+      { label: 'Proven Impact', value: '>800% Traffic · 200% Leads' },
     ],
     image: img2012,
     imagePosition: 'top',
   },
   {
-    year: '2016',
-    label: 'Advising Brands',
-    headline: 'B2B SaaS and e-commerce, at scale',
-    description: "I started advising global SaaS and e-commerce brands directly on organic strategy — auditing what was broken, then rebuilding the technical and content foundations underneath it.",
+    year: '2018–2023',
+    label: 'A Recognized Voice',
+    headline: 'Brand Ambassador for Hootsuite',
+    description: "Alongside building Missive Digital, I spent five years as a Hootsuite Brand Ambassador — plus brand endorsement and corporate training work with Semrush, SEWA Federation, and WPCouchCon.",
     stats: [
-      { label: 'Clients', value: 'SaaS & E-Commerce' },
-      { label: 'Scope', value: 'Technical + Content' },
-      { label: 'Model', value: 'Advisory' },
+      { label: 'Role', value: 'Brand Ambassador' },
+      { label: 'Partner', value: 'Hootsuite' },
+      { label: 'Duration', value: '2018–2023' },
     ],
     image: img2016,
     imagePosition: 'top',
   },
   {
-    year: '2020',
-    label: 'Founding Missive Digital',
-    headline: 'Missive Digital becomes its own thing',
-    description: "I founded Missive Digital to focus on exactly what I cared about: search systems that compound, instead of tactics that reset with every algorithm update.",
+    year: '2021',
+    label: 'Publishing at Scale',
+    headline: 'Becoming a regular Search Engine Journal contributor',
+    description: "Starting in 2021, I began publishing regularly with Search Engine Journal and Search Engine Land — one piece was later named among SEJ's 12 best contributions of the year, a career highlight.",
     stats: [
-      { label: 'Founded', value: 'Missive Digital' },
-      { label: 'Focus', value: 'Compounding Systems' },
-      { label: 'Model', value: 'Agency' },
+      { label: 'Outlet', value: 'Search Engine Journal' },
+      { label: 'Also', value: 'Search Engine Land' },
+      { label: 'Recognition', value: "SEJ's Top 12" },
     ],
     image: img2020,
     imagePosition: 'top',
   },
   {
-    year: '2022',
+    year: '2024–2025',
     label: 'Global Stages',
-    headline: 'BrightonSEO and the international circuit',
-    description: "I took the same frameworks I use with clients onto international stages — BrightonSEO, the International Search Summit, and WordCamp — turning client work into public frameworks.",
+    headline: 'From WordCamp Nagpur to Barcelona',
+    description: "2024 brought a session on humanizing AI content at WordCamp Nagpur and founding membership in the Content Writers' Symposium. 2025 brought my biggest milestone yet: keynoting the International Search Summit in Barcelona to 800+ global SEO professionals.",
     stats: [
-      { label: 'Stages', value: 'BrightonSEO · ISS' },
-      { label: 'Format', value: 'Keynotes & Workshops' },
-      { label: 'Reach', value: 'International' },
+      { label: '2024', value: 'WordCamp Nagpur' },
+      { label: '2024', value: "Content Writers' Symposium" },
+      { label: '2025', value: 'ISS Barcelona' },
     ],
     image: img2022,
     imagePosition: 'center',
   },
   {
-    year: '2024+',
-    label: 'The AI Search Era',
-    headline: 'Re-architecting for AI search',
-    description: "Now I focus on Generative Engine Optimization and Citation Architecture — making sure brands get found and cited inside AI Overviews and chat answers, not just blue links.",
+    year: '2026',
+    label: 'The AI Era, On Stage',
+    headline: 'Panels on AI, growth, and what comes next',
+    description: "This year I've spoken on AI's impact on marketing at WordCamp Asia, joined an AI panel at eChai Ventures' Ahmedabad Startup Day, and discussed the next decade of market leadership at Agile Network India.",
     stats: [
-      { label: 'Focus', value: 'GEO & Citations' },
-      { label: 'Era', value: 'AI-First Search' },
-      { label: 'Status', value: 'Ongoing' },
+      { label: 'WordCamp Asia', value: 'AI Panel' },
+      { label: 'eChai Ventures', value: 'AI Panel' },
+      { label: 'Agile Network India', value: 'Panel' },
     ],
     image: img2024,
     imagePosition: 'center 30%',
@@ -142,22 +142,22 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-br from-bg-alt/50 to-purple/5">
+    <section className="py-12 md:py-16 bg-gradient-to-br from-bg-alt/50 to-purple/5">
       <Container>
-        <div className="text-center mb-14 md:mb-16">
+        <div className="text-center mb-8 md:mb-10">
           <Reveal>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-4">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-orange mb-3">
               The Path So Far
             </p>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-5">
-              Sixteen years, one thread.
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-4">
+              Eight years, one thread.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-base text-secondary max-w-xl mx-auto">
-              From a blog and a curiosity problem to re-architecting how brands get found by AI. Six chapters, one throughline.
+              From RadixWeb to global stages — six chapters building Missive Digital and a career in search.
             </p>
           </Reveal>
         </div>

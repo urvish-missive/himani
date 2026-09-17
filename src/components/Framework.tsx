@@ -9,9 +9,9 @@ export default function Framework() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 bg-gradient-to-br from-bg to-purple/5 overflow-hidden">
+    <section className="py-12 md:py-16 bg-gradient-to-br from-bg to-purple/5 overflow-hidden">
       <Container>
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-10">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4">
               How I Think About Growth

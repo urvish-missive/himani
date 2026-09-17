@@ -28,7 +28,7 @@ export default function Expertise() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
 
   return (
-    <section id="expertise" className="py-24 md:py-32 lg:py-40 bg-gradient-to-br from-bg-alt/30 to-orange/5 overflow-hidden">
+    <section id="expertise" className="py-12 md:py-16 bg-gradient-to-br from-bg-alt/30 to-orange/5 overflow-hidden">
       <Container>
         <SectionHeader
           eyebrow="My Marketing Playground"

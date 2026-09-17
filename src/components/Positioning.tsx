@@ -17,10 +17,10 @@ export default function Positioning() {
   const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 bg-gradient-to-br from-bg-alt/50 to-purple/5 overflow-hidden">
+    <section className="py-12 md:py-16 bg-gradient-to-br from-bg-alt/50 to-purple/5 overflow-hidden">
       <Container>
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-8 md:mb-10">
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-primary mb-5">
               We don't chase algorithms.<br />

@@ -1,6 +1,7 @@
 export interface Article {
   id: number;
   category: string;
+  outlet: string;
   title: string;
   description: string;
   readTime: string;
@@ -11,77 +12,84 @@ export interface Article {
 export const articles: Article[] = [
   {
     id: 1,
-    category: "AI",
-    title: "The Citation Architecture Framework: Getting Cited by ChatGPT & Perplexity",
-    description: "Traditional ranking is no longer enough. Here is Missive Digital's 5-layer methodology (Claim, Evidence, Entity, Answer, Authority) to ensure your brand is cited by generative AI engines.",
+    category: "SEO",
+    outlet: "Search Engine Journal",
+    title: "11 Ways To Do SEO Content Research Beyond Competitor Analysis",
+    description: "Competitor analysis alone leaves gaps. Eleven research methods for finding content opportunities your competitors haven't already covered.",
     readTime: "8 min read",
-    date: "2026-02-10",
-    slug: "citation-architecture-framework-ai-search"
+    date: "2024-08-14",
+    slug: "seo-content-research-beyond-competitor-analysis"
   },
   {
     id: 2,
-    category: "SEO",
-    title: "Remarketing SEO: Turning Existing Search Footprints into Compounding Revenue",
-    description: "Why the fastest path to organic growth isn't publishing more articles, but re-architecting your existing search assets to capture qualified buyer intent and conversions.",
+    category: "Content",
+    outlet: "Search Engine Journal",
+    title: "Why Does A Content Strategy Fail?",
+    description: "Most content strategies don't fail from a lack of effort — they fail from a lack of structure. Here's what actually breaks them.",
     readTime: "7 min read",
-    date: "2026-01-20",
-    slug: "remarketing-seo-compounding-growth"
+    date: "2023-12-19",
+    slug: "why-does-a-content-strategy-fail"
   },
   {
     id: 3,
-    category: "SEO",
-    title: "Why SEO Is Becoming an Entity and Brand Discipline in the AI Era",
-    description: "Search engines and LLMs now map entities, author signals, and real-world brand authority. Why technical checklists must evolve into entity-first architecture.",
+    category: "Growth",
+    outlet: "Search Engine Journal",
+    title: "19 Email Marketing Mistakes Affecting Open, Click, Conversion Rates",
+    description: "A rundown of the mistakes quietly capping open rates, click-throughs, and conversions in most email programs.",
     readTime: "9 min read",
-    date: "2026-01-08",
-    slug: "seo-becoming-brand-discipline"
+    date: "2023-08-08",
+    slug: "email-marketing-mistakes"
   },
   {
     id: 4,
-    category: "AI",
-    title: "AI Overviews & Zero-Click Search: The Modern Organic Playbook",
-    description: "How generative search experiences and Answer Engine Optimization (AEO) are reshaping discovery — and how forward-thinking B2B brands stay visible.",
+    category: "SEO",
+    outlet: "Search Engine Journal",
+    title: "How To Optimize For Google Featured Snippets: A 12-Step Guide",
+    description: "A 12-step, practical guide to structuring content so it earns the featured snippet instead of just ranking below it.",
     readTime: "8 min read",
-    date: "2025-12-18",
-    slug: "ai-overviews-zero-click-search"
+    date: "2021-12-08",
+    slug: "optimize-for-featured-snippets"
   },
   {
     id: 5,
     category: "Content",
-    title: "Intent-First Content Strategy: Replacing Vanity Traffic with MQLs",
-    description: "A pragmatic blueprint for moving beyond high-volume content mills to high-affinity original perspectives that attract high-value enterprise buyers and drive pipeline.",
-    readTime: "6 min read",
-    date: "2025-12-05",
-    slug: "intent-first-content-strategy"
+    outlet: "Search Engine Journal",
+    title: "How To Fix 21 Content Creation Mistakes That Impact ROI",
+    description: "Twenty-one common content creation mistakes that quietly erode ROI — and how to fix each one.",
+    readTime: "9 min read",
+    date: "2021-11-15",
+    slug: "content-creation-mistakes-roi"
   },
   {
     id: 6,
-    category: "Personal Brand",
-    title: "Founder & Executive Thought Leadership in the Era of AI Content",
-    description: "When AI makes content infinitely abundant, genuine human perspective, lived practitioner experience, and E-E-A-T become the ultimate defensible moat.",
-    readTime: "7 min read",
-    date: "2025-11-22",
-    slug: "executive-visibility-ai-commoditization"
+    category: "Content",
+    outlet: "Search Engine Journal",
+    title: "13 Tips for Writing Product Descriptions That Convert",
+    description: "Practical, tested tips for writing product descriptions that do more than describe — they convert.",
+    readTime: "6 min read",
+    date: "2021-05-05",
+    slug: "product-descriptions-that-convert"
   },
   {
     id: 7,
-    category: "Leadership",
-    title: "How to Build Modern Organic Marketing Teams That Don't Burn Out",
-    description: "Designing high-leverage operating cadence, eliminating channel silos, and empowering marketing teams to build compounding organic distribution engines.",
-    readTime: "8 min read",
-    date: "2025-11-10",
-    slug: "marketing-teams-operating-cadence"
+    category: "Content",
+    outlet: "Martech Zone",
+    title: "The Ultimate Guide to Building a B2B Content Marketing Strategy",
+    description: "A complete framework for building a B2B content marketing strategy from the ground up — positioning, channels, and measurement included.",
+    readTime: "10 min read",
+    date: "2023-06-20",
+    slug: "b2b-content-marketing-strategy-guide"
   },
   {
     id: 8,
-    category: "SEO",
-    title: "Topic Clusters vs. Keyword Lists: Engineering Semantic Authority",
-    description: "Search engines understand interconnected topic models. Here is how to construct semantic cluster hubs that outrank massive legacy competitors.",
-    readTime: "6 min read",
-    date: "2025-10-28",
-    slug: "topic-clusters-semantic-topical-authority"
+    category: "Growth",
+    outlet: "StoryChief",
+    title: "15 ROI-Driven Growth Marketing Strategies",
+    description: "Fifteen growth marketing strategies chosen specifically for measurable ROI, not vanity metrics.",
+    readTime: "8 min read",
+    date: "2023-03-10",
+    slug: "roi-driven-growth-marketing-strategies"
   }
 ];
 
 export const contentCategories = ["All", "SEO", "AI", "Growth", "Content", "Leadership", "Personal Brand"];
-

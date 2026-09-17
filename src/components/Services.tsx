@@ -14,7 +14,7 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
   const Icon = serviceIcons[index];
 
   return (
-    <div ref={ref} className="min-h-[80vh] py-16 md:py-24 flex items-center">
+    <div ref={ref} className="min-h-[80vh] py-12 md:py-16 flex items-center">
       <div className="w-full">
         <Reveal>
           {/* Label */}
@@ -98,7 +98,7 @@ export default function Services() {
   return (
     <section id="services" className="bg-bg">
       <Container>
-        <div className="py-24 md:py-32">
+        <div className="py-12 md:py-16">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-purple mb-4">
               Ways to Work With Me
@@ -112,7 +112,7 @@ export default function Services() {
         </div>
 
         {/* Desktop: Sticky nav + panels */}
-        <div className="hidden lg:grid grid-cols-[200px_1fr] gap-16 pb-24">
+        <div className="hidden lg:grid grid-cols-[200px_1fr] gap-16 pb-16">
           {/* Sticky sidebar */}
           <div className="sticky top-32 h-fit">
             <div className="flex flex-col gap-1">

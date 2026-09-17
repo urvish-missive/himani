@@ -3,34 +3,34 @@ import Reveal from './ui/Reveal';
 
 const audiences = [
   {
-    title: "B2B SaaS & Tech Founders",
-    description: "Turn organic search into a predictable, inbound customer acquisition engine without endless ad spend."
+    title: "Fintech SaaS & Unicorn Tech",
+    description: "Build data-driven integrated marketing strategies to scale beyond 800% traffic growth and capture high-intent organic market share."
   },
   {
-    title: "CMOs & Marketing VPs",
-    description: "Re-architect channel silos, safeguard against AI search disruption, and scale compounding pipeline."
+    title: "B2B, IT, Telecom & Manufacturing",
+    description: "Transform complex solutions into research-oriented, search-intent-based, and value-driven content that achieves over 200% lead growth YoY."
   },
   {
-    title: "Growth & Inbound Teams",
-    description: "Upskill internal marketers with modern Citation Architecture, intent mapping, and execution playbooks."
+    title: "eCommerce & D2C Brands",
+    description: "Tap all relevant marketing and branding channels, scale organic reach, and engineer high-converting digital storefronts."
   },
   {
-    title: "E-Commerce & Enterprise Brands",
-    description: "Recover traffic penalties, eliminate keyword cannibalization, and architect high-converting commercial hubs."
+    title: "In-House Teams & Growth Leaders",
+    description: "Build, guide, and train internal marketing teams to operate autonomously with proven playbooks across SEO, social media, and content."
   },
   {
-    title: "Conference & Event Organizers",
-    description: "Bring high-energy, actionable, stage-tested keynotes on SEO, AI search, and modern organic growth."
+    title: "Global Conferences & Flagship Summits",
+    description: "Deliver high-impact keynotes, emcee flagship summits, and lead masterclasses on organic visibility and content strategy."
   }
 ];
 
 export default function WhoIWorkWith() {
   return (
-    <section className="pt-6 md:pt-10 lg:pt-12 pb-20 md:pb-28 lg:pb-36 bg-bg">
+    <section className="pt-8 md:pt-12 pb-12 md:pb-16 bg-bg">
       <Container>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-10 md:mb-12">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-primary mb-6 md:mb-8">
               I work best with…
             </h2>
           </Reveal>

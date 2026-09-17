@@ -12,7 +12,7 @@ export default function RecentEngagements() {
   const doubled = [...speakingEngagements, ...speakingEngagements];
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden text-white">
+    <section className="relative py-12 md:py-16 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden text-white">
       {/* Subtle ambient lighting */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple/15 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange/15 rounded-full blur-[160px] pointer-events-none" />
@@ -25,7 +25,7 @@ export default function RecentEngagements() {
         }}
       />
 
-      <Container className="relative z-10 mb-8 md:mb-12">
+      <Container className="relative z-10 mb-6 md:mb-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <Reveal>
@@ -45,8 +45,8 @@ export default function RecentEngagements() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-3 text-sm sm:text-base text-white/65 leading-relaxed">
-                Featured speaker and masterclass leader at the world’s leading organic search summits — delivering
-                tactical playbooks on Generative Engine Optimization, Intent-First Content, and Search Re-Architecture.
+                Keynote speaker and panelist across premier global &amp; national search summits — including the
+                International Search Summit (Barcelona), WordCamp Asia, Agile Network India, eChai Ventures, and BrightonSEO.
               </p>
             </Reveal>
           </div>
@@ -77,15 +77,15 @@ export default function RecentEngagements() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: (i % speakingEngagements.length) * 0.08 }}
-              className="w-72 flex-shrink-0 p-6 rounded-xl border border-white/10 bg-dark-card/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-dark-card hover:border-purple/30 transition-colors duration-300"
+              className="w-80 flex-shrink-0 p-6 rounded-xl border border-white/10 bg-dark-card/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-dark-card hover:border-purple/30 transition-colors duration-300"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-semibold text-orange">{engagement.year}</span>
-                <span className="text-xs text-white/30">{engagement.country}</span>
+                <span className="text-xs font-semibold text-orange tracking-wide">{engagement.year}</span>
+                <span className="text-xs text-white/40">{engagement.country}</span>
               </div>
-              <h3 className="text-sm font-semibold text-white mb-1">{engagement.conference}</h3>
-              <p className="text-xs text-white/40 mb-3">{engagement.location}</p>
-              <div className="inline-block text-[10px] font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-purple/20 to-orange/20 text-white/70 border border-white/10">
+              <h3 className="text-sm font-semibold text-white mb-1 leading-snug">{engagement.conference}</h3>
+              <p className="text-xs text-white/50 mb-3">{engagement.location}</p>
+              <div className="inline-block text-[10px] font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-purple/20 to-orange/20 text-white/80 border border-white/10 line-clamp-1" title={engagement.topic}>
                 {engagement.topic}
               </div>
             </motion.div>

@@ -62,7 +62,7 @@ export default function Insights() {
   }, [isPaused, filteredArticles.length]);
 
   return (
-    <section id="insights" className="pt-20 md:pt-28 lg:pt-36 pb-8 md:pb-12 lg:pb-14 bg-bg overflow-hidden">
+    <section id="insights" className="pt-12 md:pt-16 pb-8 md:pb-12 bg-bg overflow-hidden">
       <Container>
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
@@ -175,14 +175,13 @@ export default function Insights() {
                 </div>
 
                 {/* Bottom Meta Row - Always aligned at bottom across all cards */}
-                <div className="pt-4 border-t border-purple/10 flex items-center justify-between mt-auto">
+                <div className="pt-4 border-t border-purple/10 flex items-center justify-between gap-2 mt-auto">
                   <span className="text-xs font-medium text-secondary/60">
                     {article.readTime}
                   </span>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:text-purple transition-colors">
-                    <span>Read Article</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-secondary/40 group-hover:text-purple group-hover:translate-x-1 transition-all duration-300" />
-                  </div>
+                  <span className="text-xs font-semibold text-primary group-hover:text-purple transition-colors text-right">
+                    {article.outlet}
+                  </span>
                 </div>
               </article>
             </div>

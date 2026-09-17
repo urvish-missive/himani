@@ -96,14 +96,14 @@ export default function OneOnOneCoaching() {
   const [selectedTrack, setSelectedTrack] = useState('mentorship');
 
   return (
-    <section id="coaching" className="relative py-20 md:py-28 lg:py-36 bg-gradient-to-b from-bg via-purple/5 to-bg overflow-hidden">
+    <section id="coaching" className="relative py-12 md:py-16 bg-gradient-to-b from-bg via-purple/5 to-bg overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-purple/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-orange/10 rounded-full blur-[140px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
           <Reveal>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/10 border border-purple/20 backdrop-blur-sm mb-4">
               <Sparkles className="w-3.5 h-3.5 text-purple" />

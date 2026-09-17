@@ -46,42 +46,56 @@ export default function Hero() {
             {/* Pill Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple/5 border border-purple/20 backdrop-blur-sm mb-5 shadow-xs">
               <span className="!min-w-2 h-2 rounded-full bg-gradient-to-r from-purple to-orange animate-pulse" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-purple">
-                Founder, Missive Digital · Organic Strategist · Speaker · Consultant
+              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.14em] uppercase text-purple">
+                Founder, Missive Digital · Growth Marketing Strategist · International Speaker
               </span>
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-primary mb-4"
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-primary mb-3"
             >
               Himani Kankaria
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.25rem] leading-[1.18] text-primary/85 mb-5 max-w-2xl mx-auto lg:mx-0"
+              className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-[2rem] leading-[1.25] text-primary/90 mb-4 max-w-2xl mx-auto lg:mx-0"
             >
-              Helping brands re-architect organic growth in an AI-first world.
+              Growth Marketing Strategist &amp; Content Strategy Consulting.
             </motion.p>
+
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-5"
+            >
+              {['Telecom', 'Fintech SaaS (Unicorns)', 'B2B', 'eCommerce', 'Manufacturing'].map((industry) => (
+                <span
+                  key={industry}
+                  className="text-xs font-medium px-2.5 py-1 rounded-md bg-purple/5 border border-purple/15 text-purple/80"
+                >
+                  {industry}
+                </span>
+              ))}
+            </motion.div>
 
             <motion.p
               variants={itemVariants}
               className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 mb-7"
             >
-              Led by Himani Kankaria, Missive Digital works with ambitious B2B SaaS, tech brands, and marketing leaders to turn SEO, content architecture, and AI search into compounding growth engines.
+              Founder of <span className="font-semibold text-primary">Missive Digital</span>. Helping businesses build data-driven integrated and channel-specific marketing strategies to achieve <span className="font-semibold gradient-text">over 800% growth in website traffic</span> and <span className="font-semibold gradient-text">200% growth in leads YoY</span>.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
               <CTAButton variant="primary" size="lg" target="_blank" rel="noopener noreferrer">Work With Me</CTAButton>
-              <CTAButton variant="secondary" size="lg" href="#services">Explore My Work</CTAButton>
+              <CTAButton variant="secondary" size="lg" href="#services">Explore Services</CTAButton>
             </motion.div>
 
             <motion.p
               variants={itemVariants}
               className="text-xs text-secondary/60 tracking-wide"
             >
-              Organic Growth Consulting · 1:1 Executive Mentorship · Corporate Training · Global Keynotes
+              Marketing Consulting · Content Strategy · SEO · Social Media &amp; Email Marketing · Strategic Planning
             </motion.p>
           </motion.div>
 
