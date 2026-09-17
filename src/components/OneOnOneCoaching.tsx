@@ -128,7 +128,7 @@ export default function OneOnOneCoaching() {
         </div>
 
         {/* Feature Row: Profile & Value Props */}
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 lg:gap-14 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 lg:gap-14 items-center">
           {/* Coach Portrait Card */}
           <Reveal delay={0.2}>
             <div className="relative mx-auto lg:mx-0 max-w-[340px] lg:max-w-none">
@@ -210,8 +210,6 @@ export default function OneOnOneCoaching() {
             </Reveal>
           </div>
         </div>
-
-    
       </Container>
     </section>
   );

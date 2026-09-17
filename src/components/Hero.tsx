@@ -28,7 +28,7 @@ const itemVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden pt-16 sm:pt-32 md:pt-28 pb-8 md:pb-12">
+    <section className="relative min-h-[90vh] flex flex-col justify-between overflow-hidden pt-20 md:pt-24 pb-8 md:pb-12">
       {/* Background with soft ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple/5 via-bg to-orange/5" />
       <div className="absolute top-16 right-10 md:right-20 w-64 md:w-80 h-64 md:h-80 bg-purple/10 rounded-full blur-[90px] md:blur-[120px] pointer-events-none" />

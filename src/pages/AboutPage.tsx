@@ -36,7 +36,7 @@ export default function AboutPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
+      <section className="py-24 md:py-28 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
             <Reveal delay={0.15} direction="left" className="order-1 lg:order-2">

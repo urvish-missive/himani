@@ -19,7 +19,7 @@ export default function PodcastPage() {
   return (
     <main>
       {/* Hero: text left, video right */}
-      <section className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
+      <section className="py-24 md:py-28 bg-gradient-to-br from-bg-alt/40 to-purple/5 overflow-hidden">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="flex flex-col">
