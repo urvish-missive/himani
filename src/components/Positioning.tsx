@@ -5,11 +5,11 @@ import Reveal from './ui/Reveal';
 import positioningImg from '../images/himani.jpg';
 
 const frameworkSteps = [
-  { label: 'INTENT', color: '#7C3AED', desc: 'Map true buyer commercial journeys' },
-  { label: 'STRUCTURE', color: '#8B5CF6', desc: 'Engineer entity schema & technical health' },
-  { label: 'CITATIONS', color: '#A78BFA', desc: 'Secure mentions across AI & traditional search' },
-  { label: 'CONVERSION', color: '#F97316', desc: 'Turn organic visits into MQLs and pipeline' },
-  { label: 'COMPOUNDING', color: '#FB923C', desc: 'Scale sustainable category authority' },
+  { label: 'INTENT', color: 'var(--color-purple)', desc: 'Map true buyer commercial journeys' },
+  { label: 'STRUCTURE', color: 'var(--color-purple-light)', desc: 'Engineer entity schema & technical health' },
+  { label: 'CITATIONS', color: 'var(--color-accent)', desc: 'Secure mentions across AI & traditional search' },
+  { label: 'CONVERSION', color: 'var(--color-orange)', desc: 'Turn organic visits into MQLs and pipeline' },
+  { label: 'COMPOUNDING', color: 'var(--color-orange-light)', desc: 'Scale sustainable category authority' },
 ];
 
 export default function Positioning() {

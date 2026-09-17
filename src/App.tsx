@@ -3,6 +3,7 @@ import Layout from './layout/Layout';
 import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
 import PodcastPage from './pages/PodcastPage';
+import ServicePage from './pages/ServicePage';
 
 export default function App() {
   return (
@@ -12,6 +13,10 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/podcast" element={<PodcastPage />} />
+          <Route path="/consulting" element={<ServicePage serviceId="consulting" />} />
+          <Route path="/coaching" element={<ServicePage serviceId="coaching" />} />
+          <Route path="/training" element={<ServicePage serviceId="training" />} />
+          <Route path="/speaking" element={<ServicePage serviceId="speaking" />} />
         </Route>
       </Routes>
     </BrowserRouter>

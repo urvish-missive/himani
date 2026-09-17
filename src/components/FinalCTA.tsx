@@ -10,7 +10,7 @@ export default function FinalCTA() {
       <motion.div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--color-purple) 0%, transparent 70%)',
         }}
         animate={{
           scale: [1, 1.2, 1],
@@ -25,7 +25,7 @@ export default function FinalCTA() {
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, #F97316 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--color-orange) 0%, transparent 70%)',
         }}
         animate={{
           scale: [1.2, 1, 1.2],

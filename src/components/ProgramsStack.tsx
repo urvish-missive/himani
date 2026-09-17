@@ -10,7 +10,7 @@ const anchors: Record<string, string> = {
   speaking: '#speaking-overview',
 };
 
-const glowColors = ['#7C3AED', '#F97316', '#7C3AED', '#F97316'];
+const glowColors = ['var(--color-purple)', 'var(--color-orange)', 'var(--color-purple)', 'var(--color-orange)'];
 
 export default function ProgramsStack() {
   return (

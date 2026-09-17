@@ -2,20 +2,20 @@
 
 @theme {
   --color-primary: #1A1028;
-  --color-secondary: #6B5B7B;
-  --color-border: #E8E0F0;
-  --color-accent: #7C3AED;
-  --color-accent-hover: #6D28D9;
-  --color-orange: #F97316;
-  --color-orange-light: #FDBA74;
-  --color-purple: #7C3AED;
-  --color-purple-light: #A78BFA;
-  --color-gradient-start: #7C3AED;
-  --color-gradient-end: #F97316;
-  --color-bg: #FDFBFF;
-  --color-bg-alt: #F5F0FF;
-  --color-dark: #1A1028;
-  --color-dark-card: #2D1F3D;
+  --color-secondary: #5A4E6D;
+  --color-border: #EAE5F5;
+  --color-accent: #7026ED;
+  --color-accent-hover: #5B1EC7;
+  --color-orange: #ED6C26;
+  --color-orange-light: #F2994A;
+  --color-purple: #7026ED;
+  --color-purple-light: #9B51E0;
+  --color-gradient-start: #7026ED;
+  --color-gradient-end: #ED6C26;
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #FAF8FD;
+  --color-dark: #120824;
+  --color-dark-card: #1C1035;
 
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: 'DM Serif Display', ui-serif, Georgia, serif;
@@ -42,11 +42,6 @@ body {
 main {
   overflow-x: clip;
   width: 100%;
-}
-
-::selection {
-  background: linear-gradient(135deg, var(--color-purple), var(--color-orange));
-  color: white;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,11 +101,11 @@ main {
 
 /* Glow effect */
 .glow-purple {
-  box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+  box-shadow: 0 0 30px rgba(2, 132, 199, 0.16);
 }
 
 .glow-orange {
-  box-shadow: 0 0 30px rgba(249, 115, 22, 0.15);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
 }
 
 /* Image frame styles */
@@ -151,6 +146,11 @@ main {
 /* Infinite horizontal marquee */
 .marquee-track {
   animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track:hover,
+.marquee-fade:hover .marquee-track {
+  animation-play-state: paused !important;
 }
 
 @keyframes marquee-scroll {

@@ -3,15 +3,12 @@ import { motion, useInView } from 'framer-motion';
 import Container from './ui/Container';
 import Reveal from './ui/Reveal';
 import CTAButton from './ui/CTAButton';
-import { speakingEngagements, speakingTestimonial } from '../data/speaking';
+import { speakingTestimonial } from '../data/speaking';
 import { Quote } from 'lucide-react';
 import stagePhoto from '../images/hiimanisasspeaker.jpg';
 import speakerThumb from '../images/himanispeaker.jpg';
 
 export default function ConferenceShowcase() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-30px 0px" });
-  const doubled = [...speakingEngagements, ...speakingEngagements];
 
   return (
     <section id="speaking" className="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-dark via-dark-card to-dark overflow-hidden">
@@ -66,34 +63,7 @@ export default function ConferenceShowcase() {
           </div>
         </Reveal>
 
-        {/* Marquee */}
-        <div ref={ref}>
-          <p className="text-xs text-white/40 tracking-wider uppercase mb-5">Recent Engagements</p>
 
-          <div className="relative group/marquee overflow-hidden marquee-fade py-2">
-            <div className="flex w-max gap-4 marquee-track group-hover/marquee:[animation-play-state:paused]">
-              {doubled.map((engagement, i) => (
-                <motion.div
-                  key={`${engagement.id}-${i}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: (i % speakingEngagements.length) * 0.08 }}
-                  className="w-72 flex-shrink-0 p-6 rounded-xl border border-white/10 bg-dark-card/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:bg-dark-card hover:border-purple/30 transition-colors duration-300"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-semibold text-orange">{engagement.year}</span>
-                    <span className="text-xs text-white/30">{engagement.country}</span>
-                  </div>
-                  <h3 className="text-sm font-semibold text-white mb-1">{engagement.conference}</h3>
-                  <p className="text-xs text-white/40 mb-3">{engagement.location}</p>
-                  <div className="inline-block text-[10px] font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-purple/20 to-orange/20 text-white/70 border border-white/10">
-                    {engagement.topic}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
 
         {/* Testimonial */}
         <Reveal delay={0.3}>

@@ -11,25 +11,25 @@ const steps = [
     icon: Search,
     title: 'Discover',
     description: 'Deep-dive audit into brand entities, search intent, competitors, and technical crawl health.',
-    color: '#7C3AED',
+    color: 'var(--color-purple)',
   },
   {
     icon: Lightbulb,
     title: 'Re-Architect',
     description: 'Design custom Citation Architecture, semantic topic clusters, and commercial intent frameworks.',
-    color: '#A78BFA',
+    color: 'var(--color-purple-light)',
   },
   {
     icon: Rocket,
     title: 'Deploy',
     description: 'Implement with your team using hands-on workshops, custom AI workflows, and structured schema.',
-    color: '#F97316',
+    color: 'var(--color-orange)',
   },
   {
     icon: BarChart3,
     title: 'Compound',
     description: 'Track conversion metrics, scale authoritative citations, and compound organic pipeline ROI.',
-    color: '#FB923C',
+    color: 'var(--color-orange-light)',
   },
 ];
 

@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Volume2, VolumeX, Sparkles, ExternalLink, Play } from 'lucide-react';
 import Container from './ui/Container';
 import Reveal from './ui/Reveal';
+import { Play, Volume2, VolumeX, ChevronLeft, ChevronRight, Sparkles, ExternalLink } from 'lucide-react';
 
 interface Reel {
   id: string;
@@ -59,8 +58,8 @@ export default function ShortsReels() {
   const checkScroll = useCallback(() => {
     if (!carouselRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-    setCanScrollLeft(scrollLeft > 20);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
   }, []);
 
   // Detect which reel is centered as user scrolls
@@ -110,9 +109,14 @@ export default function ShortsReels() {
   const selectReel = (id: string) => {
     setActiveVideoId(id);
     if (!carouselRef.current) return;
-    const card = carouselRef.current.querySelector<HTMLElement>(`[data-reel-id="${id}"]`);
-    if (card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const container = carouselRef.current;
+    if (id === SHORTS_VIDEOS[0].id) {
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      const card = container.querySelector<HTMLElement>(`[data-reel-id="${id}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     }
   };
 
@@ -192,11 +196,11 @@ export default function ShortsReels() {
           </div>
         </div>
 
-        {/* Carousel Container */}
+        {/* Carousel Container with horizontal padding so the first video card is never clipped */}
         <div
           ref={carouselRef}
           onScroll={handleScroll}
-          className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing"
+          className="flex gap-4 sm:gap-6 overflow-x-auto py-4 px-2 sm:px-4 md:px-6 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing scroll-px-2 sm:scroll-px-4 md:scroll-px-6"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {SHORTS_VIDEOS.map((reel, index) => {
@@ -207,10 +211,10 @@ export default function ShortsReels() {
                 key={reel.id}
                 data-reel-id={reel.id}
                 onClick={() => selectReel(reel.id)}
-                className={`group relative shrink-0 w-[260px] sm:w-[290px] h-[460px] sm:h-[515px] rounded-3xl overflow-hidden snap-center transition-all duration-300 border cursor-pointer ${
+                className={`group relative shrink-0 w-[260px] sm:w-[285px] md:w-[300px] h-[460px] sm:h-[500px] md:h-[525px] rounded-2xl overflow-hidden snap-start transition-all duration-300 border cursor-pointer ${
                   isActive
-                    ? 'ring-2 ring-orange/80 border-orange/40 shadow-2xl shadow-purple/30 scale-[1.02]'
-                    : 'border-white/10 opacity-80 hover:opacity-100 hover:scale-[1.01]'
+                    ? 'ring-2 ring-orange/90 border-orange/50 shadow-xl shadow-purple/25'
+                    : 'border-white/10 opacity-80 hover:opacity-100 hover:border-white/30'
                 }`}
               >
                 {/* Active Embed or Optimized Poster Thumbnail */}
@@ -220,14 +224,17 @@ export default function ShortsReels() {
                     src={`https://www.youtube-nocookie.com/embed/${reel.id}?autoplay=1&mute=${
                       isMuted ? 1 : 0
                     }&controls=1&loop=1&playlist=${reel.id}&playsinline=1&rel=0&modestbranding=1&enablejsapi=1`}
-                    className="w-full h-full object-cover border-0"
+                    className="w-full h-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   />
                 ) : (
                   <div className="relative w-full h-full bg-dark">
                     <img
-                      src={`https://i.ytimg.com/vi/${reel.id}/hqdefault.jpg`}
+                      src={`https://i.ytimg.com/vi/${reel.id}/oar2.jpg`}
+                      onError={(e) => {
+                        e.currentTarget.src = `https://i.ytimg.com/vi/${reel.id}/hqdefault.jpg`;
+                      }}
                       alt={reel.title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -244,37 +251,56 @@ export default function ShortsReels() {
                 )}
 
                 {/* Card Top Overlay Header */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
-                  <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-semibold tracking-wider uppercase text-white/90">
+                <div
+                  className={`absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10 transition-opacity duration-300 ${
+                    isActive ? 'opacity-85' : 'opacity-100'
+                  }`}
+                >
+                  <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[10px] font-semibold tracking-wider uppercase text-white/90">
                     {reel.tag}
                   </span>
-                  <span className="text-[11px] font-mono text-white/70 bg-black/50 px-2 py-0.5 rounded-md backdrop-blur-md">
+                  <span className="text-[11px] font-mono text-white/70 bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-md">
                     {String(index + 1).padStart(2, '0')} / {SHORTS_VIDEOS.length}
                   </span>
                 </div>
 
-                {/* Card Bottom Overlay Details */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent pointer-events-none z-10">
-                  <p className="text-sm font-semibold text-white line-clamp-2 leading-snug drop-shadow-sm mb-2">
-                    {reel.title}
-                  </p>
+                {/* Card Bottom Overlay Details: Unobtrusive when active so it does not cut video captions */}
+                {!isActive ? (
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent pointer-events-none z-10">
+                    <p className="text-sm font-semibold text-white line-clamp-2 leading-snug drop-shadow-sm mb-2">
+                      {reel.title}
+                    </p>
 
-                  <div className="flex items-center justify-between pointer-events-auto pt-1 border-t border-white/10">
-                    <span className="text-[11px] text-white/60">
-                      {isActive ? '▶ Playing now' : 'Tap to play'}
-                    </span>
+                    <div className="flex items-center justify-between pointer-events-auto pt-1 border-t border-white/10">
+                      <span className="text-[11px] text-white/70 flex items-center gap-1.5">
+                        <Play className="w-3 h-3 fill-white/80" /> Tap to play
+                      </span>
+                      <a
+                        href={`https://www.youtube.com/shorts/${reel.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[11px] font-medium text-orange-light hover:text-white flex items-center gap-1 transition-colors"
+                      >
+                        <span>YouTube</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="absolute bottom-3 right-3 pointer-events-auto z-10">
                     <a
                       href={`https://www.youtube.com/shorts/${reel.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="text-[11px] font-medium text-orange-light hover:text-white flex items-center gap-1 transition-colors"
+                      className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[10px] font-medium text-white/90 hover:text-white flex items-center gap-1 transition-colors shadow-md"
                     >
                       <span>YouTube</span>
-                      <ExternalLink className="w-3 h-3" />
+                      <ExternalLink className="w-2.5 h-2.5" />
                     </a>
                   </div>
-                </div>
+                )}
               </div>
             );
           })}

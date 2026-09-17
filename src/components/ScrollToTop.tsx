@@ -49,11 +49,11 @@ export default function ScrollToTop() {
           >
             <defs>
               <linearGradient id="top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#7C3AED" />
-                <stop offset="100%" stopColor="#F97316" />
+                <stop offset="0%" stopColor="var(--color-purple)" />
+                <stop offset="100%" stopColor="var(--color-orange)" />
               </linearGradient>
             </defs>
-            <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(124,58,237,0.15)" strokeWidth="3" />
+            <circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--color-purple)" strokeOpacity="0.2" strokeWidth="3" />
             <motion.circle
               cx="18"
               cy="18"

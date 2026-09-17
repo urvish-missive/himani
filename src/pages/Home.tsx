@@ -1,6 +1,6 @@
 import Hero from '../components/Hero';
 import AuthorityBar from '../components/AuthorityBar';
-import AnimatedQuote from '../components/AnimatedQuote';
+import RecentEngagements from '../components/RecentEngagements';
 import Positioning from '../components/Positioning';
 import ProgramsStack from '../components/ProgramsStack';
 import ServicesSplit from '../components/ServicesSplit';
@@ -22,20 +22,20 @@ export default function Home() {
     <main>
       <Hero />
       <AuthorityBar />
-      <AnimatedQuote />
+      <RecentEngagements />
       <Positioning />
       <ProgramsStack />
-      <ServicesSplit />
-      <AnimatedStats />
-      <Expertise />
-      <Framework />
+      {/* <ServicesSplit /> */}
+      {/* <AnimatedStats /> */}
+      {/* <Expertise /> */}
+      {/* <Framework /> */}
       <ConferenceShowcase />
       <OneOnOneCoaching />
       <TrainingShowcase />
-      <CoachingTransformation />
+      {/* <CoachingTransformation /> */}
       <Testimonials />
       <ShortsReels />
-      <Insights />
+      {/* <Insights /> */}
       <WhoIWorkWith />
       <FinalCTA />
     </main>
