@@ -103,7 +103,51 @@ export default function Chatbot() {
     };
   }, []);
 
-  // Text-to-speech speaker function
+function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return null;
+
+  // 1. Specifically match Indian English female voice names (Neerja, Heera, Veena, Kavya, Lekha, Swara)
+  const indianFemaleNames = ['neerja', 'heera', 'veena', 'kavya', 'lekha', 'swara', 'priya', 'anjali'];
+  const matchedIndianFemale = voices.find((v) => {
+    const name = v.name.toLowerCase();
+    const lang = (v.lang || '').toLowerCase().replace('_', '-');
+    const isIndian = lang.includes('en-in') || lang.includes('hi-in') || name.includes('india');
+    return isIndian && (indianFemaleNames.some((n) => name.includes(n)) || name.includes('female'));
+  });
+  if (matchedIndianFemale) return matchedIndianFemale;
+
+  // 2. Any voice specifically configured for English (India)
+  const indianVoice = voices.find((v) => {
+    const lang = (v.lang || '').toLowerCase().replace('_', '-');
+    return lang === 'en-in' || lang.startsWith('en-in') || v.name.toLowerCase().includes('india');
+  });
+  if (indianVoice) return indianVoice;
+
+  // 3. Natural English female voice fallback
+  const femaleFallbacks = ['zira', 'samantha', 'victoria', 'karen', 'moira', 'female'];
+  const englishFemale = voices.find((v) => {
+    const name = v.name.toLowerCase();
+    const lang = (v.lang || '').toLowerCase();
+    return lang.startsWith('en') && femaleFallbacks.some((f) => name.includes(f));
+  });
+  if (englishFemale) return englishFemale;
+
+  return voices.find((v) => (v.lang || '').toLowerCase().startsWith('en')) || voices[0] || null;
+}
+
+  // Pre-load voices on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }, []);
+
+  // Text-to-speech speaker function (Female Indian Voice)
   const speakText = (text: string) => {
     if (!soundEnabled || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
@@ -111,8 +155,18 @@ export default function Chatbot() {
     // Strip markdown formatting for cleaner speech output
     const cleanText = text.replace(/[*_#`]/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(cleanText);
+
+    const voice = getIndianFemaleVoice();
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang || 'en-IN';
+    } else {
+      utterance.lang = 'en-IN';
+    }
+
+    // Natural, warm conversational pitch for female voice
+    utterance.pitch = 1.12;
     utterance.rate = 1.0;
-    utterance.pitch = 1.0;
 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
@@ -121,7 +175,7 @@ export default function Chatbot() {
     window.speechSynthesis.speak(utterance);
   };
 
-  // Toggle voice speech recognition
+  // Toggle voice speech recognition (en-IN)
   const toggleListening = () => {
     if (typeof window === 'undefined') return;
     const SpeechRecognition =
@@ -146,7 +200,7 @@ export default function Chatbot() {
 
     try {
       const recognition = new SpeechRecognition();
-      recognition.lang = 'en-US';
+      recognition.lang = 'en-IN';
       recognition.continuous = false;
       recognition.interimResults = false;
 

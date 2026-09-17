@@ -12,6 +12,7 @@ import TrainingShowcase from '../components/TrainingShowcase';
 import OneOnOneCoaching from '../components/OneOnOneCoaching';
 import CoachingTransformation from '../components/CoachingTransformation';
 import Testimonials from '../components/Testimonials';
+import ShortsReels from '../components/ShortsReels';
 import Insights from '../components/Insights';
 import WhoIWorkWith from '../components/WhoIWorkWith';
 import FinalCTA from '../components/FinalCTA';
@@ -33,6 +34,7 @@ export default function Home() {
       <TrainingShowcase />
       <CoachingTransformation />
       <Testimonials />
+      <ShortsReels />
       <Insights />
       <WhoIWorkWith />
       <FinalCTA />
