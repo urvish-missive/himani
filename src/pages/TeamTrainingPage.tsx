@@ -141,7 +141,7 @@ export default function TeamTrainingPage() {
     <div>
       {/* 1 HERO */}
       <section className="pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-14 lg:pb-20 bg-gradient-to-b from-lav to-paper border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-14 items-center">
             <motion.div
               {...enter('clipUp')}
@@ -216,8 +216,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 2 TRAINING BUILDER */}
-      <section id="build" className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section id="build" className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('curtain')}
             className="max-w-2xl mb-12"
@@ -345,8 +345,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 3 FORMATS */}
-      <section className="py-24 bg-paper-2 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('skewLeft')}
             className="max-w-2xl mb-14"
@@ -457,8 +457,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 4 HOW EVERY TRAINING WORKS */}
-      <section className="py-24 bg-lav border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-lav border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('clipUp')}
             className="max-w-2xl mb-12"
@@ -519,8 +519,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 5 BEFORE AFTER */}
-      <section className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('blurLeft')}
             className="max-w-2xl mb-12"
@@ -584,8 +584,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 6 PROOF */}
-      <section className="py-24 bg-paper-2 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('zoomBlur')}
             className="max-w-2xl mb-12"
@@ -640,8 +640,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 7 ABOUT HIMANI */}
-      <section className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 items-center">
             <motion.div
               {...reveal('zoomBlur')}
@@ -688,8 +688,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* REAL-LIFE PROOF GALLERY */}
-      <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule" id="gallery">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-3">
             <CrownIcon className="w-5 h-5 text-gold" />
             <span>From the training room</span>
@@ -752,8 +752,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 8 FAQ */}
-      <section className="py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] gap-12 lg:gap-16 items-start">
             {/* Left: Section Header & Context */}
             <motion.div
@@ -835,8 +835,8 @@ export default function TeamTrainingPage() {
       </section>
 
       {/* 9 APPLY */}
-      <section id="apply" className="py-24 bg-paper-2">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section id="apply" className="py-14 sm:py-18 lg:py-24 bg-paper-2">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
             <motion.div
               {...reveal('curtain')}

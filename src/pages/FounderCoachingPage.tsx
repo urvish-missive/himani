@@ -114,7 +114,7 @@ export default function FounderCoachingPage() {
     <div>
       {/* 1 HERO */}
       <section className="pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-14 lg:pb-20 bg-gradient-to-b from-lav to-paper border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-14 items-center">
             <motion.div
               {...enter('clipUp')}
@@ -189,8 +189,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 2 TOPICS INTERACTIVE SELECTOR */}
-      <section id="topics" className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section id="topics" className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('skewLeft')}
             className="max-w-3xl mb-12"
@@ -275,8 +275,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 3 FIT */}
-      <section className="py-24 bg-paper-2 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('zoomBlur')}
             className="text-center max-w-2xl mx-auto mb-14"
@@ -357,8 +357,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 4 FORMATS */}
-      <section className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('curtain')}
             className="max-w-2xl mb-14"
@@ -465,8 +465,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 5 HOW COACHING STARTS */}
-      <section className="py-24 bg-lav border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-lav border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('blurLeft')}
             className="max-w-2xl mb-12"
@@ -527,8 +527,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 6 OUTCOMES */}
-      <section className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('clipUp')}
             className="max-w-2xl mb-12"
@@ -564,8 +564,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 7 PROOF */}
-      <section className="py-24 bg-paper-2 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('riseScale')}
             className="max-w-2xl mb-12"
@@ -620,8 +620,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 8 ABOUT HIMANI */}
-      <section className="py-24 border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 border-b border-rule">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 items-center">
             <motion.div
               {...reveal('zoomBlur')}
@@ -668,8 +668,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* REAL-LIFE PROOF GALLERY */}
-      <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2 border-b border-rule" id="gallery">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-3">
             <CrownIcon className="w-5 h-5 text-gold" />
             <span>From coaching sessions</span>
@@ -728,8 +728,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 9 FAQ */}
-      <section className="py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] gap-12 lg:gap-16 items-start">
             {/* Left: Section Header & Context */}
             <motion.div
@@ -811,8 +811,8 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* 10 APPLY */}
-      <section id="apply" className="py-24 bg-paper-2">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section id="apply" className="py-14 sm:py-18 lg:py-24 bg-paper-2">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
             <motion.div
               {...reveal('clipUp')}

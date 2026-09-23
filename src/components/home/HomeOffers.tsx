@@ -22,8 +22,8 @@ export default function HomeOffers() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper" id="offers">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper" id="offers">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Header — blurs in from center */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
@@ -43,7 +43,7 @@ export default function HomeOffers() {
         </motion.div>
 
         {/* 2 Offer Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mt-12 lg:mt-14 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 mt-8 sm:mt-12 items-stretch">
           {/* Card 1: 1-on-1 Founder Coaching — slides in from left */}
           <motion.article
             id="coaching"
@@ -51,7 +51,7 @@ export default function HomeOffers() {
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-[24px] p-8 sm:p-9 bg-paper-2 border border-rule flex flex-col justify-between card-hover"
+            className="rounded-[24px] p-6 sm:p-8 lg:p-9 bg-paper-2 border border-rule flex flex-col justify-between card-hover"
           >
             <div>
               <div className="font-display font-semibold text-muted text-[0.95rem]">
@@ -91,11 +91,11 @@ export default function HomeOffers() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mt-8 pt-4">
-              <a href="#hire" className="btn solid">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-8 pt-4">
+              <a href="#hire" className="btn solid text-center justify-center w-full sm:w-auto">
                 Apply for coaching
               </a>
-              <Link to="/founder-coaching" className="btn ghost">
+              <Link to="/founder-coaching" className="btn ghost text-center justify-center w-full sm:w-auto">
                 See how coaching works
               </Link>
             </div>
@@ -108,7 +108,7 @@ export default function HomeOffers() {
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-[24px] p-8 sm:p-9 bg-card border-2 border-ink flex flex-col justify-between shadow-xs card-hover"
+            className="rounded-[24px] p-6 sm:p-8 lg:p-9 bg-card border-2 border-ink flex flex-col justify-between shadow-xs card-hover"
           >
             <div>
               <div className="font-display font-semibold text-muted text-[0.95rem]">
@@ -215,11 +215,11 @@ export default function HomeOffers() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mt-8 pt-4">
-              <a href="#hire" className="btn solid">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-8 pt-4">
+              <a href="#hire" className="btn solid text-center justify-center w-full sm:w-auto">
                 Plan a training
               </a>
-              <Link to="/team-training" className="btn ghost">
+              <Link to="/team-training" className="btn ghost text-center justify-center w-full sm:w-auto">
                 See training details
               </Link>
             </div>

@@ -38,7 +38,7 @@ export default function BlogPage() {
   return (
     <main className="bg-paper">
       <section className="pt-10 pb-12 sm:pt-14 sm:pb-16 bg-gradient-to-b from-lav to-paper border-b border-rule">
-        <div className="max-w-[1160px] mx-auto px-6">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div {...enter('clipUp')}>
             <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-4">
               <CrownIcon className="w-5 h-5 text-gold" />
@@ -75,7 +75,7 @@ export default function BlogPage() {
       </section>
 
       <section className="py-12 sm:py-16">
-        <div className="max-w-[1160px] mx-auto px-6">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           {isLoading ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
               {[0, 1, 2].map((i) => (

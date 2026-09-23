@@ -89,9 +89,9 @@ export default function HomeHire() {
   };
 
   return (
-    <section className="py-24 lg:py-28 bg-paper-2" id="hire">
-      <div className="max-w-[1160px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-12 lg:gap-16 items-start">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper-2" id="hire">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 lg:gap-16 items-start">
           {/* Left Intro Column — clips in from above */}
           <motion.div
             initial={{ opacity: 0, y: -30, clipPath: 'inset(0 0 100% 0)' }}
@@ -128,7 +128,7 @@ export default function HomeHire() {
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
             style={{ transformPerspective: 900 }}
-            className="bg-card border-2 border-ink rounded-[24px] p-7 sm:p-9 shadow-xs"
+            className="bg-card border-2 border-ink rounded-[24px] p-5 sm:p-9 shadow-xs"
           >
             {/* Progress Bars */}
             <div className="flex gap-2 mb-7">

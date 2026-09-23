@@ -6,7 +6,7 @@ const springy = { type: 'spring', stiffness: 260, damping: 22 } as const;
 
 export default function HomeHero() {
   return (
-    <section className="pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-14 lg:pb-20 overflow-hidden bg-paper border-b border-rule/60">
+    <section className="pt-10 pb-14 sm:pt-14 sm:pb-18 lg:pt-16 lg:pb-20 overflow-hidden bg-paper border-b border-rule/60">
       <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-[1.22fr_0.78fr] lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-8 lg:gap-12 items-start">
           {/* Left Column: Heading, Subtitle & CTAs */}
@@ -24,15 +24,15 @@ export default function HomeHero() {
                 hidden: { opacity: 0, x: -18 },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
               }}
-              className="font-display text-[0.92rem] sm:text-[1rem] lg:text-[1.05rem] font-semibold flex flex-wrap items-center gap-x-2.5 gap-y-1 text-ink"
+              className="font-display text-[0.88rem] sm:text-[1rem] lg:text-[1.05rem] font-semibold flex items-center gap-2 sm:gap-2.5 text-ink"
             >
               <span
                 className="w-2.5 h-2.5 rounded-full bg-[#2FA36B] shadow-[0_0_0_4px_rgba(47,163,107,0.25)] shrink-0 animate-pulse"
                 aria-hidden="true"
               />
               <span className="shrink-0">Himani Kankaria</span>
-              <span className="hidden xs:inline text-muted/50">•</span>
-              <small className="font-normal text-muted text-[0.86rem] sm:text-[0.92rem]">
+              <span className="text-muted/60">•</span>
+              <small className="font-normal text-muted text-[0.84rem] sm:text-[0.92rem] truncate">
                 Ahmedabad, working globally
               </small>
             </motion.div>
@@ -40,10 +40,10 @@ export default function HomeHero() {
             {/* Title: Clean 2-line layout on mobile, same iconic giant 3-line layout on desktop */}
             <motion.h1
               variants={{
-                hidden: { opacity: 0, y: 30, clipPath: 'inset(100% 0 0 0)' },
-                visible: { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
               }}
-              className="mt-2.5 sm:mt-3 lg:mt-4 font-display font-extrabold tracking-[-0.035em] lg:tracking-[-0.045em] text-ink text-[clamp(1.9rem,6.5vw,3.2rem)] lg:text-[clamp(3.6rem,10.5vw,8.5rem)] leading-[1.04] lg:leading-[0.92]"
+              className="mt-3.5 sm:mt-4 lg:mt-5 font-display font-extrabold tracking-[-0.025em] sm:tracking-[-0.035em] lg:tracking-[-0.045em] text-ink text-[clamp(2.1rem,7vw,3.4rem)] lg:text-[clamp(3.6rem,10.5vw,8.5rem)] leading-[1.12] sm:leading-[1.06] lg:leading-[0.92]"
               aria-label="The Content Queen of India"
             >
               {/* Content */}
@@ -77,7 +77,7 @@ export default function HomeHero() {
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { duration: 0.5, delay: 0.05 } },
               }}
-              className="mt-2.5 sm:mt-3 text-muted font-display text-[0.82rem] sm:text-[0.88rem] leading-normal"
+              className="mt-3 sm:mt-3.5 text-muted font-display text-[0.84rem] sm:text-[0.88rem] leading-normal"
             >
               As introduced at WordCamp Asia 2026 and Agile Network India
             </motion.p>
@@ -88,7 +88,7 @@ export default function HomeHero() {
                 hidden: { opacity: 0, y: 12 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
               }}
-              className="mt-4 sm:mt-5 max-w-[50ch] text-[1rem] sm:text-[1.06rem] lg:text-[1.12rem] leading-[1.62] text-ink/90 font-body"
+              className="mt-4 sm:mt-5 max-w-[50ch] text-[0.98rem] sm:text-[1.06rem] lg:text-[1.12rem] leading-[1.65] text-ink/90 font-body"
             >
               Virtual CMO, founder coach, team trainer and international speaker. For 15+ years I've helped B2B, SaaS and tech companies build marketing that makes them the obvious choice.
             </motion.p>
@@ -99,12 +99,12 @@ export default function HomeHero() {
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0, transition: springy },
               }}
-              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-6 sm:mt-7 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-7 w-full sm:w-auto"
             >
-              <a href="#cmo" className="btn solid text-center justify-center w-full sm:w-auto">
+              <a href="#cmo" className="btn solid text-center justify-center w-full sm:w-auto py-3 px-5 text-sm sm:text-base">
                 Hire me as your Virtual CMO
               </a>
-              <a href="#stage" className="btn ghost text-center justify-center w-full sm:w-auto">
+              <a href="#stage" className="btn ghost text-center justify-center w-full sm:w-auto py-3 px-5 text-sm sm:text-base">
                 Invite me to speak
               </a>
             </motion.div>
@@ -115,10 +115,10 @@ export default function HomeHero() {
             initial={{ opacity: 0, scale: 0.88, rotate: 3, y: 30 }}
             animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
             transition={{ ...springy, delay: 0.18 }}
-            className="flex flex-col gap-3 max-w-[280px] xs:max-w-[310px] sm:max-w-[330px] md:max-w-[290px] lg:max-w-[340px] mx-auto md:ml-auto w-full group mt-4 md:mt-0 lg:pt-1"
+            className="flex flex-col gap-3.5 max-w-[270px] sm:max-w-[300px] md:max-w-[290px] lg:max-w-[340px] mx-auto md:ml-auto w-full group mt-8 md:mt-0 lg:pt-1"
           >
             {/* Confident Portrait Card */}
-            <div className="relative aspect-[4/5] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-paper-2 border border-rule shadow-sm img-zoom-hover">
+            <div className="relative aspect-[4/5] rounded-[20px] overflow-hidden bg-paper-2 border border-rule shadow-sm img-zoom-hover">
               <img
                 src={portraitImg}
                 alt="Himani Kankaria, the Content Queen of India"
@@ -126,14 +126,14 @@ export default function HomeHero() {
               />
 
               {/* Seal Badge */}
-              <div className="absolute left-2.5 sm:left-3.5 bottom-2.5 sm:bottom-3.5 bg-gold text-gold-ink rounded-full py-1.5 px-3 sm:px-3.5 font-display font-extrabold text-[0.76rem] sm:text-[0.82rem] shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] flex items-center gap-1.5 z-10 transition-transform duration-300 hover:scale-105 select-none">
+              <div className="absolute left-3 bottom-3 bg-gold text-gold-ink rounded-full py-1.5 px-3 sm:px-3.5 font-display font-extrabold text-[0.76rem] sm:text-[0.82rem] shadow-[0_8px_20px_-6px_rgba(0,0,0,0.45)] flex items-center gap-1.5 z-10 transition-transform duration-300 hover:scale-105 select-none">
                 <CrownIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-ink shrink-0" />
                 <span>Content Queen of India</span>
               </div>
             </div>
 
             {/* Availability Note */}
-            <div className="font-display text-[0.84rem] sm:text-[0.88rem] border border-rule rounded-[14px] px-3.5 py-2.5 bg-card text-ink leading-snug shadow-2xs">
+            <div className="font-display text-[0.84rem] sm:text-[0.88rem] border border-rule rounded-[14px] px-4 py-3 bg-card text-ink leading-snug shadow-2xs">
               <b className="block font-bold text-[0.88rem] sm:text-[0.92rem]">Now booking for Q4 2026</b>
               <span className="text-muted text-[0.8rem] sm:text-[0.84rem] mt-0.5 block">
                 [2] Virtual CMO seats and [3] training slots open

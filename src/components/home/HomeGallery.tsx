@@ -62,8 +62,8 @@ export default function HomeGallery() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper-2 border-b border-rule" id="gallery">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper-2 border-b border-rule" id="gallery">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Kicker */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -80,13 +80,13 @@ export default function HomeGallery() {
           <h2 className="font-display font-extrabold text-[clamp(2.8rem,7vw,5.2rem)] leading-[0.95] tracking-[-0.04em] text-ink max-w-[14ch]">
             Proof, not promises.
           </h2>
-          <p className="text-muted text-[1.15rem] mt-5 max-w-[50ch]">
+          <p className="text-muted text-[1.15rem] mt-4 sm:mt-5 max-w-[50ch]">
             Workshops, advisory sessions, stages, and notes from the people I work with.
           </p>
         </motion.div>
 
         {/* Grid Mosaic */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] sm:auto-rows-[195px] lg:auto-rows-[210px] gap-4.5 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] sm:auto-rows-[195px] lg:auto-rows-[210px] gap-4 sm:gap-4.5 mt-8 sm:mt-10">
           {photos.map((item, idx) => (
             <motion.figure
               key={idx}

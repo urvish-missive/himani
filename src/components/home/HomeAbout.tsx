@@ -43,9 +43,9 @@ export default function HomeAbout() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper border-b border-rule" id="about">
-      <div className="max-w-[1160px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-start">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper border-b border-rule" id="about">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-start">
           {/* Story Column — wipes in from left with a slight skew */}
           <motion.div
             initial={{ opacity: 0, x: -36, skewY: 1.5 }}

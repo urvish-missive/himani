@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-rule py-7 text-muted font-display text-[0.9rem] bg-paper">
-      <div className="max-w-[1160px] mx-auto px-6 flex flex-wrap gap-4 justify-between items-center">
+    <footer className="border-t border-rule pt-8 pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] md:py-8 text-muted font-display text-[0.9rem] bg-paper">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row gap-4 justify-between items-center text-center sm:text-left">
         <span>© 2026 Himani Kankaria, the Content Queen of India</span>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="flex flex-wrap justify-center sm:justify-end items-center gap-x-5 gap-y-2">
           <Link to="/" className="text-muted hover:text-ink hover:underline transition-colors">
             Home
           </Link>
