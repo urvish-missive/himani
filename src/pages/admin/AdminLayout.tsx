@@ -117,15 +117,13 @@ export default function AdminLayout({ user }: { user: User }) {
           </ul>
 
           <p className="px-3 pt-6 pb-2 font-display text-[0.7rem] font-semibold uppercase tracking-wider text-muted">Website</p>
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-display font-semibold text-[0.95rem] text-muted hover:bg-lav hover:text-ink transition-colors"
           >
             <ExternalLink className="w-[18px] h-[18px]" />
             View live site
-          </a>
+          </Link>
         </nav>
 
         <div className="p-3 border-t border-rule">

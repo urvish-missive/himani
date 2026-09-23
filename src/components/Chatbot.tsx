@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { askChatbot, type ChatMessage } from '../lib/chatProviders';
 import { useToast } from './ui/Feedback';
+import { useChatbot } from '../context/ChatbotContext';
 
 const GREETING: ChatMessage = {
   role: 'assistant',
@@ -77,7 +78,7 @@ function StreamedMessage({
 
 export default function Chatbot() {
   const toast = useToast();
-  const [open, setOpen] = useState(false);
+  const { isOpen: open, setIsOpen: setOpen, isHireBarVisible } = useChatbot();
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -285,7 +286,9 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={open ? 'Close chat' : 'Open chat'}
-        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full bg-gradient-to-br from-purple to-orange text-white shadow-lg shadow-purple/30 flex items-center justify-center cursor-pointer group"
+        className={`fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full bg-gradient-to-br from-purple to-orange text-white shadow-lg shadow-purple/30 items-center justify-center cursor-pointer group ${
+          isHireBarVisible ? 'hidden md:flex' : 'flex'
+        }`}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
