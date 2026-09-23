@@ -2,13 +2,18 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CrownIcon, TickIcon, PlayIcon } from '../components/ui/BrandIcons';
 import VideoPreviewModal from '../components/ui/VideoPreviewModal';
+import { useLeadSubmit } from '../hooks/useLeadSubmit';
+import LeadThankYou from '../components/ui/LeadThankYou';
+import { LEAD_LIMITS, validateLead, type LeadInput } from '../lib/leads';
 import stageHeroImg from '../images/himanispeaker.jpg';
 import galleryImg1 from '../images/hiimanisasspeaker.jpg';
 import galleryImg2 from '../images/Himani-Kankaria4-684x1024.jpg';
 import galleryImg3 from '../images/himanimarketing.jpg';
 import galleryImg4 from '../images/himanimainimage.jpg';
+import { alternate, enter, reveal } from '../lib/motion';
 
 export default function SpeakingPage() {
+  const { submit: submitLead, submitting } = useLeadSubmit();
   const [activeVideo, setActiveVideo] = useState<{
     id: string;
     title: string;
@@ -23,7 +28,6 @@ export default function SpeakingPage() {
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formEvent, setFormEvent] = useState('');
-  const [formDate, setFormDate] = useState('');
   const [formLocation, setFormLocation] = useState('');
   const [formAudience, setFormAudience] = useState('200 to 1,000');
   const [formFormat, setFormFormat] = useState('Keynote');
@@ -55,33 +59,30 @@ export default function SpeakingPage() {
     if (applySection) applySection.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formName.trim()) {
-      setFormErr('Add your name so I know who I am speaking with.');
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formEmail.trim())) {
-      setFormErr('Add a valid email so I can reply.');
-      return;
-    }
-    if (!formEvent.trim()) {
-      setFormErr('Add the event name.');
-      return;
-    }
+    if (submitting) return;
+    const lead: LeadInput = {
+      source: 'speaking',
+      name: formName,
+      email: formEmail,
+      company: formEvent,
+      message: formMsg,
+      details: {
+      Event: formEvent,
+      Location: formLocation,
+      Audience: formAudience,
+      Format: formFormat,
+      Talk: formTalk,
+    },
+    };
+    const invalid = validateLead(lead);
+    if (invalid) return setFormErr(invalid);
     setFormErr('');
+    const err = await submitLead(lead);
+    if (err) return setFormErr(err);
     setFormSubmitted(true);
   };
-
-  const brief = `Speaking | ${formEvent} | ${formDate || 'Date TBC'} | ${
-    formLocation.trim() || 'Location TBC'
-  } | Audience: ${formAudience} | ${formFormat} | Talk: ${formTalk}${
-    formMsg.trim() ? ' | ' + formMsg.trim() : ''
-  }`;
-
-  const calendlyUrl = `https://calendly.com/missivedigital/30min?name=${encodeURIComponent(
-    formName
-  )}&email=${encodeURIComponent(formEmail)}&a1=${encodeURIComponent(brief)}`;
 
   const marqueeBrands = [
     'International Search Summit Barcelona',
@@ -104,9 +105,7 @@ export default function SpeakingPage() {
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-14 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+              {...enter('clipUp')}
             >
               <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-4">
                 <CrownIcon className="w-5 h-5 text-gold" />
@@ -127,6 +126,7 @@ export default function SpeakingPage() {
                 </a>
               </div>
               <div className="mt-8 flex flex-wrap gap-8 sm:gap-12 font-display">
+                <motion.div {...enter('popSpring', { delay: 0.3 })}>
                 <div className="card-hover p-2 rounded-xl">
                   <b className="block text-3xl sm:text-4xl font-extrabold text-accent leading-none">
                     10+
@@ -135,6 +135,8 @@ export default function SpeakingPage() {
                     conference stages
                   </span>
                 </div>
+                </motion.div>
+                <motion.div {...enter('popSpring', { delay: 0.42 })}>
                 <div className="card-hover p-2 rounded-xl">
                   <b className="block text-3xl sm:text-4xl font-extrabold text-accent leading-none">
                     8+
@@ -143,6 +145,8 @@ export default function SpeakingPage() {
                     podcasts and shows
                   </span>
                 </div>
+                </motion.div>
+                <motion.div {...enter('popSpring', { delay: 0.54 })}>
                 <div className="card-hover p-2 rounded-xl">
                   <b className="block text-3xl sm:text-4xl font-extrabold text-accent leading-none">
                     15+
@@ -151,14 +155,13 @@ export default function SpeakingPage() {
                     years in marketing
                   </span>
                 </div>
+                </motion.div>
               </div>
             </motion.div>
 
             {/* Profile Aside Card with Animation & Hover */}
             <motion.aside
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] as const }}
+              {...enter('tilt3d', { delay: 0.15 })}
               className="bg-card border border-rule rounded-3xl p-6 shadow-xl max-w-sm lg:max-w-none mx-auto w-full card-hover group"
             >
               <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative img-zoom-hover">
@@ -207,10 +210,7 @@ export default function SpeakingPage() {
       <section className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('skewLeft')}
             className="max-w-2xl mb-14"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -227,10 +227,7 @@ export default function SpeakingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Talk 1 */}
             <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('rotateLeft')}
               className="border border-rule rounded-3xl p-8 bg-card flex flex-col justify-between card-hover transition-all shadow-sm"
             >
               <div>
@@ -279,10 +276,7 @@ export default function SpeakingPage() {
 
             {/* Talk 2 */}
             <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55, delay: 0.1 }}
+              {...reveal('riseScale', { delay: 0.1 })}
               className="border border-rule rounded-3xl p-8 bg-card flex flex-col justify-between card-hover transition-all shadow-sm"
             >
               <div>
@@ -331,10 +325,7 @@ export default function SpeakingPage() {
 
             {/* Talk 3 */}
             <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55, delay: 0.2 }}
+              {...reveal('rotateRight', { delay: 0.2 })}
               className="border border-rule rounded-3xl p-8 bg-card flex flex-col justify-between card-hover transition-all shadow-sm"
             >
               <div>
@@ -388,10 +379,7 @@ export default function SpeakingPage() {
       <section className="py-24 bg-paper-2 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('curtain')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -435,10 +423,7 @@ export default function SpeakingPage() {
             ].map((f, idx) => (
               <motion.div
                 key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                {...reveal('popSpring', { delay: idx * 0.08 })}
                 className="card-hover bg-card border border-rule rounded-2xl p-6 flex flex-col justify-between shadow-xs"
               >
                 <div>
@@ -460,10 +445,7 @@ export default function SpeakingPage() {
       <section id="watch" className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('clipUp')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -536,10 +518,7 @@ export default function SpeakingPage() {
             ].map((v, idx) => (
               <motion.div
                 key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                {...reveal('tilt3d', { delay: idx * 0.08 })}
                 onClick={() =>
                   setActiveVideo({
                     id: v.id,
@@ -606,10 +585,7 @@ export default function SpeakingPage() {
       <section className="py-24 bg-lav border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('blurLeft')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -644,10 +620,7 @@ export default function SpeakingPage() {
             ].map((item, idx) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                {...reveal('blurRight', { delay: idx * 0.08 })}
                 className="card-hover bg-card border border-rule/80 rounded-2xl p-6 flex items-start gap-4 shadow-xs"
               >
                 <TickIcon className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
@@ -669,10 +642,7 @@ export default function SpeakingPage() {
       <section className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('skewLeft')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -721,10 +691,7 @@ export default function SpeakingPage() {
             ].map((st, idx) => (
               <motion.li
                 key={st.event}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-30px' }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                {...reveal('slideLeft', { delay: idx * 0.05 })}
                 className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-2 sm:gap-6 p-4 rounded-xl card-hover border border-transparent hover:border-rule hover:bg-card transition-all"
               >
                 <span className="font-display font-semibold text-accent text-base">{st.when}</span>
@@ -746,10 +713,7 @@ export default function SpeakingPage() {
       <section className="py-24 bg-paper-2 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('zoomBlur')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -786,10 +750,7 @@ export default function SpeakingPage() {
             ].map((p, idx) => (
               <motion.div
                 key={p.author}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.1 }}
+                {...alternate('rotateLeft', 'rotateRight', idx, 0.1)}
                 className="bg-card border border-rule rounded-2xl p-6 sm:p-8 card-hover shadow-xs flex flex-col justify-between"
               >
                 <div>
@@ -812,10 +773,7 @@ export default function SpeakingPage() {
       <section id="kit" className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('curtain')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -832,10 +790,7 @@ export default function SpeakingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
             {/* Bio box */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5 }}
+              {...reveal('slideLeft')}
               className="bg-card border border-rule rounded-3xl p-6 sm:p-8 shadow-sm card-hover"
             >
               <div className="flex gap-2 mb-4" role="group" aria-label="Bio length">
@@ -880,10 +835,7 @@ export default function SpeakingPage() {
 
             {/* Assets list */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              {...reveal('slideRight', { delay: 0.1 })}
             >
               <ul className="space-y-4 font-body text-ink">
                 <li className="flex items-start gap-3 py-3 border-t border-rule px-1">
@@ -952,10 +904,7 @@ export default function SpeakingPage() {
       <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('clipUp')}
           >
             <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-3">
               <CrownIcon className="w-5 h-5 text-gold" />
@@ -971,10 +920,7 @@ export default function SpeakingPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] sm:auto-rows-[195px] gap-4 mt-10">
             <motion.figure
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5 }}
+              {...reveal('zoomBlur')}
               className="col-span-2 row-span-2 rounded-2xl overflow-hidden relative border border-rule shadow-sm img-zoom-hover group"
             >
               <img
@@ -987,10 +933,7 @@ export default function SpeakingPage() {
               </figcaption>
             </motion.figure>
             <motion.figure
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5, delay: 0.08 }}
+              {...reveal('zoomBlur', { delay: 0.08 })}
               className="rounded-2xl overflow-hidden relative border border-rule shadow-sm img-zoom-hover group"
             >
               <img
@@ -1003,10 +946,7 @@ export default function SpeakingPage() {
               </figcaption>
             </motion.figure>
             <motion.figure
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5, delay: 0.16 }}
+              {...reveal('zoomBlur', { delay: 0.16 })}
               className="row-span-2 rounded-2xl overflow-hidden relative border border-rule shadow-sm img-zoom-hover group"
             >
               <img
@@ -1019,10 +959,7 @@ export default function SpeakingPage() {
               </figcaption>
             </motion.figure>
             <motion.figure
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.5, delay: 0.24 }}
+              {...reveal('zoomBlur', { delay: 0.24 })}
               className="rounded-2xl overflow-hidden relative border border-rule shadow-sm img-zoom-hover group"
             >
               <img
@@ -1044,10 +981,7 @@ export default function SpeakingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] gap-12 lg:gap-16 items-start">
             {/* Left: Section Header & Context */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('slideLeft')}
               className="lg:sticky lg:top-28"
             >
               <div className="inline-flex items-center gap-2 font-display font-semibold text-[0.88rem] text-accent mb-3.5">
@@ -1103,10 +1037,7 @@ export default function SpeakingPage() {
               ].map((faq, idx) => (
                 <motion.details
                   key={faq.q}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-30px' }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  {...reveal('blurRight', { delay: idx * 0.05 })}
                   className="border border-rule rounded-2xl p-5 sm:p-6 bg-paper shadow-2xs group transition-shadow duration-200 open:shadow-xs"
                 >
                   <summary className="font-display font-semibold text-[1.05rem] sm:text-[1.12rem] text-ink cursor-pointer list-none [&::-webkit-details-marker]:hidden flex justify-between items-start gap-4 select-none hover:text-accent transition-colors">
@@ -1132,10 +1063,7 @@ export default function SpeakingPage() {
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('clipUp')}
             >
               <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
                 Booking & Inquiries
@@ -1163,23 +1091,23 @@ export default function SpeakingPage() {
             </motion.div>
 
             <motion.form
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6 }}
+              {...reveal('tilt3d')}
+              noValidate
               onSubmit={handleFormSubmit}
-              className="bg-card border-2 border-ink rounded-3xl p-8 sm:p-10 shadow-lg card-hover"
+              className="bg-card border-2 border-ink rounded-3xl p-8 sm:p-10 shadow-lg card-hover scroll-mt-24"
             >
               {!formSubmitted ? (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
-                        Name
+                        Name <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         type="text"
                         value={formName}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.name}
                         onChange={(e) => setFormName(e.target.value)}
                         placeholder="Your name"
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
@@ -1187,11 +1115,13 @@ export default function SpeakingPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
-                        Email
+                        Email <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         type="email"
                         value={formEmail}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.email}
                         onChange={(e) => setFormEmail(e.target.value)}
                         placeholder="you@event.com"
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
@@ -1199,7 +1129,7 @@ export default function SpeakingPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div>
                       <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
                         Event name
@@ -1207,19 +1137,9 @@ export default function SpeakingPage() {
                       <input
                         type="text"
                         value={formEvent}
+                        maxLength={LEAD_LIMITS.company}
                         onChange={(e) => setFormEvent(e.target.value)}
                         placeholder="Conference / Event name"
-                        className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
-                        Event date
-                      </label>
-                      <input
-                        type="date"
-                        value={formDate}
-                        onChange={(e) => setFormDate(e.target.value)}
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
                       />
                     </div>
@@ -1297,6 +1217,7 @@ export default function SpeakingPage() {
                     <textarea
                       rows={3}
                       value={formMsg}
+                      maxLength={LEAD_LIMITS.message}
                       onChange={(e) => setFormMsg(e.target.value)}
                       placeholder="Who attends, the event theme, and any budget details..."
                       className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm font-body"
@@ -1309,33 +1230,18 @@ export default function SpeakingPage() {
 
                   <button
                     type="submit"
-                    className="btn solid w-full justify-center text-center mt-2"
+                    disabled={submitting}
+                    className="btn solid w-full justify-center text-center mt-2 disabled:opacity-60"
                   >
-                    Send event brief
+                    {submitting ? 'Sending…' : 'Send event brief'}
                   </button>
                 </div>
               ) : (
-                <div className="text-center py-6">
-                  <span className="w-12 h-12 rounded-full bg-good/20 text-good font-extrabold flex items-center justify-center mx-auto mb-4">
-                    <TickIcon className="w-6 h-6 text-good" />
-                  </span>
-                  <h3 className="text-2xl font-display font-extrabold text-ink">
-                    Thanks, {formName.split(' ')[0]}. Want to talk it through?
-                  </h3>
-                  <p className="text-muted font-body mt-2 text-sm max-w-sm mx-auto">
-                    Book a short call to discuss the event, or wait for my reply by email. Your brief is attached to the booking.
-                  </p>
-                  <div className="mt-6">
-                    <a
-                      href={calendlyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn gold inline-flex"
-                    >
-                      Book a call on Calendly
-                    </a>
-                  </div>
-                </div>
+                <LeadThankYou
+                  name={formName}
+                  email={formEmail}
+                  next="I'll check my calendar against your event and confirm availability."
+                />
               )}
             </motion.form>
           </div>

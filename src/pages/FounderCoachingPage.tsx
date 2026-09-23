@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CrownIcon, TickIcon, CrossIcon } from '../components/ui/BrandIcons';
+import { useLeadSubmit } from '../hooks/useLeadSubmit';
+import LeadThankYou from '../components/ui/LeadThankYou';
+import { LEAD_LIMITS, validateLead, type LeadInput } from '../lib/leads';
 import portraitImg from '../images/himanimainimage.jpg';
 import aboutImg from '../images/himanimainsection.jpg';
 import galleryImg1 from '../images/Himani-Kankaria4-684x1024.jpg';
 import galleryImg2 from '../images/himanimarketing.jpg';
 import galleryImg3 from '../images/himanispeaker.jpg';
 import galleryImg4 from '../images/hiimanisasspeaker.jpg';
+import { alternate, enter, reveal } from '../lib/motion';
 
 export default function FounderCoachingPage() {
+  const { submit: submitLead, submitting } = useLeadSubmit();
   const [activeTopic, setActiveTopic] = useState(0);
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
@@ -85,31 +90,25 @@ export default function FounderCoachingPage() {
     if (applySection) applySection.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formName.trim()) {
-      setFormErr('Add your name so I know who I am speaking with.');
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formEmail.trim())) {
-      setFormErr('Add a valid email so I can send the invite.');
-      return;
-    }
-    if (!formCompany.trim()) {
-      setFormErr('Add your company name.');
-      return;
-    }
+    if (submitting) return;
+    const lead: LeadInput = {
+      source: 'founder-coaching',
+      name: formName,
+      email: formEmail,
+      company: formCompany,
+      message: formMsg,
+      details: { Stage: formStage, Topic: formTopic, Format: formFormat },
+    };
+    let invalid = validateLead(lead);
+    if (invalid === 'Add a valid email so I can reply.') invalid = 'Add a valid email so I can reply.';
+    if (invalid) return setFormErr(invalid);
     setFormErr('');
+    const err = await submitLead(lead);
+    if (err) return setFormErr(err);
     setFormSubmitted(true);
   };
-
-  const brief = `Founder coaching | ${formCompany} | ${formStage} | Topic: ${formTopic} | Format: ${formFormat}${
-    formMsg.trim() ? ' | In 90 days: ' + formMsg.trim() : ''
-  }`;
-
-  const calendlyUrl = `https://calendly.com/missivedigital/30min?name=${encodeURIComponent(
-    formName
-  )}&email=${encodeURIComponent(formEmail)}&a1=${encodeURIComponent(brief)}`;
 
   return (
     <div>
@@ -118,9 +117,7 @@ export default function FounderCoachingPage() {
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-14 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              {...enter('clipUp')}
             >
               <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-4">
                 <CrownIcon className="w-5 h-5 text-gold" />
@@ -155,9 +152,7 @@ export default function FounderCoachingPage() {
 
             {/* Profile Aside Card */}
             <motion.aside
-              initial={{ opacity: 0, scale: 0.95, y: 24 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              {...enter('tilt3d', { delay: 0.15 })}
               className="bg-card border border-rule rounded-3xl p-6 shadow-xl max-w-sm lg:max-w-none mx-auto w-full card-hover group"
             >
               <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative">
@@ -197,10 +192,7 @@ export default function FounderCoachingPage() {
       <section id="topics" className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('skewLeft')}
             className="max-w-3xl mb-12"
           >
             <span className="font-display font-semibold text-xs tracking-wider uppercase text-accent bg-accent/10 border border-accent/20 px-3 py-1 rounded-full inline-block mb-3.5">
@@ -286,10 +278,7 @@ export default function FounderCoachingPage() {
       <section className="py-24 bg-paper-2 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('zoomBlur')}
             className="text-center max-w-2xl mx-auto mb-14"
           >
             <span className="font-display font-semibold text-xs tracking-wider uppercase text-accent bg-accent/10 border border-accent/20 px-3 py-1 rounded-full inline-block mb-3.5">
@@ -303,6 +292,7 @@ export default function FounderCoachingPage() {
             </p>
           </motion.div>
 
+          <motion.div {...reveal('tilt3d')}>
           <div className="grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden border border-rule bg-card card-hover">
             {/* Good fit */}
             <div className="p-8 sm:p-10 bg-card">
@@ -362,6 +352,7 @@ export default function FounderCoachingPage() {
               </ul>
             </div>
           </div>
+          </motion.div>
         </div>
       </section>
 
@@ -369,10 +360,7 @@ export default function FounderCoachingPage() {
       <section className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('curtain')}
             className="max-w-2xl mb-14"
           >
             <span className="font-display font-semibold text-xs tracking-wider uppercase text-accent bg-accent/10 border border-accent/20 px-3 py-1 rounded-full inline-block mb-3.5">
@@ -389,10 +377,7 @@ export default function FounderCoachingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Format 1: Deep-dive session */}
             <motion.article
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('rotateLeft')}
               className="border border-rule rounded-3xl p-8 sm:p-10 bg-card flex flex-col justify-between card-hover"
             >
               <div>
@@ -433,10 +418,7 @@ export default function FounderCoachingPage() {
 
             {/* Format 2: Coaching programme */}
             <motion.article
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55, delay: 0.1 }}
+              {...reveal('rotateRight', { delay: 0.1 })}
               className="border-2 border-accent rounded-3xl p-8 sm:p-10 bg-lav flex flex-col justify-between shadow-md card-hover"
             >
               <div>
@@ -486,10 +468,7 @@ export default function FounderCoachingPage() {
       <section className="py-24 bg-lav border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('blurLeft')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -532,10 +511,7 @@ export default function FounderCoachingPage() {
             ].map((step, idx) => (
               <motion.li
                 key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                {...reveal('popSpring', { delay: idx * 0.08 })}
                 className="bg-card border border-rule rounded-2xl p-6 relative shadow-sm card-hover"
               >
                 <span className="w-9 h-9 rounded-full bg-gold text-gold-ink font-display font-extrabold text-sm flex items-center justify-center mb-4 transition-transform hover:scale-110">
@@ -554,10 +530,7 @@ export default function FounderCoachingPage() {
       <section className="py-24 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('clipUp')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -580,10 +553,7 @@ export default function FounderCoachingPage() {
             ].map((text, idx) => (
               <motion.p
                 key={idx}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                {...reveal('blurRight', { delay: idx * 0.08 })}
                 className="font-display font-semibold text-xl sm:text-2xl text-ink leading-snug py-6 border-t-2 border-gold transition-transform duration-300 hover:translate-x-1"
               >
                 {text}
@@ -597,10 +567,7 @@ export default function FounderCoachingPage() {
       <section className="py-24 bg-paper-2 border-b border-rule">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.55 }}
+            {...reveal('riseScale')}
             className="max-w-2xl mb-12"
           >
             <span className="font-display font-semibold text-accent text-xs tracking-wider uppercase block mb-3">
@@ -637,10 +604,7 @@ export default function FounderCoachingPage() {
             ].map((item, idx) => (
               <motion.div
                 key={item.stat}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                {...alternate('rotateLeft', 'rotateRight', idx, 0.1)}
                 className="bg-card border border-rule rounded-2xl p-6 sm:p-8 card-hover"
               >
                 <div className="font-display font-extrabold text-4xl text-accent">{item.stat}</div>
@@ -660,10 +624,7 @@ export default function FounderCoachingPage() {
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6 }}
+              {...reveal('zoomBlur')}
               className="aspect-[4/5] rounded-3xl overflow-hidden border border-rule max-w-sm mx-auto shadow-md card-hover group"
             >
               <img
@@ -673,10 +634,7 @@ export default function FounderCoachingPage() {
               />
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6 }}
+              {...reveal('skewRight')}
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-ink tracking-tight">
                 A founder who's made the same calls
@@ -752,10 +710,7 @@ export default function FounderCoachingPage() {
             ].map((img, idx) => (
               <motion.figure
                 key={idx}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                {...reveal('riseScale', { delay: idx * 0.08 })}
                 className={`rounded-2xl overflow-hidden relative border border-rule shadow-sm group card-hover ${img.span}`}
               >
                 <img
@@ -778,10 +733,7 @@ export default function FounderCoachingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] gap-12 lg:gap-16 items-start">
             {/* Left: Section Header & Context */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('slideLeft')}
               className="lg:sticky lg:top-28"
             >
               <div className="inline-flex items-center gap-2 font-display font-semibold text-[0.88rem] text-accent mb-3.5">
@@ -837,10 +789,7 @@ export default function FounderCoachingPage() {
               ].map((faq, idx) => (
                 <motion.details
                   key={faq.q}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-30px' }}
-                  transition={{ duration: 0.45, delay: idx * 0.05 }}
+                  {...reveal('blurRight', { delay: idx * 0.05 })}
                   className="border border-rule rounded-2xl p-5 sm:p-6 bg-paper shadow-2xs group transition-shadow duration-200 open:shadow-xs"
                 >
                   <summary className="font-display font-semibold text-[1.05rem] sm:text-[1.12rem] text-ink cursor-pointer list-none [&::-webkit-details-marker]:hidden flex justify-between items-start gap-4 select-none hover:text-accent transition-colors">
@@ -866,10 +815,7 @@ export default function FounderCoachingPage() {
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.55 }}
+              {...reveal('clipUp')}
             >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-ink tracking-tight">
                 Apply for founder coaching
@@ -894,23 +840,23 @@ export default function FounderCoachingPage() {
             </motion.div>
 
             <motion.form
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0 }}
-              transition={{ duration: 0.6 }}
+              {...reveal('tilt3d')}
+              noValidate
               onSubmit={handleFormSubmit}
-              className="bg-card border-2 border-ink rounded-3xl p-8 sm:p-10 shadow-lg card-hover"
+              className="bg-card border-2 border-ink rounded-3xl p-8 sm:p-10 shadow-lg card-hover scroll-mt-24"
             >
               {!formSubmitted ? (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
-                        Name
+                        Name <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         type="text"
                         value={formName}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.name}
                         onChange={(e) => setFormName(e.target.value)}
                         placeholder="Your name"
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
@@ -918,11 +864,13 @@ export default function FounderCoachingPage() {
                     </div>
                     <div>
                       <label className="block text-xs font-display font-semibold text-ink uppercase mb-1">
-                        Email
+                        Email <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         type="email"
                         value={formEmail}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.email}
                         onChange={(e) => setFormEmail(e.target.value)}
                         placeholder="you@company.com"
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
@@ -938,6 +886,7 @@ export default function FounderCoachingPage() {
                       <input
                         type="text"
                         value={formCompany}
+                        maxLength={LEAD_LIMITS.company}
                         onChange={(e) => setFormCompany(e.target.value)}
                         placeholder="Company name"
                         className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm"
@@ -1001,6 +950,7 @@ export default function FounderCoachingPage() {
                     <textarea
                       rows={3}
                       value={formMsg}
+                      maxLength={LEAD_LIMITS.message}
                       onChange={(e) => setFormMsg(e.target.value)}
                       placeholder="Your core challenge or goal..."
                       className="w-full px-4 py-2.5 rounded-xl border border-rule bg-paper text-ink focus:outline-none focus:border-accent text-sm font-body"
@@ -1013,33 +963,18 @@ export default function FounderCoachingPage() {
 
                   <button
                     type="submit"
-                    className="btn solid w-full justify-center text-center mt-2"
+                    disabled={submitting}
+                    className="btn solid w-full justify-center text-center mt-2 disabled:opacity-60"
                   >
-                    Send application and book a chemistry call
+                    {submitting ? 'Sending…' : 'Send application'}
                   </button>
                 </div>
               ) : (
-                <div className="text-center py-6">
-                  <span className="w-12 h-12 rounded-full bg-good/20 text-good font-extrabold flex items-center justify-center mx-auto mb-4">
-                    <TickIcon className="w-6 h-6 text-good" />
-                  </span>
-                  <h3 className="text-2xl font-display font-extrabold text-ink">
-                    Thanks, {formName.split(' ')[0]}. One last step.
-                  </h3>
-                  <p className="text-muted font-body mt-2 text-sm max-w-sm mx-auto">
-                    Pick a time for our free 30-minute chemistry call. Your answers are already attached to the invite.
-                  </p>
-                  <div className="mt-6">
-                    <a
-                      href={calendlyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn gold inline-flex"
-                    >
-                      Choose a time on Calendly
-                    </a>
-                  </div>
-                </div>
+                <LeadThankYou
+                  name={formName}
+                  email={formEmail}
+                  next="I read every application myself before suggesting a first session."
+                />
               )}
             </motion.form>
           </div>

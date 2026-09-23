@@ -63,14 +63,8 @@ export default function FinalCTA() {
               <CTAButton href="#services" variant="primary" size="lg">
                 Work With Us
               </CTAButton>
-              <CTAButton
-                href="https://calendly.com/missivedigital/30min"
-                variant="gradient-border-dark"
-                size="lg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book a Strategy Call
+              <CTAButton href="/#hire" variant="gradient-border-dark" size="lg">
+                Send me a brief
               </CTAButton>
             </div>
           </Reveal>

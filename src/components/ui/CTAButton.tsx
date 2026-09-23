@@ -19,11 +19,12 @@ interface CTAButtonProps {
   onClick?: () => void;
 }
 
-const CALENDLY = 'https://calendly.com/missivedigital/30min';
+// Default destination: the Get In Touch form on the home page.
+const CONTACT_FORM = '/#hire';
 
 export default function CTAButton({
   children,
-  href = CALENDLY,
+  href = CONTACT_FORM,
   variant = 'primary',
   size = 'md',
   target,
@@ -31,6 +32,12 @@ export default function CTAButton({
   className = '',
   onClick,
 }: CTAButtonProps) {
+  // Links within the site never open a new tab.
+  if (href.startsWith('/') || href.startsWith('#')) {
+    target = undefined;
+    rel = undefined;
+  }
+
   const isGradientBorder =
     variant === 'secondary' ||
     variant === 'gradient-border' ||

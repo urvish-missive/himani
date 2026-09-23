@@ -1,5 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLeadSubmit } from '../../hooks/useLeadSubmit';
+import { LEAD_LIMITS, type LeadSource } from '../../lib/leads';
+import LeadThankYou from '../ui/LeadThankYou';
+
+// Each service choice is filed under the matching form in the admin panel.
+const SOURCE_FOR: Record<string, LeadSource> = {
+  'Virtual CMO': 'virtual-cmo',
+  'Founder coaching': 'founder-coaching',
+  'Team training': 'team-training',
+  Speaking: 'speaking',
+};
 
 export default function HomeHire() {
   const [step, setStep] = useState(1);
@@ -11,6 +22,7 @@ export default function HomeHire() {
   const [company, setCompany] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { submit, submitting } = useLeadSubmit();
 
   const services = [
     { id: 'Virtual CMO', label: 'Virtual CMO', sub: 'Lead our marketing' },
@@ -19,18 +31,23 @@ export default function HomeHire() {
     { id: 'Speaking', label: 'Speaking', sub: 'Headline our event' },
   ];
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && !service) {
       setError('Choose what you would like help with to continue.');
       return;
     }
     if (step === 3) {
-      if (!name.trim()) {
-        setError('Add your name so I know who I am speaking with.');
-        return;
-      }
-      if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setError('Add a valid work email so I can send the invite.');
+      if (submitting) return;
+      const err = await submit({
+        source: SOURCE_FOR[service] ?? 'virtual-cmo',
+        name,
+        email,
+        company,
+        message,
+        details: { Form: 'Get in touch (home page)', Service: service, Stage: stage, Start: timeline },
+      });
+      if (err) {
+        setError(err);
         return;
       }
       setError('');
@@ -45,14 +62,6 @@ export default function HomeHire() {
     setError('');
     setStep(step - 1);
   };
-
-  const briefSummary = `${service} | ${stage} | Start: ${timeline} | ${company}${
-    message ? ` | ${message}` : ''
-  }`;
-
-  const calendlyUrl = `https://calendly.com/missivedigital/30min?name=${encodeURIComponent(
-    name
-  )}&email=${encodeURIComponent(email)}&a1=${encodeURIComponent(briefSummary)}`;
 
   return (
     <section className="py-24 lg:py-28 bg-paper-2" id="hire">
@@ -72,7 +81,7 @@ export default function HomeHire() {
               Let's see if we're a fit
             </h2>
             <p className="text-muted mt-4 text-[1.12rem] leading-relaxed">
-              Three quick questions, then pick a time. I read every brief before we speak.
+              Three quick questions. I read every brief myself and reply by email.
             </p>
             <p className="mt-5 font-display text-[0.98rem] text-ink">
               Prefer to talk first?{' '}
@@ -215,12 +224,14 @@ export default function HomeHire() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label htmlFor="nm" className="block font-display font-semibold text-[0.9rem] text-ink mb-1">
-                        Name
+                        Name <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="nm"
                         type="text"
                         value={name}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your name"
                         className="w-full p-2.5 rounded-xl border border-rule bg-card text-ink text-[0.95rem] focus:border-ink focus:outline-hidden"
@@ -228,12 +239,14 @@ export default function HomeHire() {
                     </div>
                     <div>
                       <label htmlFor="em" className="block font-display font-semibold text-[0.9rem] text-ink mb-1">
-                        Work email
+                        Work email <span className="text-bad" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="em"
                         type="email"
                         value={email}
+                        aria-required="true"
+                        maxLength={LEAD_LIMITS.email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@company.com"
                         className="w-full p-2.5 rounded-xl border border-rule bg-card text-ink text-[0.95rem] focus:border-ink focus:outline-hidden"
@@ -249,6 +262,7 @@ export default function HomeHire() {
                       id="co"
                       type="text"
                       value={company}
+                      maxLength={LEAD_LIMITS.company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="Company name"
                       className="w-full p-2.5 rounded-xl border border-rule bg-card text-ink text-[0.95rem] focus:border-ink focus:outline-hidden"
@@ -263,6 +277,7 @@ export default function HomeHire() {
                       id="msg"
                       rows={2}
                       value={message}
+                      maxLength={LEAD_LIMITS.message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Brief background or specific goals..."
                       className="w-full p-2.5 rounded-xl border border-rule bg-card text-ink text-[0.95rem] focus:border-ink focus:outline-hidden"
@@ -271,33 +286,14 @@ export default function HomeHire() {
                 </motion.div>
               )}
 
-              {/* Step 4: Done / Calendly Booking */}
+              {/* Step 4: Thank you */}
               {step === 4 && (
-                <motion.div
+                <LeadThankYou
                   key="step4"
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="py-2"
-                >
-                  <h3 className="font-display font-bold text-[1.4rem] text-ink">
-                    Thanks, {name.split(' ')[0]}. Now pick a time.
-                  </h3>
-                  <p className="text-muted mt-2 text-[0.98rem] leading-relaxed bg-card p-3 rounded-xl border border-rule font-display">
-                    <span className="font-semibold text-ink">Your brief: </span>
-                    {briefSummary}
-                  </p>
-                  <div className="mt-6">
-                    <a
-                      href={calendlyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn gold"
-                    >
-                      Choose a time on Calendly &rarr;
-                    </a>
-                  </div>
-                </motion.div>
+                  name={name}
+                  email={email}
+                  next="I'll look at the service and timing you picked and suggest a sensible first step."
+                />
               )}
             </AnimatePresence>
 
@@ -326,9 +322,10 @@ export default function HomeHire() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="btn solid sm"
+                  disabled={submitting}
+                  className="btn solid sm disabled:opacity-60"
                 >
-                  {step === 3 ? 'See available times' : 'Continue'}
+                  {step === 3 ? (submitting ? 'Sending…' : 'Send') : 'Continue'}
                 </button>
               </div>
             )}

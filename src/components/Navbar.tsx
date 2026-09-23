@@ -13,6 +13,7 @@ export default function Navbar() {
     { label: 'Founder Coaching', href: '/founder-coaching' },
     { label: 'Team Training', href: '/team-training' },
     { label: 'Speaking', href: '/speaking' },
+    { label: 'Blog', href: '/blog' },
   ];
 
   const handleLinkClick = () => {
@@ -51,7 +52,7 @@ export default function Navbar() {
             );
           })}
           <a
-            href="#hire"
+            href="/#hire"
             className="btn solid sm ml-2"
           >
             Hire me
@@ -97,7 +98,7 @@ export default function Navbar() {
           })}
           <div className="pt-3 pb-1">
             <a
-              href="#hire"
+              href="/#hire"
               onClick={handleLinkClick}
               className="btn solid sm w-full justify-center"
             >

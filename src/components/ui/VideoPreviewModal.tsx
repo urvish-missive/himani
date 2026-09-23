@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CrossIcon } from './BrandIcons';
+import { useScrollLock } from './Feedback';
 
 interface VideoPreviewModalProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ export default function VideoPreviewModal({
   onClose,
   video,
 }: VideoPreviewModalProps) {
+  useScrollLock(isOpen);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -27,12 +30,7 @@ export default function VideoPreviewModal({
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
   if (!isOpen || !video) return null;

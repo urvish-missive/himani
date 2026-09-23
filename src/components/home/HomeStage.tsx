@@ -317,6 +317,7 @@ export default function HomeStage() {
         >
           {videos.map((vid, vidIdx) => (
             <motion.div
+              key={vid.id}
               variants={{
                 hidden: { opacity: 0, y: 32, rotate: vidIdx % 2 === 0 ? -2 : 2 },
                 visible: { opacity: 1, y: 0, rotate: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
