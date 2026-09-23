@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLeadSubmit } from '../../hooks/useLeadSubmit';
-import { LEAD_LIMITS, type LeadSource } from '../../lib/leads';
+import { LEAD_LIMITS, validateLead, type LeadInput, type LeadSource } from '../../lib/leads';
 import LeadThankYou from '../ui/LeadThankYou';
+import DateTimePicker, { formatDateTimeValue, hasDateAndTime, isFuture } from '../ui/DateTimePicker';
 
 // Each service choice is filed under the matching form in the admin panel.
 const SOURCE_FOR: Record<string, LeadSource> = {
@@ -22,6 +23,7 @@ export default function HomeHire() {
   const [company, setCompany] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [callTime, setCallTime] = useState('');
   const { submit, submitting } = useLeadSubmit();
 
   const services = [
@@ -31,27 +33,50 @@ export default function HomeHire() {
     { id: 'Speaking', label: 'Speaking', sub: 'Headline our event' },
   ];
 
+  const buildLead = (when: string): LeadInput => ({
+    source: SOURCE_FOR[service] ?? 'virtual-cmo',
+    name,
+    email,
+    company,
+    message,
+    details: {
+      Form: 'Get in touch (home page)',
+      Service: service,
+      Stage: stage,
+      Start: timeline,
+      'Preferred call': formatDateTimeValue(when),
+    },
+  });
+
+  // Step 4 saves the lead, with the chosen call time or without one (skip).
+  const send = async (when: string) => {
+    if (submitting) return;
+    setError('');
+    const err = await submit(buildLead(when));
+    if (err) return setError(err);
+    setCallTime(when);
+    setStep(5);
+  };
+
   const handleNext = async () => {
     if (step === 1 && !service) {
       setError('Choose what you would like help with to continue.');
       return;
     }
     if (step === 3) {
-      if (submitting) return;
-      const err = await submit({
-        source: SOURCE_FOR[service] ?? 'virtual-cmo',
-        name,
-        email,
-        company,
-        message,
-        details: { Form: 'Get in touch (home page)', Service: service, Stage: stage, Start: timeline },
-      });
-      if (err) {
-        setError(err);
-        return;
-      }
+      // Check the details now so step 4 only has to deal with the time.
+      const invalid = validateLead(buildLead(''));
+      if (invalid) return setError(invalid);
       setError('');
       setStep(4);
+      return;
+    }
+    if (step === 4) {
+      if (!hasDateAndTime(callTime)) {
+        return setError(callTime ? 'Pick a time for that day, or skip this step.' : 'Pick a day and a time, or skip this step.');
+      }
+      if (!isFuture(callTime)) return setError('That time has already passed. Pick another.');
+      await send(callTime);
       return;
     }
     setError('');
@@ -81,7 +106,7 @@ export default function HomeHire() {
               Let's see if we're a fit
             </h2>
             <p className="text-muted mt-4 text-[1.12rem] leading-relaxed">
-              Three quick questions. I read every brief myself and reply by email.
+              Three quick questions, then pick a time that suits you for a call. I read every brief myself before we speak.
             </p>
             <p className="mt-5 font-display text-[0.98rem] text-ink">
               Prefer to talk first?{' '}
@@ -107,7 +132,7 @@ export default function HomeHire() {
           >
             {/* Progress Bars */}
             <div className="flex gap-2 mb-7">
-              {[1, 2, 3].map((s) => (
+              {[1, 2, 3, 4].map((s) => (
                 <div
                   key={s}
                   className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
@@ -286,13 +311,38 @@ export default function HomeHire() {
                 </motion.div>
               )}
 
-              {/* Step 4: Thank you */}
+              {/* Step 4: Day and time for a call */}
               {step === 4 && (
-                <LeadThankYou
+                <motion.div
                   key="step4"
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <h3 className="font-display font-bold text-[1.25rem] text-ink">When suits you for a call?</h3>
+                  <p className="text-muted text-[0.95rem] mt-1.5 mb-5">Pick a day, then a time. I'll confirm it by email.</p>
+                  <DateTimePicker
+                    value={callTime}
+                    onChange={(v) => {
+                      setError('');
+                      setCallTime(v);
+                    }}
+                  />
+                </motion.div>
+              )}
+
+              {/* Step 5: Thank you */}
+              {step === 5 && (
+                <LeadThankYou
+                  key="step5"
                   name={name}
                   email={email}
-                  next="I'll look at the service and timing you picked and suggest a sensible first step."
+                  next={
+                    callTime
+                      ? `You asked for ${formatDateTimeValue(callTime)}, and I'll confirm that time or suggest the nearest free one.`
+                      : "I'll look at the service and timing you picked and suggest a sensible first step."
+                  }
                 />
               )}
             </AnimatePresence>
@@ -305,8 +355,8 @@ export default function HomeHire() {
             )}
 
             {/* Navigation Buttons */}
-            {step < 4 && (
-              <div className="flex items-center justify-between mt-7 pt-4 border-t border-rule">
+            {step < 5 && (
+              <div className="flex items-center justify-between gap-3 mt-7 pt-4 border-t border-rule">
                 {step > 1 ? (
                   <button
                     type="button"
@@ -319,14 +369,26 @@ export default function HomeHire() {
                   <div />
                 )}
 
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  disabled={submitting}
-                  className="btn solid sm disabled:opacity-60"
-                >
-                  {step === 3 ? (submitting ? 'Sending…' : 'Send') : 'Continue'}
-                </button>
+                <div className="flex items-center gap-2">
+                  {step === 4 && (
+                    <button
+                      type="button"
+                      onClick={() => send('')}
+                      disabled={submitting}
+                      className="px-3 py-2 rounded-full font-display font-semibold text-[0.92rem] text-muted hover:text-ink hover:bg-lav disabled:opacity-60"
+                    >
+                      Skip
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={submitting}
+                    className="btn solid sm disabled:opacity-60"
+                  >
+                    {step === 4 ? (submitting ? 'Sending…' : 'Send') : step === 3 ? 'Next: pick a time' : 'Continue'}
+                  </button>
+                </div>
               </div>
             )}
           </motion.div>
