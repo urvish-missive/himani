@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
-import AboutPage from './pages/AboutPage';
-import PodcastPage from './pages/PodcastPage';
-import ServicePage from './pages/ServicePage';
+import VirtualCMOPage from './pages/VirtualCMOPage';
+import FounderCoachingPage from './pages/FounderCoachingPage';
+import TeamTrainingPage from './pages/TeamTrainingPage';
+import SpeakingPage from './pages/SpeakingPage';
 
 export default function App() {
   return (
@@ -11,12 +12,18 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/podcast" element={<PodcastPage />} />
-          <Route path="/consulting" element={<ServicePage serviceId="consulting" />} />
-          <Route path="/coaching" element={<ServicePage serviceId="coaching" />} />
-          <Route path="/training" element={<ServicePage serviceId="training" />} />
-          <Route path="/speaking" element={<ServicePage serviceId="speaking" />} />
+          <Route path="/virtual-cmo" element={<VirtualCMOPage />} />
+          <Route path="/founder-coaching" element={<FounderCoachingPage />} />
+          <Route path="/team-training" element={<TeamTrainingPage />} />
+          <Route path="/speaking" element={<SpeakingPage />} />
+
+          {/* Legacy route redirects */}
+          <Route path="/consulting" element={<Navigate to="/virtual-cmo" replace />} />
+          <Route path="/coaching" element={<Navigate to="/founder-coaching" replace />} />
+          <Route path="/training" element={<Navigate to="/team-training" replace />} />
+          <Route path="/about" element={<Navigate to="/" replace />} />
+          <Route path="/podcast" element={<Navigate to="/speaking" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>

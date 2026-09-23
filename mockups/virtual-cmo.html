@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Virtual CMO for B2B, SaaS and Tech Companies · Himani Kankaria</title>
+<meta name="description" content="Hire Himani Kankaria, the Content Queen of India, as your Virtual CMO. Senior marketing leadership for B2B, SaaS and tech companies, without a full-time hire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --paper-2:#F8F6FC; --ink:#2A2440; --muted:#6B6480; --rule:#E9E4F3;
+  --link:#6A45B8; --gold:#F2C230; --gold-ink:#2A2440; --lav:#F2EDFB; --lav-2:#E6DDF8; --accent:#6A45B8;
+  --card:#FFFFFF; --note-bg:#FFFBEA; --note-rule:#E0C24A; --bad:#B4415A; --good:#2E8B5E;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1B1826; --paper-2:#231F31; --ink:#EEEAF7; --muted:#ADA6C2; --rule:#352F48; --link:#C3AEF5;
+    --gold-ink:#1B1826; --lav:#262038; --lav-2:#302846; --accent:#C3AEF5; --card:#2E2744; --note-bg:#2A2716; --note-rule:#8C7A2C; --bad:#E48AA0; --good:#6FD1A1;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1B1826; --paper-2:#231F31; --ink:#EEEAF7; --muted:#ADA6C2; --rule:#352F48; --link:#C3AEF5;
+  --gold-ink:#1B1826; --lav:#262038; --lav-2:#302846; --accent:#C3AEF5; --card:#2E2744; --note-bg:#2A2716; --note-rule:#8C7A2C; --bad:#E48AA0; --good:#6FD1A1;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.7}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--link);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.015em}
+h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;max-width:22ch}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+.alt{background:var(--paper-2)}
+.lav{background:var(--lav)}
+.lede{color:var(--muted);max-width:60ch;margin-top:16px;font-size:1.1rem}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--accent);margin-bottom:16px}
+.kicker svg{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;text-decoration:none;border-radius:999px;padding:13px 24px;font-size:1rem;border:2px solid var(--ink);cursor:pointer;line-height:1.2}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.gold{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.btn.sm{padding:9px 18px;font-size:.92rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.center{text-align:center}.center h2,.center .lede{margin-left:auto;margin-right:auto}
+
+/* header: minimal on a landing page */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
+.nav{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.08rem;text-decoration:none;color:var(--ink);margin-right:auto}
+.brand svg{color:var(--gold)}
+.brand small{font-weight:400;color:var(--muted);font-size:.9rem}
+@media (max-width:620px){.brand small{display:none}}
+
+/* hero */
+.hero{padding:72px 0 88px;background:linear-gradient(180deg,var(--lav) 0%,var(--paper) 100%)}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:800;letter-spacing:-.035em;max-width:16ch}
+.hero .sub{margin-top:22px;font-size:1.15rem;max-width:52ch}
+.hero .fine{margin-top:18px;font-family:var(--display);font-size:.92rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 22px}
+.hero .fine span{display:inline-flex;gap:6px;align-items:center}
+.hero .fine svg{color:var(--good)}
+.who{background:var(--card);border:1px solid var(--rule);border-radius:24px;padding:22px;box-shadow:0 24px 50px -30px rgba(42,36,64,.35)}
+.who .ph{aspect-ratio:1/1;border-radius:18px;background:repeating-linear-gradient(135deg,var(--lav) 0 12px,var(--lav-2) 12px 13px);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--display);font-size:.9rem;text-align:center;padding:20px}
+.who .badge{display:inline-flex;gap:8px;align-items:center;margin-top:-20px;position:relative;left:14px;background:var(--gold);color:var(--gold-ink);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:800;font-size:.88rem}
+.who h3{margin-top:14px;font-size:1.3rem;font-weight:800}
+.who p{color:var(--muted);font-size:.98rem;margin-top:4px}
+.who ul{list-style:none;padding:0;margin:14px 0 0;font-family:var(--display);font-size:.92rem}
+.who li{padding:8px 0;border-top:1px solid var(--rule)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.who{max-width:380px}}
+
+.logos{padding:30px 0;border-bottom:1px solid var(--rule)}
+.logos .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 34px;font-family:var(--display);font-weight:600;font-size:1.1rem}
+.logos span:first-child{font-weight:400;font-size:.92rem;color:var(--muted)}
+
+/* signs */
+.signs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
+.sign{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:18px 20px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.sign .box{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);display:flex;align-items:center;justify-content:center;margin-top:2px;color:transparent}
+.sign[aria-pressed="true"]{border-color:var(--accent);background:var(--lav)}
+.sign[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent);color:#fff}
+.sign b{font-family:var(--display);font-weight:600;display:block}
+.sign span.t{color:var(--muted);font-size:.96rem}
+.hint{margin-top:22px;font-family:var(--display);color:var(--muted)}
+.result{margin-top:28px;display:grid;grid-template-columns:.9fr 1.1fr;border-radius:24px;overflow:hidden;border:2px solid var(--accent);background:var(--card)}
+.result[hidden]{display:none}
+.r-score{background:var(--lav);padding:30px}
+.r-fix{padding:30px;display:flex;flex-direction:column}
+.r-label{font-family:var(--display);font-weight:600;font-size:.9rem;color:var(--accent)}
+.r-num{font-family:var(--display);font-weight:800;font-size:3.2rem;line-height:1;margin-top:8px}
+.meter{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:14px}
+.meter i{height:8px;border-radius:8px;background:var(--lav-2)}
+.meter i.on{background:var(--gold)}
+.r-score h3{margin-top:22px;font-size:1.45rem;font-weight:800}
+.r-score p{margin-top:8px;color:var(--muted)}
+.r-fix ol{margin:12px 0 22px;padding-left:1.2em}
+.r-fix li{padding:6px 0;font-size:1.02rem}
+.r-fix .btn{align-self:flex-start;margin-top:auto}
+.r-small{margin-top:12px;font-family:var(--display);font-size:.88rem;color:var(--muted)}
+@media (max-width:760px){.result{grid-template-columns:1fr}}
+@media (max-width:760px){.signs{grid-template-columns:1fr}}
+
+/* before after */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:44px;border-radius:24px;overflow:hidden;border:1px solid var(--rule)}
+.ba > div{padding:30px}
+.ba .before{background:var(--paper-2)}
+.ba .after{background:var(--card);border-left:1px solid var(--rule)}
+.ba h3{font-size:1.1rem;margin-bottom:12px}
+.ba .before h3{color:var(--muted)}
+.ba .after h3{color:var(--accent)}
+.ba ul{list-style:none;padding:0;margin:0}
+.ba li{padding:12px 0;border-top:1px solid var(--rule)}
+.ba .before li{color:var(--muted)}
+@media (max-width:760px){.ba{grid-template-columns:1fr}.ba .after{border-left:0;border-top:1px solid var(--rule)}}
+
+/* scope */
+.scope{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:44px}
+.scope > div{padding:26px 26px 26px 0;border-top:1px solid var(--rule)}
+.scope > div:nth-child(3n+2),.scope > div:nth-child(3n){padding-left:26px;border-left:1px solid var(--rule)}
+.scope h3{font-size:1.3rem;font-weight:800}
+.scope p{color:var(--muted);margin-top:8px;font-size:1rem}
+@media (max-width:860px){.scope{grid-template-columns:1fr}.scope > div,.scope > div:nth-child(3n+2),.scope > div:nth-child(3n){padding:22px 0;border-left:0}}
+
+/* process */
+.steps{list-style:none;padding:0;margin:48px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border-radius:20px;padding:24px;border:1px solid var(--rule);position:relative}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:800;font-size:1rem;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.steps h3{font-size:1.2rem;font-weight:800}
+.steps .when{font-family:var(--display);font-size:.88rem;color:var(--accent);margin-top:4px}
+.steps p{color:var(--muted);font-size:.98rem;margin-top:8px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:540px){.steps{grid-template-columns:1fr}}
+
+/* compare */
+.cmp{margin-top:44px;overflow-x:auto;border:1px solid var(--rule);border-radius:20px;background:var(--card)}
+.cmp table{width:100%;border-collapse:collapse;min-width:640px}
+.cmp th,.cmp td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--rule);vertical-align:top;font-size:.98rem}
+.cmp tr:last-child td{border-bottom:0}
+.cmp th{font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--muted)}
+.cmp th.me,.cmp td.me{background:var(--lav)}
+.cmp th.me{color:var(--accent)}
+.cmp td:first-child{font-family:var(--display);font-weight:600}
+.cmp td.me{font-family:var(--display);font-weight:600}
+
+/* proof */
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.rcard{background:var(--card);border:1px solid var(--rule);border-radius:20px;padding:26px}
+.rcard .big{font-family:var(--display);font-size:2.8rem;font-weight:800;line-height:1;color:var(--accent)}
+.rcard .what{font-family:var(--display);color:var(--muted);margin-top:6px}
+.rcard p.q{margin-top:16px;font-style:italic}
+.rcard small{display:block;margin-top:10px;font-family:var(--display);color:var(--muted);font-size:.9rem}
+@media (max-width:900px){.results{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.about .ph{aspect-ratio:4/5;border-radius:22px;background:repeating-linear-gradient(135deg,var(--paper-2) 0 12px,var(--rule) 12px 13px);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--display);font-size:.9rem;max-width:340px}
+.about h2 svg{color:var(--gold);vertical-align:-.05em}
+.about p + p{margin-top:14px}
+.facts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.facts span{font-family:var(--display);font-size:.9rem;border:1px solid var(--rule);border-radius:999px;padding:6px 14px;background:var(--card)}
+@media (max-width:860px){.about{grid-template-columns:1fr}}
+
+/* faq */
+details{border-bottom:1px solid var(--rule);padding:18px 0}
+summary{font-family:var(--display);font-weight:600;font-size:1.1rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:400;font-size:1.4rem;line-height:1;color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-top:10px;max-width:68ch}
+.faq{margin-top:32px;max-width:840px}
+
+/* apply */
+.apply{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.form{background:var(--card);border:2px solid var(--ink);border-radius:24px;padding:30px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-family:var(--display);font-weight:600;font-size:.92rem}
+.field input,.field select,.field textarea{font:inherit;font-size:1rem;padding:11px 13px;border:1.5px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{color:var(--bad);font-family:var(--display);font-size:.9rem;margin-top:8px;min-height:1.2em}
+.done{display:none}
+.done.on{display:block}
+.done p{color:var(--muted);margin-top:8px}
+.promise{list-style:none;padding:0;margin:24px 0 0}
+.promise li{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--rule)}
+.promise svg{color:var(--accent);margin-top:5px}
+@media (max-width:860px){.apply{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--muted);font-family:var(--display);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+
+.hirebar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:25;display:none;background:var(--ink);color:var(--paper);border-radius:999px;padding:8px 8px 8px 18px;align-items:center;justify-content:space-between;font-family:var(--display);font-size:.92rem;box-shadow:0 12px 28px -12px rgba(0,0,0,.5)}
+.hirebar .btn{padding:9px 16px;font-size:.9rem}
+@media (max-width:760px){.hirebar.show{display:flex}.toggle{bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--note-bg);border:1px dashed var(--note-rule);border-radius:12px;padding:12px 16px;margin-bottom:34px;font-family:var(--display);font-size:.92rem;line-height:1.5;max-width:780px;text-align:left}
+.note .n{flex:none;font-weight:800;background:var(--gold);color:var(--gold-ink);border-radius:999px;min-width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.note b{font-weight:600}
+.center .note{margin-left:auto;margin-right:auto}
+body.clean .note{display:none}
+.toggle{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--gold);color:var(--gold-ink);border:2px solid var(--ink);border-radius:999px;padding:10px 18px;font-family:var(--display);font-weight:600;cursor:pointer;box-shadow:0 8px 24px -10px rgba(0,0,0,.4)}
+
+/* ===== shared site navigation ===== */
+header.top .nav{position:relative;gap:24px}
+header.top .brand{margin-right:0}
+.menu{display:flex;align-items:center;gap:22px;margin-left:auto}
+.menu a{font-family:var(--display);color:var(--muted);text-decoration:none;font-size:.95rem;padding:6px 0;border-bottom:2px solid transparent}
+.menu a:hover{color:var(--ink)}
+.menu a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--gold)}
+.burger{display:none;margin-left:auto;font-family:var(--display);font-weight:600;font-size:.92rem;background:transparent;color:var(--ink);border:1.5px solid var(--rule);border-radius:999px;padding:8px 14px;cursor:pointer;align-items:center;gap:8px}
+.burger svg{display:block}
+@media (max-width:1020px){
+  .burger{display:inline-flex}
+  .navcta{display:none !important}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:8px 24px 18px;box-shadow:0 18px 30px -20px rgba(0,0,0,.3)}
+  .menu.open{display:flex}
+  .menu a{padding:14px 0;border-bottom:1px solid var(--rule);font-size:1.05rem}
+  .menu a[aria-current="page"]{border-bottom-color:var(--rule);color:var(--accent,var(--link));font-weight:600}
+  .menu .menu-cta{display:inline-flex !important;margin-top:16px;align-self:flex-start;border-bottom:2px solid var(--ink);padding:12px 22px;color:var(--paper)}
+}
+.menu .menu-cta{display:none}
+
+/* ===== footer ===== */
+footer .links{display:flex;flex-wrap:wrap;gap:8px 20px}
+footer .links a{color:var(--muted);text-decoration:none}
+footer .links a:hover{color:var(--ink);text-decoration:underline}
+
+/* ===== real-life proof gallery ===== */
+.gallery-sec{padding:110px 0}
+.g-kicker{display:inline-flex;gap:8px;align-items:center;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--accent,var(--link));margin-bottom:14px}
+.g-kicker svg{color:var(--gold)}
+.gallery-sec h2.g-title{font-size:clamp(2.8rem,7vw,5.4rem);font-weight:800;letter-spacing:-.04em;line-height:.95;max-width:14ch}
+.gallery-sec .lede{font-size:1.15rem;margin-top:20px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;grid-auto-flow:dense;gap:14px;margin-top:40px}
+.gallery figure{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--card)}
+.gallery .g-big{grid-column:span 2;grid-row:span 2}
+.gallery .g-tall{grid-row:span 2}
+.gallery .g-wide{grid-column:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.ph-img{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;color:var(--muted);font-family:var(--display);font-size:.9rem;border:1.5px dashed var(--rule);border-radius:18px;background:repeating-linear-gradient(135deg,var(--paper-2) 0 12px,transparent 12px 24px)}
+.ph-img svg{color:var(--muted);opacity:.7}
+.gallery figcaption{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);background:color-mix(in srgb,var(--paper) 90%,transparent);color:var(--ink);font-family:var(--display);font-size:.82rem;border-radius:999px;padding:5px 12px}
+@media (max-width:760px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:150px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="crown" viewBox="0 0 24 24"><path fill="currentColor" d="M3 7.5l4.6 4 4.4-7 4.4 7 4.6-4-1.8 10.5H4.8L3 7.5zm1.9 12h14.2v2H4.9z"/></symbol>
+  <symbol id="tick" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M4 12.5l5 5L20 6.5"/></symbol>
+</svg>
+
+<div class="hirebar" id="hirebar"><span>Limited Virtual CMO seats</span><a class="btn gold" href="#apply">Apply now</a></div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><svg width="22" height="22"><use href="#crown"/></svg>Himani Kankaria</a>
+    <nav class="menu" id="menu" aria-label="Main"><a href="index.html">Home</a><a href="virtual-cmo.html" aria-current="page">Virtual CMO</a><a href="founder-coaching.html">Founder Coaching</a><a href="team-training.html">Team Training</a><a href="speaking.html">Speaking</a><a class="btn solid menu-cta" href="#apply">Book a call</a></nav>
+    <a class="btn solid sm navcta" href="#apply">Book a call</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- 1 HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker"><svg width="18" height="18"><use href="#crown"/></svg>Virtual CMO for B2B, SaaS and tech companies</div>
+        <h1>A senior marketing leader in weeks, not after a six-month search.</h1>
+        <p class="sub">I step in as your part-time CMO: I own the marketing plan, lead your team and agencies, sharpen your brand, and report to leadership, so growth stops depending on the founder's calendar.</p>
+        <div class="cta-row">
+          <a class="btn solid" href="#apply">Book a Virtual CMO call</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+        <div class="fine">
+          <span><svg width="16" height="16"><use href="#tick"/></svg>Starts with a 30-day diagnosis</span>
+          <span><svg width="16" height="16"><use href="#tick"/></svg>Monthly, no long lock-in</span>
+          <span><svg width="16" height="16"><use href="#tick"/></svg>Works with your existing team</span>
+        </div>
+      </div>
+      <aside class="who" aria-label="About Himani">
+        <div class="ph">Himani's portrait<br>(square, warm, confident)</div>
+        <span class="badge"><svg width="16" height="16"><use href="#crown"/></svg>Content Queen of India</span>
+        <h3>Himani Kankaria</h3>
+        <p>Founder, Missive Digital. Virtual CMO and founder coach.</p>
+        <ul>
+          <li>15+ years in marketing and content</li>
+          <li>Worked with BrowserStack, Testsigma, Vymo</li>
+          <li>Speaker, International Search Summit and WordCamp Asia</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="logos">
+  <div class="wrap"><span>Brands I've worked with</span><span>BrowserStack</span><span>Testsigma</span><span>Vymo</span><span>Edenred</span><span>Sterlite Power</span><span>Pittie Group</span></div>
+</div>
+
+<!-- 2 SIGNS -->
+<section>
+  <div class="wrap">
+    <h2>Do you need a Virtual CMO? Tick what sounds familiar.</h2>
+    <div class="signs" id="signs">
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>Marketing is busy, pipeline isn't</b><span class="t">Lots of posts, campaigns and reports, but no clear link to revenue.</span></span></button>
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>The founder is still the marketing head</b><span class="t">Every post, campaign and agency brief waits for your sign-off.</span></span></button>
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>Agencies with no one directing them</b><span class="t">You pay for SEO, ads or content, but nobody owns the overall plan.</span></span></button>
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>A capable team without a senior lead</b><span class="t">Good executors who need direction, feedback and priorities.</span></span></button>
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>Your story changes depending on who tells it</b><span class="t">Website, sales deck and LinkedIn all describe you differently.</span></span></button>
+      <button class="sign" aria-pressed="false"><span class="box"><svg width="14" height="14"><use href="#tick"/></svg></span><span><b>You're not ready for a full-time CMO</b><span class="t">The budget or the stage doesn't justify one yet, but the need is real.</span></span></button>
+    </div>
+    <p class="hint" id="hint">Tick the ones that apply to you to see your result.</p>
+    <div class="result" id="result" hidden aria-live="polite">
+      <div class="r-score">
+        <div class="r-label">Your result</div>
+        <div class="r-num"><span id="r-n">0</span> of 6</div>
+        <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h3 id="r-title"></h3>
+        <p id="r-desc"></p>
+      </div>
+      <div class="r-fix">
+        <div class="r-label">What I'd fix first</div>
+        <ol id="r-list"></ol>
+        <a class="btn gold" id="r-cta" href="#apply"></a>
+        <p class="r-small">Your answers go straight into the application, so you won't type them twice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 BEFORE / AFTER -->
+<section class="alt">
+  <div class="wrap">
+    <h2>What changes in the first 90 days</h2>
+    <div class="ba">
+      <div class="before">
+        <h3>Without a marketing leader</h3>
+        <ul>
+          <li>Tactics chosen by whoever shouted last</li>
+          <li>Agencies reporting activity, not outcomes</li>
+          <li>The founder reviewing every piece of content</li>
+          <li>A brand story that shifts from channel to channel</li>
+          <li>Board meetings with no clear marketing numbers</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>With me as your Virtual CMO</h3>
+        <ul>
+          <li>A 90-day plan with budget and channel priorities</li>
+          <li>Agencies and team working to one scorecard</li>
+          <li>The founder back on product, sales and fundraising</li>
+          <li>One clear positioning across website, sales and LinkedIn</li>
+          <li>A monthly leadership report tied to pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 SCOPE -->
+<section>
+  <div class="wrap">
+    <h2>What I take ownership of</h2>
+    <p class="lede">Content is where I earned my name. As your CMO, I lead all of marketing.</p>
+    <div class="scope">
+      <div><h3>Strategy and budget</h3><p>Where to play, which channels deserve money, and what to stop doing.</p></div>
+      <div><h3>Brand and positioning</h3><p>A clear story about who you serve and why you win.</p></div>
+      <div><h3>Team and agency leadership</h3><p>Weekly direction, reviews and hiring help for your marketers.</p></div>
+      <div><h3>Content and founder brand</h3><p>Full-funnel content and a founder presence on LinkedIn.</p></div>
+      <div><h3>Demand and visibility</h3><p>Search, AI visibility, social and campaigns, working together.</p></div>
+      <div><h3>Sales alignment and reporting</h3><p>Messaging and enablement sales uses, and numbers leadership trusts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 HOW -->
+<section class="lav" id="how">
+  <div class="wrap">
+    <h2>How the engagement works</h2>
+    <ol class="steps">
+      <li><h3>Discovery call</h3><div class="when">30 minutes</div><p>We look at your goals, team and current marketing to check fit.</p></li>
+      <li><h3>Diagnosis</h3><div class="when">First 30 days</div><p>Audit of brand, channels, team and numbers, ending in a 90-day plan.</p></li>
+      <li><h3>Lead</h3><div class="when">Month 2 onward</div><p>I run marketing with your team: weekly direction, monthly leadership review.</p></li>
+      <li><h3>Hand over</h3><div class="when">When you're ready</div><p>I help you hire and onboard a full-time CMO, and hand over the playbook.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 7 COMPARE -->
+<section class="alt">
+  <div class="wrap">
+    <h2>Virtual CMO, full-time CMO or agency?</h2>
+    <div class="cmp">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col" class="me">Virtual CMO (me)</th><th scope="col">Full-time CMO</th><th scope="col">Agency</th></tr></thead>
+        <tbody>
+          <tr><td>Time to start</td><td class="me">[2 weeks]</td><td>3 to 6 months of hiring</td><td>2 to 4 weeks</td></tr>
+          <tr><td>Owns the overall strategy</td><td class="me">Yes</td><td>Yes</td><td>Usually only its own channel</td></tr>
+          <tr><td>Leads your team</td><td class="me">Yes</td><td>Yes</td><td>No</td></tr>
+          <tr><td>Commitment</td><td class="me">Monthly</td><td>Salary, equity, notice periods</td><td>Retainer, often per channel</td></tr>
+          <tr><td>Range of experience</td><td class="me">15+ years, many industries</td><td>Usually one or two industries</td><td>Depends on who's assigned</td></tr>
+          <tr><td>Trains your team</td><td class="me">Built in</td><td>Sometimes</td><td>Rarely</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8 PROOF -->
+<section>
+  <div class="wrap">
+    <h2>What leaders say</h2>
+    <div class="results">
+      <div class="rcard"><div class="big">800%</div><div class="what">organic growth, year over year</div><p class="q">"[CEO quote on having a marketing plan the whole company understood.]"</p><small>[Name, CEO, Company]</small></div>
+      <div class="rcard"><div class="big">200%</div><div class="what">growth in conversions</div><p class="q">"[Founder quote on getting time back from marketing decisions.]"</p><small>[Name, Founder, Company]</small></div>
+      <div class="rcard"><div class="big">[X]</div><div class="what">[metric, e.g. demo requests per month]</div><p class="q">"[Quote on how the team and agencies changed under Himani's lead.]"</p><small>[Name, COO, Company]</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ABOUT -->
+<section class="lav">
+  <div class="wrap">
+    <div class="about">
+      <div class="ph">Portrait<br>(4:5)</div>
+      <div>
+        <h2>Why founders bring in the <svg width=".8em" height=".8em"><use href="#crown"/></svg> Content Queen of India</h2>
+        <p class="lede" style="margin-top:18px">For 15+ years I've helped unicorn startups and global companies build long-term brand visibility, working closely with leadership teams and coaching in-house marketers.</p>
+        <p>I started in IT, chose marketing over code, and built Missive Digital from Ahmedabad. As a Virtual CMO I bring what I've learned across B2B, SaaS, fintech and telecom, plus what I hear on stages from Barcelona to Mumbai.</p>
+        <div class="facts"><span>15+ years</span><span>Founder, Missive Digital</span><span>Search Engine Journal contributor</span><span>International speaker</span></div>
+        <div class="cta-row"><a class="btn ghost" href="index.html">More about Himani</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL-LIFE PROOF GALLERY -->
+<section class="gallery-sec" id="gallery">
+  <div class="wrap">
+    <div class="g-kicker"><svg width="18" height="18"><use href="#crown"/></svg>From the advisory work</div>
+    <h2 class="g-title">Leadership you can see.</h2>
+    <p class="lede">Strategy sessions, leadership reviews and messages from the teams I lead.</p>
+    <!-- Developer: replace each <div class="ph-img">...</div> with <img src="..." alt="..."> (training photos, advisory sessions, stage photos or feedback screenshots). Tiles crop with object-fit: cover. Delete the <figcaption> if no caption is needed. -->
+    <div class="gallery">
+      <figure class="g-big"><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 1<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class=""><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 2<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class="g-tall"><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 3<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class=""><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 4<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class="g-wide"><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 5<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class=""><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 6<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+      <figure class=""><div class="ph-img"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Image 7<br>Photo or screenshot</div><figcaption>[Optional caption]</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 10 FAQ -->
+<section>
+  <div class="wrap">
+    <h2>Questions about the Virtual CMO role</h2>
+    <div class="faq">
+      <details><summary>How much of your time do we get?</summary><p>A set number of days each month, agreed in the proposal, plus async availability for your team. [Add your typical range, for example 4 to 6 days a month.]</p></details>
+      <details><summary>Do you execute, or only advise?</summary><p>I lead and direct; your team and agencies execute. If you don't have a team yet, I help you hire one, and Missive Digital can support execution separately.</p></details>
+      <details><summary>We already have an agency. Does that work?</summary><p>Yes. I give your agencies one plan and one scorecard, so their work adds up instead of running in parallel.</p></details>
+      <details><summary>How long is the contract?</summary><p>It starts with a 30-day diagnosis. After that, the leadership engagement runs month to month with a short notice period.</p></details>
+      <details><summary>Which companies is this right for?</summary><p>B2B, SaaS and tech companies that have product-market fit and some marketing in place, but no senior marketing leader. It's less suited to very early teams still testing the idea.</p></details>
+      <details><summary>What happens when we're ready for a full-time CMO?</summary><p>I help you define the role, interview candidates and hand over the plan, so your new CMO starts with momentum.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11 APPLY -->
+<section class="alt" id="apply">
+  <div class="wrap">
+    <div class="apply">
+      <div>
+        <h2>Apply for a Virtual CMO seat</h2>
+        <p class="lede">I take on a small number of Virtual CMO clients at a time, so I can give each one real attention.</p>
+        <ul class="promise">
+          <li><svg width="16" height="16"><use href="#tick"/></svg><span>I read your answers before we speak.</span></li>
+          <li><svg width="16" height="16"><use href="#tick"/></svg><span>You leave the call with at least three priorities, even if we don't work together.</span></li>
+          <li><svg width="16" height="16"><use href="#tick"/></svg><span>If I'm not the right fit, I'll say so and suggest who is.</span></li>
+        </ul>
+      </div>
+      <form class="form" id="form" novalidate>
+        <div id="fields">
+          <div class="row2">
+            <div class="field"><label for="nm">Name</label><input id="nm" autocomplete="name"></div>
+            <div class="field"><label for="em">Work email</label><input id="em" type="email" autocomplete="email"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="co">Company</label><input id="co" autocomplete="organization"></div>
+            <div class="field"><label for="role">Your role</label><select id="role"><option>Founder or CEO</option><option>COO or business head</option><option>Marketing lead</option><option>Other</option></select></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="size">Marketing team today</label><select id="size"><option>No one yet</option><option>1 to 3 people</option><option>4 to 10 people</option><option>10+ people</option><option>Agencies only</option></select></div>
+            <div class="field"><label for="plan">Interested in</label><select id="plan"><option>Not sure yet</option><option>30-day diagnosis</option><option>Ongoing Virtual CMO</option><option>Virtual CMO plus team training</option></select></div>
+          </div>
+          <div class="field"><label for="msg">Biggest marketing challenge right now</label><textarea id="msg" rows="3"></textarea></div>
+          <p class="err" id="err" role="alert"></p>
+          <button type="button" class="btn solid" id="send" style="width:100%;justify-content:center">Send application and pick a time</button>
+        </div>
+        <div class="done" id="done">
+          <h3>Thanks, <span id="d-name"></span>. One last step.</h3>
+          <p>Pick a time for our 30-minute call. Your answers are already attached to the booking.</p>
+          <div class="cta-row"><a class="btn gold" id="cal" href="https://calendly.com/missivedigital/30min" target="_blank" rel="noopener">Choose a time on Calendly</a></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Himani Kankaria, the Content Queen of India</span>
+    <span class="links"><a href="index.html">Home</a><a href="virtual-cmo.html">Virtual CMO</a><a href="founder-coaching.html">Founder Coaching</a><a href="team-training.html">Team Training</a><a href="speaking.html">Speaking</a><a href="https://www.linkedin.com/in/himanikankaria/" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/himani_kankaria" target="_blank" rel="noopener">X</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // self-diagnosis with result
+  var signs = document.querySelectorAll('.sign');
+  var fixes = [
+    ['Marketing is busy, pipeline isn\'t','Tie every channel to one pipeline scorecard'],
+    ['The founder is still the marketing head','Take marketing sign-offs off the founder\'s desk'],
+    ['Agencies with no one directing them','Give your agencies one plan and one owner'],
+    ['A capable team without a senior lead','Set weekly priorities and feedback for the team'],
+    ['Your story changes depending on who tells it','Lock one positioning across website, sales and LinkedIn'],
+    ['Not ready for a full-time CMO','Get CMO-level leadership on a monthly basis']
+  ];
+  var result = document.getElementById('result'), hint = document.getElementById('hint'), picked = [], plan = 'Ongoing Virtual CMO';
+  function judge(){
+    picked = [];
+    signs.forEach(function(s,i){ if(s.getAttribute('aria-pressed') === 'true') picked.push(i); });
+    var n = picked.length;
+    result.hidden = n === 0; hint.hidden = n > 0;
+    if(!n) return;
+    document.getElementById('r-n').textContent = n;
+    document.querySelectorAll('.meter i').forEach(function(m,i){ m.classList.toggle('on', i < n); });
+    var t, d, c;
+    if(n <= 2){ t = 'You need a plan more than a leader'; d = 'Your gaps are specific. A 30-day diagnosis will give you a clear plan your team can run.'; c = 'Start with a diagnosis'; plan = '30-day diagnosis'; }
+    else if(n <= 4){ t = 'You have a leadership gap'; d = 'The issue isn\'t tactics, it\'s that nobody owns marketing end to end. That\'s exactly what a Virtual CMO fixes.'; c = 'Apply for a Virtual CMO seat'; plan = 'Ongoing Virtual CMO'; }
+    else { t = 'Marketing needs a leader now'; d = 'Almost every sign is there. Each month without a marketing lead costs you pipeline and founder time.'; c = 'Apply for a Virtual CMO seat'; plan = 'Ongoing Virtual CMO'; }
+    document.getElementById('r-title').textContent = t;
+    document.getElementById('r-desc').textContent = d;
+    document.getElementById('r-cta').textContent = c;
+    var ol = document.getElementById('r-list'); ol.innerHTML = '';
+    picked.slice(0,3).forEach(function(i){ var li = document.createElement('li'); li.textContent = fixes[i][1]; ol.appendChild(li); });
+  }
+  signs.forEach(function(s){ s.addEventListener('click', function(){ s.setAttribute('aria-pressed', String(s.getAttribute('aria-pressed') !== 'true')); judge(); }); });
+  document.getElementById('r-cta').addEventListener('click', function(){
+    document.getElementById('plan').value = plan;
+    document.getElementById('msg').value = 'Signs I ticked: ' + picked.map(function(i){ return fixes[i][0]; }).join('; ') + '. ';
+  });
+
+  // application
+  document.getElementById('send').addEventListener('click', function(){
+    var err = document.getElementById('err');
+    var nm = document.getElementById('nm').value.trim(), em = document.getElementById('em').value.trim(), co = document.getElementById('co').value.trim();
+    if(!nm){ err.textContent = 'Add your name so I know who I am speaking with.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err.textContent = 'Add a valid work email so I can send the invite.'; return; }
+    if(!co){ err.textContent = 'Add your company name.'; return; }
+    err.textContent = '';
+    var brief = 'Virtual CMO | ' + co + ' | ' + document.getElementById('role').value + ' | Team: ' + document.getElementById('size').value + ' | Interested in: ' + document.getElementById('plan').value + (document.getElementById('msg').value.trim() ? ' | Challenge: ' + document.getElementById('msg').value.trim() : '');
+    document.getElementById('d-name').textContent = nm.split(' ')[0];
+    document.getElementById('cal').href = 'https://calendly.com/missivedigital/30min?name=' + encodeURIComponent(nm) + '&email=' + encodeURIComponent(em) + '&a1=' + encodeURIComponent(brief);
+    document.getElementById('fields').style.display = 'none';
+    document.getElementById('done').classList.add('on');
+  });
+
+  // mobile apply bar
+  var bar = document.getElementById('hirebar'), hero = document.querySelector('.hero'), apply = document.getElementById('apply');
+  if('IntersectionObserver' in window){
+    var heroGone = false, applyIn = false;
+    function upd(){ bar.classList.toggle('show', heroGone && !applyIn); }
+    new IntersectionObserver(function(e){ heroGone = !e[0].isIntersecting; upd(); }).observe(hero);
+    new IntersectionObserver(function(e){ applyIn = e[0].isIntersecting; upd(); }).observe(apply);
+  }
+
+  // flow notes
+  })();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('burger'), m=document.getElementById('menu');
+  if(!b||!m) return;
+  b.addEventListener('click',function(){ var o=m.classList.toggle('open'); b.setAttribute('aria-expanded',String(o)); });
+  m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ m.classList.remove('open'); b.setAttribute('aria-expanded','false'); }); });
+})();
+</script>
+</body>
+</html>

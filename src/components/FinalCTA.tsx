@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Container from './ui/Container';
 import Reveal from './ui/Reveal';
-import { ArrowRight } from 'lucide-react';
+import CTAButton from './ui/CTAButton';
 
 export default function FinalCTA() {
   return (
@@ -59,23 +59,19 @@ export default function FinalCTA() {
 
           {/* Two main CTA buttons */}
           <Reveal delay={0.2}>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-              <a
-                href="#services"
-                className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-gradient-to-r from-purple to-orange text-white rounded-full hover:shadow-lg hover:shadow-purple/25 transition-all duration-300 hover:scale-105"
-              >
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+              <CTAButton href="#services" variant="primary" size="lg">
                 Work With Us
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-              <a
+              </CTAButton>
+              <CTAButton
                 href="https://calendly.com/missivedigital/30min"
+                variant="gradient-border-dark"
+                size="lg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 Book a Strategy Call
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </CTAButton>
             </div>
           </Reveal>
 

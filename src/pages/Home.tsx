@@ -1,43 +1,31 @@
-import Hero from '../components/Hero';
-import AuthorityBar from '../components/AuthorityBar';
-import RecentEngagements from '../components/RecentEngagements';
-import Positioning from '../components/Positioning';
-import ProgramsStack from '../components/ProgramsStack';
-import ServicesSplit from '../components/ServicesSplit';
-import AnimatedStats from '../components/AnimatedStats';
-import Expertise from '../components/Expertise';
-import Framework from '../components/Framework';
-import ConferenceShowcase from '../components/ConferenceShowcase';
-import TrainingShowcase from '../components/TrainingShowcase';
-import OneOnOneCoaching from '../components/OneOnOneCoaching';
-import CoachingTransformation from '../components/CoachingTransformation';
-import Testimonials from '../components/Testimonials';
-import ShortsReels from '../components/ShortsReels';
-import Insights from '../components/Insights';
-import WhoIWorkWith from '../components/WhoIWorkWith';
-import FinalCTA from '../components/FinalCTA';
+import HomeHero from '../components/home/HomeHero';
+import HomeTrust from '../components/home/HomeTrust';
+import HomeWhatILead from '../components/home/HomeWhatILead';
+import HomeVirtualCMO from '../components/home/HomeVirtualCMO';
+import HomeOffers from '../components/home/HomeOffers';
+import HomeStage from '../components/home/HomeStage';
+import HomeBeliefs from '../components/home/HomeBeliefs';
+import HomeResults from '../components/home/HomeResults';
+import HomeAbout from '../components/home/HomeAbout';
+import HomeGallery from '../components/home/HomeGallery';
+import HomeFAQ from '../components/home/HomeFAQ';
+import HomeHire from '../components/home/HomeHire';
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <AuthorityBar />
-      <RecentEngagements />
-      <Positioning />
-      <ProgramsStack />
-      {/* <ServicesSplit /> */}
-      {/* <AnimatedStats /> */}
-      {/* <Expertise /> */}
-      {/* <Framework /> */}
-      <ConferenceShowcase />
-      <OneOnOneCoaching />
-      <TrainingShowcase />
-      {/* <CoachingTransformation /> */}
-      <Testimonials />
-      <ShortsReels />
-      {/* <Insights /> */}
-      <WhoIWorkWith />
-      <FinalCTA />
+    <main id="top">
+      <HomeHero />
+      <HomeTrust />
+      <HomeWhatILead />
+      <HomeVirtualCMO />
+      <HomeOffers />
+      <HomeStage />
+      <HomeBeliefs />
+      <HomeResults />
+      <HomeAbout />
+      <HomeGallery />
+      <HomeFAQ />
+      <HomeHire />
     </main>
   );
 }
