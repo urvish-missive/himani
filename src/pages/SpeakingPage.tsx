@@ -164,15 +164,15 @@ export default function SpeakingPage() {
               {...enter('tilt3d', { delay: 0.15 })}
               className="bg-card border border-rule rounded-3xl p-6 shadow-xl max-w-sm lg:max-w-none mx-auto w-full card-hover group"
             >
-              <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative img-zoom-hover">
+              <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative img-zoom-hover mb-5">
                 <img
                   src={stageHeroImg}
-                  alt="Himani on stage"
+                  alt="Himani Kankaria speaking on stage about AI"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
-              <h3 className="mt-4 text-xl font-display font-extrabold text-ink">
+              <h3 className="text-xl font-display font-extrabold text-ink">
                 Most recently
               </h3>
               <ul className="mt-3 pt-2 border-t border-rule space-y-2.5 text-sm font-display text-ink">

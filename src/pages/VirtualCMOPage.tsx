@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CrownIcon, TickIcon } from '../components/ui/BrandIcons';
-import portraitImg from '../images/himanimainimage.jpg';
+import portraitImg from '../images/himanimarketing.jpg';
 import { useLeadSubmit } from '../hooks/useLeadSubmit';
 import LeadThankYou from '../components/ui/LeadThankYou';
 import { LEAD_LIMITS, validateLead, type LeadInput } from '../lib/leads';
@@ -171,16 +171,16 @@ export default function VirtualCMOPage() {
               {...enter('tilt3d', { delay: 0.15 })}
               className="bg-card border border-rule rounded-[24px] p-6 shadow-xl shadow-ink/5 max-w-[380px] mx-auto lg:mx-0 w-full card-hover group"
             >
-              <div className="relative aspect-square rounded-[18px] overflow-hidden bg-paper-2 border border-rule">
+              <div className="relative aspect-square rounded-[18px] overflow-hidden bg-paper-2 border border-rule mb-5">
                 <img
                   src={portraitImg}
-                  alt="Himani Kankaria"
+                  alt="Himani Kankaria in her office"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
 
-              <h3 className="font-display font-bold text-[1.3rem] text-ink mt-4">
+              <h3 className="font-display font-bold text-[1.3rem] text-ink">
                 Himani Kankaria
               </h3>
               <p className="text-muted text-[0.96rem] mt-0.5">

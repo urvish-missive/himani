@@ -4,7 +4,7 @@ import { CrownIcon, TickIcon } from '../components/ui/BrandIcons';
 import { useLeadSubmit } from '../hooks/useLeadSubmit';
 import LeadThankYou from '../components/ui/LeadThankYou';
 import { LEAD_LIMITS, validateLead, type LeadInput } from '../lib/leads';
-import trainerHeroImg from '../images/himanimarketing.jpg';
+import trainerHeroImg from '../images/Himani-.jpg';
 import aboutImg from '../images/himanimainsection.jpg';
 import galleryImg1 from '../images/himanispeaker.jpg';
 import galleryImg2 from '../images/hiimanisasspeaker.jpg';
@@ -182,15 +182,15 @@ export default function TeamTrainingPage() {
               {...enter('tilt3d', { delay: 0.15 })}
               className="bg-card border border-rule rounded-3xl p-6 shadow-xl max-w-sm lg:max-w-none mx-auto w-full card-hover group"
             >
-              <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative">
+              <div className="aspect-square rounded-2xl overflow-hidden border border-rule relative mb-5">
                 <img
                   src={trainerHeroImg}
-                  alt="Himani training a team"
+                  alt="Himani Kankaria, marketing team trainer"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
-              <h3 className="mt-4 text-xl font-display font-extrabold text-ink">
+              <h3 className="text-xl font-display font-extrabold text-ink">
                 Himani Kankaria
               </h3>
               <p className="text-muted text-sm mt-1 font-body">
