@@ -137,9 +137,9 @@ export default function HomeStage() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-stage text-on-stage overflow-hidden" id="stage">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-stage text-on-stage overflow-hidden" id="stage">
       {/* Intro Header */}
-      <div className="max-w-[1160px] mx-auto px-6">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, x: -28, skewY: -1.5 }}
           whileInView={{ opacity: 1, x: 0, skewY: 0 }}
@@ -198,10 +198,10 @@ export default function HomeStage() {
       </div>
 
       {/* Marquee Ticker */}
-      <div className="mt-14 border-y border-stage-rule overflow-hidden whitespace-nowrap py-5">
-        <div className="inline-block animate-marquee font-display font-extrabold text-[clamp(1.4rem,3vw,2.2rem)]">
+      <div className="mt-8 sm:mt-14 border-y border-stage-rule overflow-hidden whitespace-nowrap py-4 sm:py-5">
+        <div className="inline-block animate-marquee font-display font-extrabold text-[clamp(1.2rem,3vw,2.2rem)]">
           {marqueeEvents.concat(marqueeEvents).map((event, idx) => (
-            <span key={idx} className="mr-12">
+            <span key={idx} className="mr-8 sm:mr-12">
               <span className={idx % 2 === 0 ? 'text-stage-accent' : 'text-on-stage'}>
                 {event}
               </span>
@@ -210,7 +210,7 @@ export default function HomeStage() {
         </div>
       </div>
 
-      <div className="max-w-[1160px] mx-auto px-6">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Featured Talk Card with Real Stage Photo */}
         <motion.div
           initial={{ opacity: 0, y: 40, rotateX: 12 }}
@@ -218,7 +218,7 @@ export default function HomeStage() {
           viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           style={{ transformPerspective: 1000 }}
-          className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-10 items-center bg-stage-2 rounded-[26px] p-6 sm:p-8 border border-stage-rule shadow-sm mt-14"
+          className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 sm:gap-8 lg:gap-10 items-center bg-stage-2 rounded-[26px] p-5 sm:p-8 border border-stage-rule shadow-sm mt-8 sm:mt-14"
         >
           <div
             onClick={() =>

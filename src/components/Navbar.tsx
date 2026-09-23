@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur-md border-b border-rule">
-      <div className="max-w-[1160px] mx-auto px-6 h-[68px] flex items-center justify-between">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between">
         {/* Brand */}
         <Link
           to="/"

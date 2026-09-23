@@ -29,8 +29,8 @@ export default function HomeResults() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper-2 border-b border-rule" id="results">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper-2 border-b border-rule" id="results">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Header — scale up from below */}
         <motion.div
           initial={{ opacity: 0, scale: 0.93, y: 24 }}
@@ -44,12 +44,12 @@ export default function HomeResults() {
           <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,3.1rem)] leading-[1.08] text-ink">
             What changes when we work together
           </h2>
-          <p className="text-muted font-body text-[1.1rem] max-w-[56ch] mt-4 leading-relaxed">
+          <p className="text-muted font-body text-[1.05rem] sm:text-[1.1rem] max-w-[56ch] mt-4 leading-relaxed">
             Real outcomes from B2B, SaaS and tech companies that trusted me to lead their marketing.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 lg:mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-12">
           {results.map((r, idx) => (
             <motion.div
               key={r.label}
@@ -59,7 +59,7 @@ export default function HomeResults() {
               viewport={{ once: true, amount: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformPerspective: 900 }}
-              className="bg-card border border-rule rounded-[20px] p-7 sm:p-8 flex flex-col justify-between shadow-xs card-hover"
+              className="bg-card border border-rule rounded-[20px] p-6 sm:p-8 flex flex-col justify-between shadow-xs card-hover"
             >
               <div>
                 <div className="font-display font-extrabold text-[3.2rem] leading-none text-accent">

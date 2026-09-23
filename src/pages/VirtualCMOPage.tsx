@@ -123,7 +123,7 @@ export default function VirtualCMOPage() {
     <main id="top" className="bg-paper text-ink">
       {/* 1 HERO */}
       <section className="pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-14 lg:pb-20 bg-gradient-to-b from-lav to-paper">
-        <div className="max-w-[1160px] mx-auto px-6">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-14 items-center">
             <motion.div
               {...enter('clipUp')}
@@ -211,8 +211,8 @@ export default function VirtualCMOPage() {
       </div>
 
       {/* 2 INTERACTIVE SIGNS SELF-ASSESSMENT */}
-      <section className="py-24 lg:py-28 bg-paper" id="signs-section">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper" id="signs-section">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('skewLeft')}
           >
@@ -339,8 +339,8 @@ export default function VirtualCMOPage() {
       </section>
 
       {/* 3 BEFORE / AFTER */}
-      <section className="py-24 lg:py-28 bg-paper-2" id="how">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper-2" id="how">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('curtain')}
           >
@@ -358,7 +358,7 @@ export default function VirtualCMOPage() {
           <motion.div {...reveal('tilt3d')}>
           <div className="grid grid-cols-1 md:grid-cols-2 mt-10 rounded-[24px] overflow-hidden border border-rule shadow-sm card-hover">
             {/* Before */}
-            <div className="p-8 bg-paper">
+            <div className="p-5 sm:p-8 bg-paper">
               <h3 className="font-display font-bold text-[1.15rem] text-muted mb-4 uppercase tracking-wider">
                 Without a marketing leader
               </h3>
@@ -371,7 +371,7 @@ export default function VirtualCMOPage() {
             </div>
 
             {/* After */}
-            <div className="p-8 bg-card border-t md:border-t-0 md:border-l border-rule">
+            <div className="p-5 sm:p-8 bg-card border-t md:border-t-0 md:border-l border-rule">
               <h3 className="font-display font-bold text-[1.15rem] text-accent mb-4 uppercase tracking-wider">
                 With Himani as Virtual CMO
               </h3>
@@ -388,8 +388,8 @@ export default function VirtualCMOPage() {
       </section>
 
       {/* 4 90-DAY RAMP */}
-      <section className="py-24 lg:py-28 bg-paper">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('clipUp')}
           >
@@ -457,8 +457,8 @@ export default function VirtualCMOPage() {
       </section>
 
       {/* 5 COMPARISON TABLE */}
-      <section className="py-24 lg:py-28 bg-paper-2">
-        <div className="max-w-[1160px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper-2">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('blurLeft')}
           >
@@ -516,11 +516,11 @@ export default function VirtualCMOPage() {
       </section>
 
       {/* 6 APPLICATION FORM */}
-      <section className="py-20 lg:py-24 bg-paper" id="apply">
-        <div className="max-w-[780px] mx-auto px-6">
+      <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper" id="apply">
+        <div className="max-w-[780px] mx-auto px-4 sm:px-6">
           <motion.div
             {...reveal('tilt3d')}
-            className="bg-paper-2 border border-rule rounded-[26px] p-8 sm:p-10 shadow-sm card-hover"
+            className="bg-paper-2 border border-rule rounded-[26px] p-5 sm:p-10 shadow-sm card-hover"
           >
             <h2 className="font-display font-extrabold text-[2.2rem] text-ink">
               Apply for a Virtual CMO seat

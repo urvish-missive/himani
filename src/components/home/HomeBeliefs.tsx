@@ -17,8 +17,8 @@ export default function HomeBeliefs() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper border-b border-rule">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper border-b border-rule">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Header — slides in from right */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
@@ -32,12 +32,12 @@ export default function HomeBeliefs() {
           <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,3.1rem)] leading-[1.08] text-ink">
             What I believe about marketing
           </h2>
-          <p className="text-muted font-body text-[1.1rem] max-w-[56ch] mt-4 leading-relaxed">
+          <p className="text-muted font-body text-[1.05rem] sm:text-[1.1rem] max-w-[56ch] mt-4 leading-relaxed">
             Core principles that guide every strategy, content engine, and executive engagement I lead.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mt-12 lg:mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mt-8 sm:mt-12">
           {beliefs.map((b, idx) => (
             <motion.blockquote
               key={b.source}

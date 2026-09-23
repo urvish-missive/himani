@@ -29,9 +29,9 @@ export default function HomeFAQ() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-paper border-b border-rule" id="faq">
-      <div className="max-w-[1160px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-16 items-start">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper border-b border-rule" id="faq">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-16 items-start">
           {/* Left Column: Header & Context */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

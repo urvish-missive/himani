@@ -29,12 +29,12 @@ export default function HomeWhatILead() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-paper border-b border-rule">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-paper border-b border-rule">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Header — clip-path reveal (curtain wipe up) */}
         <motion.div
-          initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-          whileInView={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
@@ -44,7 +44,7 @@ export default function HomeWhatILead() {
           <h2 className="font-display font-extrabold text-[clamp(1.9rem,4vw,3rem)] leading-[1.08] max-w-[22ch] text-ink">
             I lead the marketing that builds brands people choose
           </h2>
-          <p className="text-muted max-w-[58ch] mt-4 text-[1.1rem]">
+          <p className="text-muted max-w-[58ch] mt-4 text-[1.05rem] sm:text-[1.1rem]">
             Content is where I earned the crown. Growth is what I'm hired for.
           </p>
         </motion.div>
@@ -58,7 +58,7 @@ export default function HomeWhatILead() {
             hidden: {},
             visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
           }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8 sm:mt-12"
         >
           {capabilities.map((item, idx) => {
             const col = idx % 3;

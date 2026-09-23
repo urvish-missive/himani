@@ -32,7 +32,7 @@ export default function BlogPostPage() {
 
   if (isError || !post) {
     return (
-      <main className="max-w-[760px] mx-auto px-6 py-24 text-center">
+      <main className="max-w-[760px] mx-auto px-4 sm:px-6 py-14 sm:py-24 text-center">
         <p className="font-display font-semibold text-accent text-sm uppercase tracking-wider">Blog</p>
         <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-3">
           {isError ? "This post couldn't load" : "This post isn't available"}
@@ -51,7 +51,7 @@ export default function BlogPostPage() {
     <main className="bg-paper">
       <article key={post.id}>
         <header className="pt-10 sm:pt-14 pb-10 bg-gradient-to-b from-lav to-paper">
-          <motion.div {...enter('clipUp')} className="max-w-[760px] mx-auto px-6">
+          <motion.div {...enter('clipUp')} className="max-w-[760px] mx-auto px-4 sm:px-6">
             <Link to="/blog" className="inline-flex items-center gap-1.5 font-display font-semibold text-sm text-muted hover:text-accent">
               <ArrowLeft className="w-4 h-4" /> All posts
             </Link>
@@ -83,7 +83,7 @@ export default function BlogPostPage() {
         </header>
 
         {post.coverImage && (
-          <motion.div {...enter('zoomBlur', { delay: 0.2 })} className="max-w-[1000px] mx-auto px-6">
+          <motion.div {...enter('zoomBlur', { delay: 0.2 })} className="max-w-[1000px] mx-auto px-4 sm:px-6">
             <img
               src={post.coverImage}
               alt={post.coverAlt}
@@ -92,10 +92,10 @@ export default function BlogPostPage() {
           </motion.div>
         )}
 
-        <div className="max-w-[760px] mx-auto px-6 py-12">
+        <div className="max-w-[760px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <Markdown>{post.content}</Markdown>
 
-          <motion.aside {...reveal('tilt3d')} className="mt-16 rounded-3xl bg-ink text-paper p-8 sm:p-10">
+          <motion.aside {...reveal('tilt3d')} className="mt-12 sm:mt-16 rounded-3xl bg-ink text-paper p-6 sm:p-10">
             <p className="font-display font-semibold text-gold text-sm uppercase tracking-wider">Working on this problem?</p>
             <p className="mt-3 font-display font-extrabold text-2xl sm:text-3xl leading-tight">
               Tell me where your marketing is stuck and I'll suggest where to start.

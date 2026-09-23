@@ -35,8 +35,8 @@ export default function HomeVirtualCMO() {
   ];
 
   return (
-    <section className="py-24 lg:py-28 bg-stage text-on-stage" id="cmo">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="py-14 sm:py-18 lg:py-24 xl:py-28 bg-stage text-on-stage" id="cmo">
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         {/* Flagship Badge — drops down from above */}
         <motion.div
           initial={{ opacity: 0, y: -24 }}
@@ -59,7 +59,7 @@ export default function HomeVirtualCMO() {
         </motion.div>
 
         {/* 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 mt-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 mt-8 sm:mt-12 items-start">
           {/* Left: What I Own — items cascade in from left with stagger */}
           <motion.ul
             initial="hidden"
@@ -99,47 +99,49 @@ export default function HomeVirtualCMO() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ type: 'spring', stiffness: 220, damping: 20, delay: 0.15 }}
-            className="bg-stage-2 rounded-[20px] p-6 sm:p-7 border border-stage-rule shadow-sm"
+            className="bg-stage-2 rounded-[20px] p-5 sm:p-7 border border-stage-rule shadow-sm"
           >
             <h3 className="font-display font-bold text-[1.2rem] text-on-stage">
               Virtual CMO vs full-time CMO
             </h3>
 
-            <div className="mt-4">
-              {/* Table Header */}
-              <div className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 py-3 border-b border-stage-rule font-display font-semibold text-[0.88rem] text-on-stage-muted">
-                <span>Metric</span>
-                <span className="text-stage-accent">With me</span>
-                <span>Full-time hire</span>
-              </div>
-
-              {/* Table Rows */}
-              {comparisonRows.map((row) => (
-                <div
-                  key={row.key}
-                  className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 py-3.5 border-b border-stage-rule last:border-b-0 text-[0.95rem] hover:bg-lav/40 transition-colors px-1 rounded"
-                >
-                  <span className="font-display text-on-stage-muted">
-                    {row.key}
-                  </span>
-                  <span className="font-display font-semibold text-stage-accent">
-                    {row.me}
-                  </span>
-                  <span className="text-on-stage-muted/90">
-                    {row.hire}
-                  </span>
+            <div className="mt-4 overflow-x-auto -mx-1 px-1">
+              <div className="min-w-[310px]">
+                {/* Table Header */}
+                <div className="grid grid-cols-[1.1fr_1fr_1fr] gap-2.5 sm:gap-3 py-3 border-b border-stage-rule font-display font-semibold text-[0.82rem] sm:text-[0.88rem] text-on-stage-muted">
+                  <span>Metric</span>
+                  <span className="text-stage-accent">With me</span>
+                  <span>Full-time hire</span>
                 </div>
-              ))}
+
+                {/* Table Rows */}
+                {comparisonRows.map((row) => (
+                  <div
+                    key={row.key}
+                    className="grid grid-cols-[1.1fr_1fr_1fr] gap-2.5 sm:gap-3 py-3 sm:py-3.5 border-b border-stage-rule last:border-b-0 text-[0.88rem] sm:text-[0.95rem] hover:bg-lav/40 transition-colors px-1 rounded"
+                  >
+                    <span className="font-display text-on-stage-muted">
+                      {row.key}
+                    </span>
+                    <span className="font-display font-semibold text-stage-accent">
+                      {row.me}
+                    </span>
+                    <span className="text-on-stage-muted/90">
+                      {row.hire}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* CTAs inside card */}
-            <div className="flex flex-wrap gap-3 mt-6">
-              <a href="#hire" className="btn gold">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-6">
+              <a href="#hire" className="btn gold text-center justify-center w-full sm:w-auto">
                 Book a Virtual CMO call
               </a>
               <Link
                 to="/virtual-cmo"
-                className="btn ghost !text-ink !border-ink hover:!bg-lav"
+                className="btn ghost !text-ink !border-ink hover:!bg-lav text-center justify-center w-full sm:w-auto"
               >
                 See how it works
               </Link>
