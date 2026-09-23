@@ -14,6 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { askChatbot, type ChatMessage } from '../lib/chatProviders';
+import { useToast } from './ui/Feedback';
 
 const GREETING: ChatMessage = {
   role: 'assistant',
@@ -75,6 +76,7 @@ function StreamedMessage({
 }
 
 export default function Chatbot() {
+  const toast = useToast();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
@@ -182,7 +184,9 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      alert('Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
+      toast.info('Voice input works in Chrome, Edge and Safari. You can still type your question.', {
+        title: "This browser can't listen",
+      });
       return;
     }
 

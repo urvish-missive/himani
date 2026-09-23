@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import ScrollToTop from '../components/ScrollToTop';
-import ThemeSwitcher from '../components/ThemeSwitcher';
+import StickyHireBar from '../components/StickyHireBar';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 
 export default function Layout() {
@@ -14,9 +14,9 @@ export default function Layout() {
       <Navbar />
       <Outlet />
       <Footer />
+      <StickyHireBar />
       <ScrollToTop />
       <Chatbot />
-      <ThemeSwitcher />
     </>
   );
 }

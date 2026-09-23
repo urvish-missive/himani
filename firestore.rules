@@ -1,0 +1,71 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+// (or paste into Firebase console > Firestore Database > Rules)
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // An admin is any signed-in user whose UID has a document in /admins.
+    // Add admins by hand in the Firebase console; nobody can write here from the site.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function str(v, max) {
+      return v is string && v.size() <= max;
+    }
+
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Blog: anyone can read published posts; only admins can see drafts or write.
+    match /posts/{postId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow create, update: if isAdmin() && validPost(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    function validPost(p) {
+      return p.keys().hasOnly(['title', 'slug', 'excerpt', 'content', 'coverImage', 'coverAlt', 'tags',
+                               'author', 'status', 'publishedAt', 'createdAt', 'updatedAt'])
+        && str(p.title, 200) && p.title.size() > 0
+        && str(p.slug, 120) && p.slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$')
+        && str(p.excerpt, 400)
+        && str(p.content, 200000)
+        && str(p.coverImage, 1000)
+        && str(p.coverAlt, 200)
+        && str(p.author, 80)
+        && p.tags is list && p.tags.size() <= 10
+        && p.status in ['draft', 'published'];
+    }
+
+    match /leads/{leadId} {
+      // Public forms may only create well-formed leads.
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['source', 'name', 'email', 'company', 'message', 'details', 'status', 'page', 'createdAt'])
+                    && request.resource.data.source in ['virtual-cmo', 'founder-coaching', 'team-training', 'speaking']
+                    && str(request.resource.data.name, 120) && request.resource.data.name.size() > 0
+                    && str(request.resource.data.email, 200)
+                    && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+                    && str(request.resource.data.company, 160)
+                    && str(request.resource.data.message, 2000)
+                    && str(request.resource.data.page, 200)
+                    && request.resource.data.details is map
+                    && request.resource.data.details.size() <= 12
+                    && request.resource.data.status == 'new'
+                    && request.resource.data.createdAt == request.time;
+
+      allow read, delete: if isAdmin();
+
+      // Admins may change the stage and private notes; updatedAt is stamped by the server.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'notes', 'updatedAt'])
+                    && request.resource.data.status in ['new', 'contacted', 'won', 'lost']
+                    && (!('notes' in request.resource.data) || str(request.resource.data.notes, 5000))
+                    && (!('updatedAt' in request.resource.data.diff(resource.data).affectedKeys()) || request.resource.data.updatedAt == request.time);
+    }
+  }
+}
