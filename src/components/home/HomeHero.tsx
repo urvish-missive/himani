@@ -18,50 +18,55 @@ export default function HomeHero() {
               visible: { transition: { staggerChildren: 0.08 } },
             }}
           >
-            {/* Status location */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -14 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-              }}
-              className="font-display text-[0.82rem] sm:text-[0.95rem] lg:text-[1.05rem] font-semibold flex items-center gap-2 sm:gap-2.5 text-ink tracking-tight"
-            >
-              <span
-                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#2FA36B] shadow-[0_0_0_3px_rgba(47,163,107,0.25)] shrink-0 animate-pulse"
-                aria-hidden="true"
-              />
-              <span className="shrink-0">Himani Kankaria</span>
-              <span className="text-muted/50">•</span>
-              <span className="font-normal text-muted text-[0.78rem] sm:text-[0.88rem] truncate">
-                Ahmedabad, working globally
-              </span>
-            </motion.div>
+            {/* Top Masthead Row: Side-by-side on small screens, stacked on desktop */}
+            <div className="flex flex-row items-start justify-between gap-3 min-[390px]:gap-4 md:flex-col md:gap-0">
+              {/* Left Side: Name, bullet, location */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, x: -14 },
+                  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+                }}
+                className="flex flex-col md:flex-row md:items-center gap-0.5 min-[360px]:gap-1 md:gap-2.5 font-display text-ink tracking-tight shrink-0 max-w-[130px] min-[360px]:max-w-[145px] min-[390px]:max-w-[165px] md:max-w-none pt-0.5 md:pt-0"
+              >
+                <div className="flex items-center gap-1.5 sm:gap-2 font-bold md:font-semibold text-[0.82rem] min-[360px]:text-[0.88rem] sm:text-[0.95rem] lg:text-[1.05rem] leading-tight">
+                  <span
+                    className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#2FA36B] shadow-[0_0_0_3px_rgba(47,163,107,0.25)] shrink-0 animate-pulse"
+                    aria-hidden="true"
+                  />
+                  <span className="shrink-0">Himani Kankaria</span>
+                </div>
+                <div className="flex items-baseline gap-1 font-normal text-muted text-[0.72rem] min-[360px]:text-[0.78rem] sm:text-[0.85rem] lg:text-[0.92rem] pl-3.5 md:pl-0 leading-snug">
+                  <span className="text-muted/50 text-[0.7rem] md:text-[0.9rem] leading-none shrink-0">•</span>
+                  <span>Ahmedabad, working globally</span>
+                </div>
+              </motion.div>
 
-            {/* Title: 3-line editorial layout */}
-            <motion.h1
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
-              }}
-              className="mt-3 sm:mt-4 lg:mt-5 font-display font-extrabold tracking-[-0.03em] sm:tracking-[-0.04em] text-ink text-[clamp(2.15rem,8.5vw,3.2rem)] md:text-[clamp(3.2rem,8vw,5.5rem)] lg:text-[clamp(4.2rem,9.5vw,8.5rem)] leading-[0.96] sm:leading-[0.94] lg:leading-[0.92]"
-              aria-label="The Content Queen of India"
-            >
-              <span className="block">
-                <span className="inline-flex items-end gap-[0.14em]">
-                  <span>Content</span>
-                  <CrownIcon className="w-[0.62em] h-[0.62em] text-gold shrink-0 -translate-y-[0.08em] -rotate-8 hover:rotate-12 transition-transform duration-300" />
-                </span>
-              </span>
-              <span className="block">Queen</span>
-              <span className="block">
-                <span className="inline-flex items-end gap-[0.14em]">
-                  <span className="font-body italic font-normal tracking-[-0.02em] text-[0.56em] text-muted mr-[0.16em]">
-                    of
+              {/* Right Side: Title (Content Queen of India) */}
+              <motion.h1
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+                }}
+                className="flex-1 min-w-0 text-left font-display font-extrabold tracking-[-0.03em] sm:tracking-[-0.04em] text-ink text-[clamp(1.65rem,6.8vw,2.4rem)] sm:text-[clamp(2.4rem,7vw,3.2rem)] md:text-[clamp(3.2rem,8vw,5.5rem)] lg:text-[clamp(4.2rem,9.5vw,8.5rem)] leading-[0.96] sm:leading-[0.94] lg:leading-[0.92] md:mt-4 lg:mt-5"
+                aria-label="The Content Queen of India"
+              >
+                <span className="block">
+                  <span className="inline-flex items-end gap-[0.14em]">
+                    <span>Content</span>
+                    <CrownIcon className="w-[0.62em] h-[0.62em] text-gold shrink-0 -translate-y-[0.08em] -rotate-8 hover:rotate-12 transition-transform duration-300" />
                   </span>
-                  <span>India.</span>
                 </span>
-              </span>
-            </motion.h1>
+                <span className="block">Queen</span>
+                <span className="block">
+                  <span className="inline-flex items-end gap-[0.14em]">
+                    <span className="font-body italic font-normal tracking-[-0.02em] text-[0.56em] text-muted mr-[0.16em]">
+                      of
+                    </span>
+                    <span>India.</span>
+                  </span>
+                </span>
+              </motion.h1>
+            </div>
 
             {/* Attribution */}
             <motion.p
