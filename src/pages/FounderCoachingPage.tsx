@@ -668,7 +668,7 @@ export default function FounderCoachingPage() {
       </section>
 
       {/* REAL-LIFE PROOF GALLERY */}
-      <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
+      {/* <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="inline-flex items-center gap-2 font-display font-semibold text-sm text-accent mb-3">
             <CrownIcon className="w-5 h-5 text-gold" />
@@ -725,7 +725,7 @@ export default function FounderCoachingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 9 FAQ */}
       <section className="py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">

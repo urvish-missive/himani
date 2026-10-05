@@ -901,7 +901,7 @@ export default function SpeakingPage() {
       </section>
 
       {/* REAL-LIFE PROOF GALLERY */}
-      <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
+      {/* <section className="py-24 bg-paper-2 border-b border-rule" id="gallery">
         <div className="max-w-[1160px] mx-auto px-6">
           <motion.div
             {...reveal('clipUp')}
@@ -973,7 +973,7 @@ export default function SpeakingPage() {
             </motion.figure>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 9 FAQ */}
       <section className="py-24 bg-paper-2/60 border-t border-b border-rule" id="faq">
