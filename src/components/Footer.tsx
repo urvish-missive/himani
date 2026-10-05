@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-rule py-7 text-muted font-display text-[0.9rem] bg-paper">
+    <footer className="border-t border-rule pt-7 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pb-7 text-muted font-display text-[0.9rem] bg-paper">
       <div className="max-w-[1160px] mx-auto px-6 flex flex-wrap gap-4 justify-between items-center">
         <span>© 2026 Himani Kankaria, the Content Queen of India</span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">

@@ -4,18 +4,18 @@
       <stop offset="0%" stop-color="#7C3AED"/>
       <stop offset="100%" stop-color="#F97316"/>
     </linearGradient>
-    <linearGradient id="hk-letter" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+    <linearGradient id="hk-letter" x1="12" y1="16" x2="52" y2="48" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="60%" stop-color="#FFFFFF"/>
+      <stop offset="65%" stop-color="#FFFFFF"/>
       <stop offset="100%" stop-color="#FDBA74"/>
     </linearGradient>
   </defs>
-  <!-- Circular Base in Royal Obsidian -->
+  <!-- Circular Base in Royal Obsidian / Brand Ink -->
   <circle cx="32" cy="32" r="30" fill="#1A1028"/>
-  <circle cx="32" cy="32" r="29" stroke="url(#hk-ring)" stroke-width="2" stroke-opacity="0.9"/>
-  <!-- High-contrast Editorial Serif H -->
-  <text x="29" y="44" text-anchor="middle" font-family="'DM Serif Display', Georgia, serif" font-size="34" font-weight="bold" fill="url(#hk-letter)">H</text>
-  <!-- Luminous Accent Dot matching the wordmark beacon -->
-  <circle cx="46" cy="21" r="4.5" fill="#F97316"/>
-  <circle cx="46" cy="21" r="7" fill="#F97316" fill-opacity="0.3"/>
+  <circle cx="32" cy="32" r="29" stroke="url(#hk-ring)" stroke-width="2.2" stroke-opacity="0.95"/>
+  <!-- Distinctive Brand Monogram Hk -->
+  <text x="30" y="42" text-anchor="middle" font-family="'Bricolage Grotesque', 'Literata', Georgia, -apple-system, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5" fill="url(#hk-letter)">Hk</text>
+  <!-- Luminous Brand Beacon Dot -->
+  <circle cx="48" cy="20" r="3.5" fill="#F97316"/>
+  <circle cx="48" cy="20" r="6" fill="#F97316" fill-opacity="0.3"/>
 </svg>

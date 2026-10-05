@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Bot,
@@ -15,6 +15,12 @@ import {
 } from 'lucide-react';
 import { askChatbot, type ChatMessage } from '../lib/chatProviders';
 import { useToast } from './ui/Feedback';
+
+interface ChatbotProps {
+  isOpen?: boolean;
+  setIsOpen?: (open: boolean | ((prev: boolean) => boolean)) => void;
+  onClose?: () => void;
+}
 
 const GREETING: ChatMessage = {
   role: 'assistant',
@@ -75,9 +81,21 @@ function StreamedMessage({
   );
 }
 
-export default function Chatbot() {
+export default function Chatbot({ isOpen, setIsOpen, onClose }: ChatbotProps = {}) {
   const toast = useToast();
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = isOpen !== undefined ? isOpen : internalOpen;
+
+  const setOpen = useCallback(
+    (val: boolean | ((prev: boolean) => boolean)) => {
+      if (setIsOpen) {
+        setIsOpen(val);
+      } else {
+        setInternalOpen(val);
+      }
+    },
+    [setIsOpen]
+  );
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -285,7 +303,7 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={open ? 'Close chat' : 'Open chat'}
-        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full bg-gradient-to-br from-purple to-orange text-white shadow-lg shadow-purple/30 flex items-center justify-center cursor-pointer group"
+        className="hidden md:flex fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] w-14 h-14 rounded-full bg-gradient-to-br from-purple to-orange text-white shadow-lg shadow-purple/30 items-center justify-center cursor-pointer group"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -309,6 +327,25 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
         )}
       </motion.button>
 
+      {/* Mobile Backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="chat-mobile-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => {
+              setOpen(false);
+              onClose?.();
+            }}
+            className="fixed inset-0 z-[59] bg-black/25 backdrop-blur-[1px] md:hidden"
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
       {/* Main Chatbox Window */}
       <AnimatePresence>
         {open && (
@@ -317,7 +354,7 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.22, ease: [0.25, 0.4, 0.25, 1] }}
-            className="fixed z-[60] bottom-20 sm:bottom-22 right-4 left-4 sm:left-auto sm:right-6 sm:w-[395px] h-[min(510px,calc(100dvh-7rem))] max-h-[calc(100dvh-7rem)] rounded-3xl border border-purple/15 bg-white shadow-2xl shadow-purple/20 flex flex-col overflow-hidden backdrop-blur-md"
+            className="fixed z-[60] bottom-[calc(74px+env(safe-area-inset-bottom,0px))] sm:bottom-22 right-3 left-3 sm:left-auto sm:right-6 sm:w-[395px] h-[min(520px,calc(100dvh-7.5rem))] max-h-[calc(100dvh-7.5rem)] rounded-3xl border border-purple/15 bg-white shadow-2xl shadow-purple/20 flex flex-col overflow-hidden backdrop-blur-md"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-purple to-orange text-white shrink-0 shadow-md">
@@ -379,7 +416,10 @@ function getIndianFemaleVoice(): SpeechSynthesisVoice | null {
                 {/* Close */}
                 <button
                   type="button"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    onClose?.();
+                  }}
                   title="Close Chat"
                   className="w-8 h-8 rounded-full hover:bg-white/15 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                 >

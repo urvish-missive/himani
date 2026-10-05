@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,15 +9,25 @@ import { useScrollToTop } from '../hooks/useScrollToTop';
 
 export default function Layout() {
   useScrollToTop();
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <>
       <Navbar />
       <Outlet />
       <Footer />
-      <StickyHireBar />
+      <StickyHireBar
+        chatOpen={chatOpen}
+        onToggleChat={() => setChatOpen((prev) => !prev)}
+        onCloseChat={() => setChatOpen(false)}
+      />
       <ScrollToTop />
-      <Chatbot />
+      <Chatbot
+        isOpen={chatOpen}
+        setIsOpen={setChatOpen}
+        onClose={() => setChatOpen(false)}
+      />
     </>
   );
 }
+
