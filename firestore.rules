@@ -21,16 +21,20 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // Blog: anyone can read published posts; only admins can see drafts or write.
+    // Blog: anyone can read published posts, and scheduled posts once their time
+    // has passed; only admins can see drafts or posts still waiting, or write.
     match /posts/{postId} {
-      allow read: if resource.data.status == 'published' || isAdmin();
+      allow read: if resource.data.status == 'published'
+                  || (resource.data.status == 'scheduled' && resource.data.scheduledAt <= request.time)
+                  || isAdmin();
       allow create, update: if isAdmin() && validPost(request.resource.data);
       allow delete: if isAdmin();
     }
 
     function validPost(p) {
       return p.keys().hasOnly(['title', 'slug', 'excerpt', 'content', 'coverImage', 'coverAlt', 'tags',
-                               'author', 'status', 'publishedAt', 'createdAt', 'updatedAt'])
+                               'author', 'status', 'publishedAt', 'createdAt', 'updatedAt',
+                               'seoTitle', 'seoDescription', 'keywords', 'scheduledAt', 'sourceHash', 'sourceFile'])
         && str(p.title, 200) && p.title.size() > 0
         && str(p.slug, 120) && p.slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$')
         && str(p.excerpt, 400)
@@ -39,7 +43,13 @@ service cloud.firestore {
         && str(p.coverAlt, 200)
         && str(p.author, 80)
         && p.tags is list && p.tags.size() <= 10
-        && p.status in ['draft', 'published'];
+        && p.status in ['draft', 'published', 'scheduled']
+        && (p.status != 'scheduled' || p.scheduledAt is timestamp)
+        && (!('seoTitle' in p) || str(p.seoTitle, 120))
+        && (!('seoDescription' in p) || str(p.seoDescription, 400))
+        && (!('keywords' in p) || str(p.keywords, 300))
+        && (!('sourceHash' in p) || str(p.sourceHash, 64))
+        && (!('sourceFile' in p) || str(p.sourceFile, 300));
     }
 
     match /leads/{leadId} {

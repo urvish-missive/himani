@@ -15,6 +15,8 @@ import PipelineView from './views/PipelineView';
 import SettingsView from './views/SettingsView';
 import BlogListView from './views/BlogListView';
 import PostEditorView from './views/PostEditorView';
+import BulkUploadView from './views/BulkUploadView';
+import { bulkUpload } from '../../lib/bulkUpload';
 
 function useNoIndex() {
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function AdminPage() {
       if (!u) {
         dispatch(leadsApi.util.resetApiState());
         dispatch(blogApi.util.resetApiState());
+        bulkUpload.reset();
       }
     });
   }, [dispatch]);
@@ -104,6 +107,7 @@ export default function AdminPage() {
         <Route path="pipeline" element={<PipelineView />} />
         <Route path="blog" element={<BlogListView />} />
         <Route path="blog/new" element={<PostEditorView />} />
+        <Route path="blog/bulk" element={<BulkUploadView />} />
         <Route path="blog/:id" element={<PostEditorView />} />
         <Route path="settings" element={<SettingsView />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />

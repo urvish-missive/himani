@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ExternalLink, Pencil, Plus, Search, Sparkles, Trash2 } from 'lucide-react';
+import { ExternalLink, FileUp, Pencil, Plus, Search, Sparkles, Trash2 } from 'lucide-react';
 import { useDeletePostMutation, useGetAllPostsQuery, useSavePostMutation } from '../../../store/blogApi';
-import { formatPostDate, readMinutes, type Post, type PostStatus } from '../../../lib/blog';
+import { formatPostDate, isLive, readMinutes, wentLive, type Post, type PostStatus } from '../../../lib/blog';
 import { EmptyState, errorMessage, timeAgo } from '../shared';
 import { useConfirm, useToast } from '../../../components/ui/Feedback';
 
@@ -28,6 +28,7 @@ export default function BlogListView() {
     all: posts.length,
     published: posts.filter((p) => p.status === 'published').length,
     draft: posts.filter((p) => p.status === 'draft').length,
+    scheduled: posts.filter((p) => p.status === 'scheduled').length,
   };
 
   const togglePublish = async (p: Post) => {
@@ -39,7 +40,7 @@ export default function BlogListView() {
       await savePost({
         id,
         post: { ...input, status: p.status === 'published' ? 'draft' : 'published' },
-        wasPublished: publishedAt != null,
+        wasPublished: wentLive({ publishedAt }),
       }).unwrap();
       toast.success(p.status === 'published' ? `“${p.title}” is now a draft.` : `“${p.title}” is live on the blog.`);
     } catch (e) {
@@ -74,7 +75,7 @@ export default function BlogListView() {
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
         <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
-          {(['all', 'published', 'draft'] as const).map((s) => (
+          {(['all', 'published', 'scheduled', 'draft'] as const).filter((s) => s !== 'scheduled' || counts.scheduled > 0).map((s) => (
             <button
               key={s}
               onClick={() => setFilter(s)}
@@ -82,7 +83,7 @@ export default function BlogListView() {
                 filter === s ? 'bg-ink text-paper border-ink' : 'bg-card border-rule text-muted hover:text-ink'
               }`}
             >
-              {s === 'all' ? 'All posts' : s === 'draft' ? 'Drafts' : 'Published'}
+              {s === 'all' ? 'All posts' : s === 'draft' ? 'Drafts' : s === 'scheduled' ? 'Scheduled' : 'Published'}
               <span className={`text-xs tabular-nums ${filter === s ? 'text-paper/70' : 'text-muted'}`}>{counts[s]}</span>
             </button>
           ))}
@@ -97,6 +98,12 @@ export default function BlogListView() {
           />
         </div>
         <div className="grid grid-cols-2 sm:flex gap-2">
+          <Link
+            to="/admin/blog/bulk"
+            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 rounded-xl border border-rule bg-card text-ink px-4 py-2.5 font-display font-semibold text-sm hover:border-accent hover:text-accent"
+          >
+            <FileUp className="w-4 h-4" /> Bulk upload
+          </Link>
           <Link
             to="/admin/blog/new?ai=1"
             className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-accent/40 bg-lav text-accent px-4 py-2.5 font-display font-semibold text-sm hover:bg-lav-2"
@@ -135,11 +142,12 @@ export default function BlogListView() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span
                         className={`text-[11px] font-display font-semibold px-2 py-0.5 rounded-full border ${
-                          p.status === 'published' ? 'bg-good/10 text-good border-good/30' : 'bg-gold/20 text-ink border-gold/50'
+                          isLive(p) ? 'bg-good/10 text-good border-good/30' : p.status === 'scheduled' ? 'bg-accent/10 text-accent border-accent/25' : 'bg-gold/20 text-ink border-gold/50'
                         }`}
                       >
-                        {p.status === 'published' ? 'Published' : 'Draft'}
+                        {isLive(p) ? 'Published' : p.status === 'scheduled' ? 'Scheduled' : 'Draft'}
                       </span>
+                      {p.sourceFile && <span className="text-[11px] font-display text-muted" title={`Imported from ${p.sourceFile}`}>Imported</span>}
                       {p.tags.slice(0, 2).map((t) => (
                         <span key={t} className="text-[11px] font-display text-muted">
                           #{t}
@@ -148,7 +156,12 @@ export default function BlogListView() {
                     </div>
                     <p className="font-display font-bold text-ink truncate mt-1 group-hover:text-accent">{p.title || 'Untitled'}</p>
                     <p className="text-xs text-muted mt-0.5">
-                      {p.status === 'published' ? `Published ${formatPostDate(p.publishedAt)}` : `Edited ${timeAgo(p.updatedAt)}`} ·{' '}
+                      {isLive(p)
+                        ? `Published ${formatPostDate(p.publishedAt)}`
+                        : p.status === 'scheduled'
+                        ? `Goes live ${new Date(p.scheduledAt!).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`
+                        : `Edited ${timeAgo(p.updatedAt)}`}{' '}
+                      ·{' '}
                       {readMinutes(p.content)} min read
                     </p>
                   </div>
@@ -159,12 +172,12 @@ export default function BlogListView() {
                     disabled={busyId === p.id}
                     className="px-3 py-1.5 rounded-lg border border-rule text-sm font-display font-semibold text-ink hover:border-accent hover:text-accent disabled:opacity-50"
                   >
-                    {p.status === 'published' ? 'Unpublish' : 'Publish'}
+                    {p.status === 'published' ? 'Unpublish' : p.status === 'scheduled' ? 'Publish now' : 'Publish'}
                   </button>
                   <Link to={`/admin/blog/${p.id}`} className="p-2 rounded-lg text-muted hover:bg-lav hover:text-ink" aria-label="Edit" title="Edit">
                     <Pencil className="w-4 h-4" />
                   </Link>
-                  {p.status === 'published' && (
+                  {isLive(p) && (
                     <a
                       href={`/blog/${p.slug}`}
                       target="_blank"

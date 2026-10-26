@@ -7,8 +7,9 @@ import tailwindcss from '@tailwindcss/vite'
  * features (like AI blog drafting) work locally the same way as on Vercel.
  */
 function devApi(env: Record<string, string>): Plugin {
-  const routes: Record<string, string> = {
-    '/api/generate-post': '/api/generate-post.ts',
+  const routes: Record<string, [file: string, handler: string]> = {
+    '/api/generate-post': ['/api/generate-post.ts', 'handleGeneratePost'],
+    '/api/suggest-seo': ['/api/suggest-seo.ts', 'handleSuggestSeo'],
   };
   return {
     name: 'dev-api',
@@ -16,8 +17,9 @@ function devApi(env: Record<string, string>): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const path = req.url?.split('?')[0] ?? '';
-        const file = routes[path];
-        if (!file) return next();
+        const route = routes[path];
+        if (!route) return next();
+        const [file, handler] = route;
         try {
           const chunks: Buffer[] = [];
           for await (const chunk of req) chunks.push(chunk as Buffer);
@@ -30,7 +32,7 @@ function devApi(env: Record<string, string>): Plugin {
             body: req.method === 'GET' || req.method === 'HEAD' ? undefined : Buffer.concat(chunks),
           });
           const mod = await server.ssrLoadModule(file);
-          const response: Response = await mod.handleGeneratePost(request, { ...process.env, ...env });
+          const response: Response = await mod[handler](request, { ...process.env, ...env });
           res.statusCode = response.status;
           response.headers.forEach((value, key) => res.setHeader(key, value));
           res.end(Buffer.from(await response.arrayBuffer()));

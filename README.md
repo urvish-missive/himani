@@ -31,3 +31,20 @@ Five static pages that share one menu, one footer and one design system (lavende
 - Team Training: maximum group size "[20]".
 - Speaking: speaker kit download link; Link Up With Het episode link.
 - "Download speaker kit" and some card links use `href="#"` as placeholders.
+
+## Bulk blog upload (admin)
+
+Admin → Blog → **Bulk upload** (`/admin/blog/bulk`) turns a batch of Word documents (.docx) into blog posts.
+
+- **Kept as written:** title (Word's *Title* or first *Heading 1*), headings, paragraphs, bold/italic, lists, tables, links and images. Nothing is reworded or added. Images are uploaded to Firebase Storage (large photos are resized to 2000px WebP).
+- **SEO details** are read from labelled lines at the top or bottom of the document, under an "SEO details" heading, or from a two-column table: `Meta Title`, `Meta Description`, `Slug`, `Tags`, `Focus Keyword`, `Excerpt`, `Featured Image`, `Image Alt`. Missing details are flagged; an optional AI button suggests only the empty SEO fields (never the article text).
+- **After checking**, each post can be previewed in the real blog layout, then saved as a draft, published or scheduled; or pick "Save as drafts", "Publish when valid" or "Schedule" before uploading to do it automatically. Posts with problems are kept as drafts.
+- Files process in the background while you use other admin pages. Re-uploading a file that was already imported is detected and skipped; failed files can be retried. Imported posts open in the normal editor.
+
+### One-time setup
+
+1. **Enable Firebase Storage** for the project (Firebase console → Storage).
+2. **Deploy the rules and indexes:** `firebase deploy --only firestore:rules,firestore:indexes,storage` (or paste `firestore.rules` and `storage.rules` into the console and create the two indexes in `firestore.indexes.json`). When asked, allow Storage rules to read Firestore: they check the `/admins` collection.
+3. AI SEO suggestions use the same `GEMINI_API_KEY` / `GROQ_*` / `OPENROUTER_*` server variables as AI drafting.
+
+Scheduled posts become visible to visitors at their scheduled time (enforced by `firestore.rules`). The admin panel also marks them as published once due.

@@ -32,3 +32,8 @@ export function db(): Firestore {
 export function auth(): Auth {
   return getAuth(getApp());
 }
+
+/** The app itself, for SDKs that only the admin loads (such as Cloud Storage). */
+export function firebaseApp(): FirebaseApp {
+  return getApp();
+}

@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { auth } from '../../lib/firebase';
 import { useGetLeadsQuery } from '../../store/leadsApi';
+import { useGetAllPostsQuery, usePublishDuePostsMutation } from '../../store/blogApi';
+import { isProcessing, isUnsaved, useBulkUpload } from '../../lib/bulkUpload';
 import LeadDrawer from './LeadDrawer';
 import { Avatar } from './shared';
 
@@ -60,6 +62,18 @@ export default function AdminLayout({ user }: { user: User }) {
   };
 
   const displayName = user.displayName || user.email?.split('@')[0] || 'Admin';
+  const bulk = useBulkUpload();
+  const bulkActive = bulk.items.filter(isProcessing).length;
+  const bulkReview = bulk.items.filter((i) => i.stage === 'ready').length;
+
+  // Uploads run in the background; warn before the tab closes on unsaved work.
+  const bulkUnsaved = bulk.items.some(isUnsaved);
+  useEffect(() => {
+    if (!bulkUnsaved) return;
+    const onBeforeUnload = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [bulkUnsaved]);
 
   return (
     <div className="min-h-screen bg-paper-2 text-ink">
@@ -107,6 +121,17 @@ export default function AdminLayout({ user }: { user: User }) {
                           }`}
                         >
                           {newCount > 99 ? '99+' : newCount}
+                        </span>
+                      )}
+                      {label === 'Blog' && (bulkActive > 0 || bulkReview > 0) && (
+                        <span
+                          className={`min-w-6 h-6 px-1.5 rounded-full text-xs font-bold flex items-center justify-center ${
+                            isActive ? 'bg-white text-accent' : 'bg-lav-2 text-accent'
+                          }`}
+                          title={bulkActive ? `${bulkActive} uploads processing` : `${bulkReview} uploads to review`}
+                        >
+                          {bulkActive > 0 && <span className="w-3 h-3 mr-1 rounded-full border-2 border-current border-t-transparent animate-spin" aria-hidden="true" />}
+                          {bulkActive || bulkReview}
                         </span>
                       )}
                     </>
@@ -190,8 +215,33 @@ export default function AdminLayout({ user }: { user: User }) {
       </div>
 
       {openLead && <LeadDrawer lead={openLead} onClose={() => setOpenLead(null)} />}
+      <ScheduledPublisher />
     </div>
   );
+}
+
+/**
+ * Marks scheduled posts as published once their time passes. Visitors already
+ * see them from that time (see firestore.rules); this keeps the admin lists
+ * accurate and covers a project where the index for scheduled posts isn't deployed.
+ */
+function ScheduledPublisher() {
+  const { data: posts = [] } = useGetAllPostsQuery();
+  const [publishDue] = usePublishDuePostsMutation();
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setTick((n) => n + 1), 60_000);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    if (posts.some((p) => p.status === 'scheduled' && p.scheduledAt != null && p.scheduledAt <= Date.now())) {
+      publishDue(posts).catch(() => {});
+    }
+  }, [posts, tick, publishDue]);
+
+  return null;
 }
 
 function HeaderSearch() {

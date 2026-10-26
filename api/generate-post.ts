@@ -39,7 +39,7 @@ export async function POST(request: Request): Promise<Response> {
 const WORDS = { short: 700, standard: 1200, long: 1800 } as const;
 const LIMITS = { topic: 300, introduction: 4000, conclusion: 4000, keyword: 100 };
 
-const json = (status: number, body: unknown) =>
+export const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
 const JWKS = createRemoteJWKSet(
@@ -47,12 +47,12 @@ const JWKS = createRemoteJWKSet(
 );
 
 /** Verifies the Firebase ID token, then checks the user is listed in /admins. */
-async function requireAdmin(request: Request, env: Env): Promise<string | Response> {
+export async function requireAdmin(request: Request, env: Env, feature = 'AI drafting'): Promise<string | Response> {
   const projectId = env.FIREBASE_PROJECT_ID || env.VITE_FIREBASE_PROJECT_ID;
   if (!projectId) return json(500, { error: 'Server is missing the Firebase project ID.' });
 
   const token = request.headers.get('authorization')?.match(/^Bearer (.+)$/)?.[1];
-  if (!token) return json(401, { error: 'Sign in again to use AI drafting.' });
+  if (!token) return json(401, { error: `Sign in again to use ${feature}.` });
 
   let uid: string;
   try {
@@ -72,7 +72,7 @@ async function requireAdmin(request: Request, env: Env): Promise<string | Respon
     `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/admins/${encodeURIComponent(uid)}`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
-  if (!res.ok) return json(403, { error: 'Only admins can use AI drafting.' });
+  if (!res.ok) return json(403, { error: `Only admins can use ${feature}.` });
   return uid;
 }
 
@@ -134,7 +134,7 @@ async function fetchWithRetry(url: string, init: RequestInit) {
   return fetch(url, init);
 }
 
-async function callGemini(env: Env, prompt: string) {
+async function callGemini(env: Env, system: string, prompt: string) {
   const key = env.GEMINI_API_KEY || env.VITE_GEMINI_API_KEY;
   if (!key) return null;
   const model = env.GEMINI_MODEL || env.VITE_GEMINI_MODEL || 'gemini-3.6-flash';
@@ -142,7 +142,7 @@ async function callGemini(env: Env, prompt: string) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM }] },
+      systemInstruction: { parts: [{ text: system }] },
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       // Thinking models spend part of the output budget before writing, so leave room.
       generationConfig: { temperature: 0.7, maxOutputTokens: 16384 },
@@ -153,7 +153,7 @@ async function callGemini(env: Env, prompt: string) {
   return (data?.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? '').join('');
 }
 
-async function callOpenAICompatible(name: string, endpoint: string, key: string | undefined, model: string | undefined, prompt: string, extra: Record<string, string> = {}) {
+async function callOpenAICompatible(name: string, endpoint: string, key: string | undefined, model: string | undefined, system: string, prompt: string, extra: Record<string, string> = {}) {
   if (!key || !model) return null;
   const res = await fetchWithRetry(endpoint, {
     method: 'POST',
@@ -163,7 +163,7 @@ async function callOpenAICompatible(name: string, endpoint: string, key: string 
       temperature: 0.7,
       max_tokens: 8192,
       messages: [
-        { role: 'system', content: SYSTEM },
+        { role: 'system', content: system },
         { role: 'user', content: prompt },
       ],
     }),
@@ -233,7 +233,7 @@ export async function handleGeneratePost(request: Request, env: Env): Promise<Re
   }
 }
 
-class NoProviderError extends Error {}
+export class NoProviderError extends Error {}
 
 /** Writes the draft, trying Gemini, then Groq, then OpenRouter. */
 export async function generateDraft(input: GenerateRequest, env: Env): Promise<GeneratedPost> {
@@ -245,12 +245,20 @@ export async function generateDraft(input: GenerateRequest, env: Env): Promise<G
     keepVerbatim: input.keepVerbatim !== false,
     length: input.length && input.length in WORDS ? input.length : 'standard',
   });
+  return runProviders(env, SYSTEM, prompt, parseDraft);
+}
+
+/**
+ * Sends the prompt to Gemini, then Groq, then OpenRouter, using the first one
+ * that is configured and replies in a form `parse` accepts.
+ */
+export async function runProviders<T>(env: Env, system: string, prompt: string, parse: (raw: string) => T): Promise<T & { provider: string }> {
   const providers: [string, () => Promise<string | null>][] = [
-    ['Gemini', () => callGemini(env, prompt)],
+    ['Gemini', () => callGemini(env, system, prompt)],
     [
       'Groq',
       () =>
-        callOpenAICompatible('Groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY || env.VITE_GROQ_API_KEY, env.GROQ_MODEL || env.VITE_GROQ_MODEL, prompt),
+        callOpenAICompatible('Groq', 'https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY || env.VITE_GROQ_API_KEY, env.GROQ_MODEL || env.VITE_GROQ_MODEL, system, prompt),
     ],
     [
       'OpenRouter',
@@ -260,6 +268,7 @@ export async function generateDraft(input: GenerateRequest, env: Env): Promise<G
           'https://openrouter.ai/api/v1/chat/completions',
           env.OPENROUTER_API_KEY || env.VITE_OPENROUTER_API_KEY,
           env.OPENROUTER_MODEL || env.VITE_OPENROUTER_MODEL,
+          system,
           prompt,
           { 'X-Title': 'Himani Kankaria admin' }
         ),
@@ -271,8 +280,8 @@ export async function generateDraft(input: GenerateRequest, env: Env): Promise<G
     try {
       const raw = await call();
       if (raw == null) continue; // not configured
-      if (failures.length) console.warn('[generate-post] fell back to', name, 'after:', failures.join(' | '));
-      return { ...parseDraft(raw), provider: name };
+      if (failures.length) console.warn('[ai] fell back to', name, 'after:', failures.join(' | '));
+      return { ...parse(raw), provider: name };
     } catch (err) {
       failures.push(`${name}: ${err instanceof Error ? err.message : String(err)}`);
     }
@@ -281,3 +290,4 @@ export async function generateDraft(input: GenerateRequest, env: Env): Promise<G
   if (!failures.length) throw new NoProviderError('No AI provider is configured.');
   throw new Error(failures.join(' | '));
 }
+

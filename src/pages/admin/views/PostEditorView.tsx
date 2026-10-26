@@ -21,10 +21,15 @@ import { useDeletePostMutation, useGetPostQuery, useSavePostMutation } from '../
 import {
   DEFAULT_AUTHOR,
   POST_LIMITS,
+  SEO_HINTS,
   formatPostDate,
+  fromLocalInput,
+  isLive,
+  wentLive,
   parseTags,
   readMinutes,
   slugify,
+  toLocalInput,
   validatePost,
   type GeneratedDraft,
   type PostInput,
@@ -44,9 +49,27 @@ interface Draft {
   coverAlt: string;
   tags: string;
   author: string;
+  seoTitle: string;
+  seoDescription: string;
+  keywords: string;
+  /** datetime-local value for scheduling. */
+  scheduleAt: string;
 }
 
-const EMPTY: Draft = { title: '', slug: '', excerpt: '', content: '', coverImage: '', coverAlt: '', tags: '', author: DEFAULT_AUTHOR };
+const EMPTY: Draft = {
+  title: '',
+  slug: '',
+  excerpt: '',
+  content: '',
+  coverImage: '',
+  coverAlt: '',
+  tags: '',
+  author: DEFAULT_AUTHOR,
+  seoTitle: '',
+  seoDescription: '',
+  keywords: '',
+  scheduleAt: '',
+};
 
 const inputCls = 'w-full rounded-xl border border-rule bg-paper px-3.5 py-2.5 text-ink outline-none focus:border-accent';
 const labelCls = 'block font-display text-sm font-semibold text-ink mb-1.5';
@@ -84,6 +107,10 @@ export default function PostEditorView() {
       coverAlt: existing.coverAlt,
       tags: existing.tags.join(', '),
       author: existing.author,
+      seoTitle: existing.seoTitle,
+      seoDescription: existing.seoDescription,
+      keywords: existing.keywords,
+      scheduleAt: toLocalInput(existing.scheduledAt),
     };
     setDraft(d);
     setSaved(d);
@@ -110,7 +137,8 @@ export default function PostEditorView() {
     });
   };
 
-  const wasPublished = existing?.publishedAt != null;
+  const wasPublished = existing ? wentLive(existing) : false;
+  const [scheduling, setScheduling] = useState(false);
 
   // Fill the form from an AI draft; asks first if there's writing to replace.
   const applyDraft = async (d: GeneratedDraft) => {
@@ -148,22 +176,36 @@ export default function PostEditorView() {
         tags: parseTags(draft.tags),
         author: draft.author || DEFAULT_AUTHOR,
         status: nextStatus,
+        seoTitle: draft.seoTitle,
+        seoDescription: draft.seoDescription,
+        keywords: draft.keywords,
+        scheduledAt: nextStatus === 'scheduled' ? fromLocalInput(draft.scheduleAt) : null,
+        // Keeps the link to the Word file a bulk upload made this post from.
+        ...(existing?.sourceHash ? { sourceHash: existing.sourceHash, sourceFile: existing.sourceFile } : {}),
       };
       const invalid = validatePost(post);
       if (invalid) return setError(invalid);
+      if (nextStatus === 'scheduled' && post.scheduledAt! <= Date.now() && !wasPublished) {
+        return setError('Pick a time in the future, or publish now.');
+      }
       try {
         const newId = await savePost({ id, post, wasPublished }).unwrap();
-        const clean = { ...draft, slug: post.slug, tags: post.tags.join(', ') };
+        const clean = { ...draft, slug: post.slug, tags: post.tags.join(', '), scheduleAt: nextStatus === 'scheduled' ? draft.scheduleAt : '' };
         setDraft(clean);
         setSaved(clean);
         setStatus(nextStatus);
+        setScheduling(false);
         toast.success(
-          nextStatus === 'published'
+          nextStatus === 'scheduled'
+            ? `Scheduled for ${new Date(post.scheduledAt!).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}.`
+            : nextStatus === 'published'
             ? status === 'published'
               ? 'Changes are live.'
               : 'Published. It is now on the blog.'
             : status === 'published'
             ? 'Unpublished. It is now a draft.'
+            : status === 'scheduled'
+            ? 'Unscheduled. It is now a draft.'
             : 'Draft saved.'
         );
         if (isNew) {
@@ -278,11 +320,12 @@ export default function PostEditorView() {
         </Link>
         <span
           className={`text-xs font-display font-semibold px-2.5 py-1 rounded-full border ${
-            status === 'published' ? 'bg-good/10 text-good border-good/30' : 'bg-gold/20 text-ink border-gold/50'
+            status === 'published' ? 'bg-good/10 text-good border-good/30' : status === 'scheduled' ? 'bg-accent/10 text-accent border-accent/25' : 'bg-gold/20 text-ink border-gold/50'
           }`}
         >
-          {status === 'published' ? 'Published' : 'Draft'}
+          {status === 'published' ? 'Published' : status === 'scheduled' ? (isLive({ status, scheduledAt: existing?.scheduledAt ?? null }) ? 'Published' : 'Scheduled') : 'Draft'}
         </span>
+        {existing?.sourceFile && <span className="text-xs text-muted font-display truncate max-w-[50%]">Imported from {existing.sourceFile}</span>}
         <span className="text-xs text-muted font-display">
           {dirty ? 'Unsaved changes' : existing ? `Saved ${timeAgo(existing.updatedAt)}` : 'Not saved yet'}
         </span>
@@ -409,6 +452,12 @@ export default function PostEditorView() {
             {status === 'published' && existing?.publishedAt && (
               <p className="text-sm text-muted">Live since {formatPostDate(existing.publishedAt)}.</p>
             )}
+            {status === 'scheduled' && existing?.scheduledAt && (
+              <p className="text-sm text-muted">
+                {existing.scheduledAt <= Date.now() ? 'Went live' : 'Goes live'}{' '}
+                {new Date(existing.scheduledAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}.
+              </p>
+            )}
             {status === 'published' ? (
               <>
                 <button onClick={() => save('published')} disabled={saving} className="btn solid w-full justify-center disabled:opacity-60">
@@ -423,6 +472,27 @@ export default function PostEditorView() {
                   </button>
                 </div>
               </>
+            ) : status === 'scheduled' ? (
+              <>
+                <input
+                  type="datetime-local"
+                  aria-label="Publish date and time"
+                  value={draft.scheduleAt}
+                  onChange={(e) => set('scheduleAt', e.target.value)}
+                  className={`${inputCls} text-sm`}
+                />
+                <button onClick={() => save('scheduled')} disabled={saving} className="btn solid w-full justify-center disabled:opacity-60">
+                  {saving ? 'Saving…' : 'Update schedule'}
+                </button>
+                <div className="flex gap-2">
+                  <button onClick={() => save('published')} disabled={saving} className="btn ghost sm flex-1 justify-center disabled:opacity-60">
+                    Publish now
+                  </button>
+                  <button onClick={() => save('draft')} disabled={saving} className="btn ghost sm flex-1 justify-center disabled:opacity-60">
+                    Unschedule
+                  </button>
+                </div>
+              </>
             ) : (
               <>
                 <button onClick={() => save('published')} disabled={saving} className="btn solid w-full justify-center disabled:opacity-60">
@@ -431,6 +501,30 @@ export default function PostEditorView() {
                 <button onClick={() => save('draft')} disabled={saving} className="btn ghost w-full justify-center disabled:opacity-60">
                   Save draft
                 </button>
+                {scheduling ? (
+                  <div className="space-y-2 pt-1">
+                    <input
+                      type="datetime-local"
+                      aria-label="Publish date and time"
+                      value={draft.scheduleAt}
+                      min={toLocalInput(Date.now())}
+                      onChange={(e) => set('scheduleAt', e.target.value)}
+                      className={`${inputCls} text-sm`}
+                    />
+                    <div className="flex gap-2">
+                      <button onClick={() => save('scheduled')} disabled={saving || !draft.scheduleAt} className="btn ghost sm flex-1 justify-center disabled:opacity-60">
+                        Schedule
+                      </button>
+                      <button onClick={() => setScheduling(false)} className="btn ghost sm flex-1 justify-center">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button onClick={() => setScheduling(true)} className="w-full text-sm font-display font-semibold text-accent hover:underline">
+                    Schedule for later…
+                  </button>
+                )}
               </>
             )}
             <p className="text-[11px] text-muted font-display">Ctrl + S saves at any time.</p>
@@ -469,6 +563,52 @@ export default function PostEditorView() {
                 onChange={(e) => set('coverAlt', e.target.value)}
                 maxLength={POST_LIMITS.coverAlt}
                 placeholder="What the image shows, for screen readers"
+                className={`${inputCls} text-sm`}
+              />
+            </div>
+          </div>
+
+          <div className="bg-card border border-rule rounded-2xl p-5 space-y-4">
+            <h2 className="font-display font-bold text-ink">Search (SEO)</h2>
+            <div>
+              <label htmlFor="post-seo-title" className={labelCls}>
+                SEO title <span className="font-normal text-muted">· defaults to the post title</span>
+              </label>
+              <input
+                id="post-seo-title"
+                value={draft.seoTitle}
+                onChange={(e) => set('seoTitle', e.target.value)}
+                maxLength={POST_LIMITS.seoTitle}
+                placeholder={draft.title || 'Title shown in search results'}
+                className={`${inputCls} text-sm`}
+              />
+              <Counter n={(draft.seoTitle || draft.title).length} hint={SEO_HINTS.title} />
+            </div>
+            <div>
+              <label htmlFor="post-seo-description" className={labelCls}>
+                Meta description <span className="font-normal text-muted">· defaults to the summary</span>
+              </label>
+              <textarea
+                id="post-seo-description"
+                value={draft.seoDescription}
+                onChange={(e) => set('seoDescription', e.target.value)}
+                maxLength={POST_LIMITS.seoDescription}
+                rows={3}
+                placeholder={draft.excerpt || 'Shown under the title in search results'}
+                className={`${inputCls} text-sm resize-y`}
+              />
+              <Counter n={(draft.seoDescription || draft.excerpt).length} hint={SEO_HINTS.description} />
+            </div>
+            <div>
+              <label htmlFor="post-keywords" className={labelCls}>
+                Focus keywords <span className="font-normal text-muted">· comma separated</span>
+              </label>
+              <input
+                id="post-keywords"
+                value={draft.keywords}
+                onChange={(e) => set('keywords', e.target.value)}
+                maxLength={POST_LIMITS.keywords}
+                placeholder="content strategy, b2b marketing"
                 className={`${inputCls} text-sm`}
               />
             </div>
@@ -523,5 +663,14 @@ export default function PostEditorView() {
         </aside>
       </div>
     </div>
+  );
+}
+
+function Counter({ n, hint }: { n: number; hint: number }) {
+  return (
+    <p className={`text-xs mt-1 text-right font-display ${n > hint ? 'text-bad' : 'text-muted/70'}`}>
+      {n}/{hint}
+      {n > hint && ' · may be cut off in search results'}
+    </p>
   );
 }
