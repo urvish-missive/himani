@@ -9,6 +9,7 @@
 
 import { slugify } from './blog';
 import { IMAGE_PLACEHOLDER } from './bulkUpload';
+import { cleanDocumentBlocks } from './faqAccordion';
 
 export interface DocImage {
   index: number;
@@ -85,7 +86,8 @@ const LABELS: [RegExp, keyof DocMeta, 'strong' | 'weak'][] = [
 type Label = { field: keyof DocMeta; value: string; strong: boolean };
 
 const LABEL_LINE = /^\s*([A-Za-z0-9][A-Za-z0-9 /&()-]{0,40}?)\s*[:：]\s*(.*)$/s;
-const META_HEADING = /^(seo|meta|seo\s*(details|data|info(rmation)?|meta\s*data|metadata)|meta\s*(data|details|info(rmation)?)|metadata|post\s*details|blog\s*details)\s*:?$/i;
+const META_HEADING =
+  /^(seo|meta|seo\s*(details|data|info(rmation)?|meta\s*data|metadata)|meta\s*(data|details|info(rmation)?)|metadata|post\s*details|blog\s*details|internal\s*use(\s*only)?|internal\s*notes?|writer'?s?\s*notes?|editorial\s*notes?|content\s*brief)\s*:?$/i;
 
 const text = (el: Element | null) => (el?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
@@ -482,8 +484,12 @@ export function htmlToPost(html: string, images: DocImage[], fileName: string, n
   }
 
   const ctx: Ctx = { inTable: false, links: 0 };
-  const out: string[] = [];
-  blocks(body, ctx, out);
+  const rawBlocks: string[] = [];
+  blocks(body, ctx, rawBlocks);
+
+  // Always take till FAQs, dropping trailing sources, references and internal use sections
+  const { blocks: out, notes: trimNotes } = cleanDocumentBlocks(rawBlocks);
+  notes.push(...trimNotes);
 
   // An image before any text becomes the cover, rather than showing twice.
   let coverImageIndex: number | null = null;

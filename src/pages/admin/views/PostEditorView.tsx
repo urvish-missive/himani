@@ -14,6 +14,7 @@ import {
   ListOrdered,
   Minus,
   Quote,
+  Sparkles,
   Trash2,
 } from 'lucide-react';
 import { skipToken } from '@reduxjs/toolkit/query';
@@ -39,6 +40,8 @@ import Markdown from '../../../components/blog/Markdown';
 import { errorMessage, timeAgo } from '../shared';
 import AiDraftPanel from '../AiDraftPanel';
 import ImportDocPanel from '../ImportDocPanel';
+import VisualPlaceholdersManager from '../VisualPlaceholdersManager';
+import { findVisualPlaceholders } from '../../../lib/visualPlaceholders';
 import type { Converted } from '../../../lib/bulkUpload';
 import { useConfirm, useToast } from '../../../components/ui/Feedback';
 
@@ -95,6 +98,7 @@ export default function PostEditorView() {
   const [error, setError] = useState('');
   const loadedId = useRef<string | null>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
+  const visualCount = findVisualPlaceholders(draft.content).length;
 
   // Load the post into the form once.
   useEffect(() => {
@@ -188,20 +192,20 @@ export default function PostEditorView() {
 
   const save = useCallback(
     async (nextStatus: PostStatus) => {
-      setError('');
+      const cleanSlug = slugify(draft.slug) || slugify(draft.title);
       const post: PostInput = {
-        title: draft.title,
-        slug: draft.slug || slugify(draft.title),
-        excerpt: draft.excerpt,
-        content: draft.content,
+        title: draft.title.trim(),
+        slug: cleanSlug,
+        excerpt: draft.excerpt.trim(),
+        content: draft.content.trim(),
         coverImage: draft.coverImage.trim(),
-        coverAlt: draft.coverAlt,
+        coverAlt: draft.coverAlt.trim(),
         tags: parseTags(draft.tags),
-        author: draft.author || DEFAULT_AUTHOR,
+        author: draft.author.trim() || DEFAULT_AUTHOR,
         status: nextStatus,
-        seoTitle: draft.seoTitle,
-        seoDescription: draft.seoDescription,
-        keywords: draft.keywords,
+        seoTitle: draft.seoTitle.trim(),
+        seoDescription: draft.seoDescription.trim(),
+        keywords: draft.keywords.trim(),
         scheduledAt: nextStatus === 'scheduled' ? fromLocalInput(draft.scheduleAt) : null,
         // Keeps the link to the Word file a bulk upload made this post from.
         ...(existing?.sourceHash
@@ -321,6 +325,7 @@ export default function PostEditorView() {
     { icon: Quote, label: 'Quote', run: () => format('> ', '', 'Quote', true) },
     { icon: Code, label: 'Code', run: () => format('`', '`', 'code') },
     { icon: ImageIcon, label: 'Image', run: () => format('![', '](https://)', 'Describe the image') },
+    { icon: Sparkles, label: 'Visual placeholder [VISUAL: ...]', run: () => format('[VISUAL: ', ']', 'Mockup or diagram description', true) },
     { icon: Minus, label: 'Divider', run: () => format('\n---\n', '', '', true) },
   ];
 
@@ -421,6 +426,12 @@ export default function PostEditorView() {
             </div>
           </div>
 
+          {/* Visual Placeholders Manager for [VISUAL: ...] prompts */}
+          <VisualPlaceholdersManager
+            content={draft.content}
+            onChangeContent={(next) => set('content', next)}
+          />
+
           {/* Content editor */}
           <div className="bg-card border border-rule rounded-2xl overflow-hidden">
             <div className="flex items-center gap-1 border-b border-rule px-2 sm:px-3 py-2 overflow-x-auto">
@@ -438,6 +449,12 @@ export default function PostEditorView() {
                   </button>
                 ))}
               </div>
+              {visualCount > 0 && (
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-accent/10 text-accent text-xs font-display font-semibold border border-accent/25 shrink-0 mr-2">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  {visualCount} visual{visualCount > 1 ? 's' : ''} to resolve
+                </span>
+              )}
               {tab === 'write' &&
                 tools.map(({ icon: Icon, label, run }) => (
                   <button
@@ -466,7 +483,7 @@ export default function PostEditorView() {
                 className="w-full min-h-[480px] p-5 sm:p-6 bg-card text-ink font-mono text-[0.92rem] leading-relaxed outline-none resize-y"
               />
             ) : (
-              <div className="p-5 sm:p-8 min-h-[480px]">
+              <div className="p-5 sm:p-6 min-h-[480px]">
                 {draft.content.trim() ? <Markdown>{draft.content}</Markdown> : <p className="text-muted">Nothing to preview yet.</p>}
               </div>
             )}

@@ -9,6 +9,7 @@ import tailwindcss from '@tailwindcss/vite'
 function devApi(env: Record<string, string>): Plugin {
   const routes: Record<string, [file: string, handler: string]> = {
     '/api/generate-post': ['/api/generate-post.ts', 'handleGeneratePost'],
+    '/api/generate-visual': ['/api/generate-visual.ts', 'handleGenerateVisual'],
     '/api/suggest-seo': ['/api/suggest-seo.ts', 'handleSuggestSeo'],
     '/api/pin-login': ['/api/pin-login.ts', 'handlePinLogin'],
   };

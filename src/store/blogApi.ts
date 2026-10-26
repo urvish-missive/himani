@@ -1,6 +1,6 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { DocumentData, DocumentSnapshot } from 'firebase/firestore';
-import type { GeneratedDraft, GenerateInput, Post, PostInput, PostStatus, SeoSuggestInput, SeoSuggestion } from '../lib/blog';
+import { slugify, type GeneratedDraft, type GenerateInput, type Post, type PostInput, type PostStatus, type SeoSuggestInput, type SeoSuggestion } from '../lib/blog';
 import type { ApiError } from './leadsApi';
 
 // Firebase is imported on demand so the SDK stays out of the main page bundle.
@@ -150,14 +150,17 @@ export const blogApi = createApi({
         try {
           const { db, addDoc, collection, doc, getDocs, limit, query, serverTimestamp, updateDoc, where, Timestamp } = await firestore();
 
+          const cleanSlug = slugify(post.slug || post.title);
+
           // Slugs are the public URL, so they must be unique.
-          const clash = await getDocs(query(collection(db, 'posts'), where('slug', '==', post.slug), limit(2)));
+          const clash = await getDocs(query(collection(db, 'posts'), where('slug', '==', cleanSlug), limit(2)));
           if (clash.docs.some((d) => d.id !== id)) {
             return { error: { message: 'Another post already uses that URL. Change the URL field.' } };
           }
 
           const data: Record<string, unknown> = {
             ...post,
+            slug: cleanSlug,
             title: post.title.trim(),
             excerpt: post.excerpt.trim(),
             coverImage: post.coverImage.trim(),
@@ -306,11 +309,37 @@ export const blogApi = createApi({
         }
       },
     }),
+
+    /** Admin: generate an image for a visual placeholder. Runs on the server. */
+    generateVisual: build.mutation<
+      { imageUrl: string; dataUrl: string; prompt: string; label?: string },
+      { prompt: string; label?: string; style?: 'mockup' | 'infographic' | 'editorial' | 'photo' | 'auto'; width?: number; height?: number }
+    >({
+      async queryFn(input) {
+        try {
+          const { auth } = await import('../lib/firebase');
+          const user = auth().currentUser;
+          if (!user) return { error: { message: 'Sign in again to generate visuals.' } };
+          const token = await user.getIdToken();
+          const res = await fetch('/api/generate-visual', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify(input),
+          });
+          const body = await res.json().catch(() => null);
+          if (!res.ok) return { error: { message: body?.error ?? `Visual generation failed (${res.status}).` } };
+          return { data: body };
+        } catch (err) {
+          return { error: toError(err) };
+        }
+      },
+    }),
   }),
 });
 
 export const {
   useGeneratePostMutation,
+  useGenerateVisualMutation,
   useGetPublishedPostsQuery,
   useGetPostBySlugQuery,
   useGetAllPostsQuery,

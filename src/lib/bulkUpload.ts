@@ -23,6 +23,7 @@ import {
   type SeoSuggestInput,
 } from './blog';
 import type { DocImage } from './documentImport';
+import { findVisualPlaceholders } from './visualPlaceholders';
 
 /** Stands in for an image's URL in a parsed document until the image is uploaded. */
 export const IMAGE_PLACEHOLDER = 'bulk-image:';
@@ -170,6 +171,14 @@ function computeIssues(item: BulkItem): Issue[] {
   else if (!f.coverAlt) issues.push({ level: 'warning', field: 'coverAlt', message: 'The cover image has no description for screen readers.' });
   const noAlt = (f.content.match(/!\[\]\(/g) ?? []).length;
   if (noAlt) issues.push({ level: 'warning', field: 'content', message: `${noAlt} image${noAlt > 1 ? 's have' : ' has'} no alt text. Add it in Word or in the editor.` });
+  const visuals = findVisualPlaceholders(f.content);
+  if (visuals.length > 0) {
+    issues.push({
+      level: 'warning',
+      field: 'content',
+      message: `${visuals.length} visual placeholder${visuals.length > 1 ? 's' : ''} in text (${visuals.map((v) => v.label).join(', ')}). Generate with AI or upload images in the editor.`,
+    });
+  }
   return issues;
 }
 
@@ -290,6 +299,14 @@ async function convert(
     docIssues.push({ level: 'warning', field: 'title', message: 'No title heading in the document, so the file name was used.' });
   }
   if (content.length > POST_LIMITS.content) docIssues.push({ level: 'error', field: 'content', message: 'The document is too long for one post. Split it in two.' });
+  const docVisuals = findVisualPlaceholders(content);
+  if (docVisuals.length > 0) {
+    docIssues.push({
+      level: 'warning',
+      field: 'content',
+      message: `Found ${docVisuals.length} visual placeholder${docVisuals.length > 1 ? 's' : ''} (${docVisuals.map((v) => v.label).join(', ')}). You can generate with AI or upload images in the editor.`,
+    });
+  }
 
   const fields: Fields = {
     title: doc.title.slice(0, POST_LIMITS.title),

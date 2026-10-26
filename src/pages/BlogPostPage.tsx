@@ -24,7 +24,7 @@ export default function BlogPostPage() {
 
   if (isLoading) {
     return (
-      <main className="max-w-[760px] mx-auto px-6 py-16 animate-pulse" aria-busy="true">
+      <main className="max-w-[960px] mx-auto px-4 sm:px-6 py-16 animate-pulse" aria-busy="true">
         <div className="h-4 w-32 bg-lav rounded" />
         <div className="h-10 w-full bg-lav rounded mt-6" />
         <div className="h-10 w-2/3 bg-lav rounded mt-3" />
@@ -35,7 +35,7 @@ export default function BlogPostPage() {
 
   if (isError || !post) {
     return (
-      <main className="max-w-[760px] mx-auto px-6 py-24 text-center">
+      <main className="max-w-[960px] mx-auto px-4 sm:px-6 py-24 text-center">
         <p className="font-display font-semibold text-accent text-sm uppercase tracking-wider">Blog</p>
         <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-3">
           {isError ? "This post couldn't load" : "This post isn't available"}

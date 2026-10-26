@@ -16,7 +16,7 @@ export default function PostArticle({ post, preview = false }: { post: ArticlePo
   return (
     <article>
       <header className="pt-10 sm:pt-14 pb-10 bg-gradient-to-b from-lav to-paper">
-        <motion.div {...enter('clipUp')} className="max-w-[760px] mx-auto px-6">
+        <motion.div {...enter('clipUp')} className="max-w-[960px] mx-auto px-4 sm:px-6">
           {preview ? (
             <span className="inline-flex items-center gap-1.5 font-display font-semibold text-sm text-muted">
               <ArrowLeft className="w-4 h-4" /> All posts
@@ -57,12 +57,12 @@ export default function PostArticle({ post, preview = false }: { post: ArticlePo
       </header>
 
       {post.coverImage && (
-        <motion.div {...enter('zoomBlur', { delay: 0.2 })} className="max-w-[1000px] mx-auto px-6">
+        <motion.div {...enter('zoomBlur', { delay: 0.2 })} className="max-w-[960px] mx-auto px-4 sm:px-6">
           <img src={post.coverImage} alt={post.coverAlt} className="w-full aspect-[16/9] object-cover rounded-3xl border border-rule" />
         </motion.div>
       )}
 
-      <div className="max-w-[760px] mx-auto px-6 py-12">
+      <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-10 sm:py-12">
         <Markdown>{post.content}</Markdown>
 
         <motion.aside {...reveal('tilt3d')} className="mt-16 rounded-3xl bg-ink text-paper p-8 sm:p-10">
