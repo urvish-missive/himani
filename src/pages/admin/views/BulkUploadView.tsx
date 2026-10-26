@@ -18,7 +18,7 @@ import {
   TriangleAlert,
   X,
 } from 'lucide-react';
-import { bulkUpload, hasErrors, isProcessing, useBulkUpload, type BulkItem, type Fields, type Intent, type Issue } from '../../../lib/bulkUpload';
+import { IMPORT_ACCEPT, bulkUpload, hasErrors, isProcessing, useBulkUpload, type BulkItem, type Fields, type Intent, type Issue } from '../../../lib/bulkUpload';
 import { POST_LIMITS, SEO_HINTS, fromLocalInput, isLive, parseTags, slugify, toLocalInput } from '../../../lib/blog';
 import PostArticle from '../../../components/blog/PostArticle';
 import { useScrollLock, useToast } from '../../../components/ui/Feedback';
@@ -106,19 +106,24 @@ export default function BulkUploadView() {
           }`}
         >
           <FileUp className="w-10 h-10 text-accent mx-auto" />
-          <h2 className="font-display font-extrabold text-xl sm:text-2xl text-ink mt-4">Upload Word documents</h2>
-          <p className="text-muted mt-2 max-w-[52ch] mx-auto text-sm sm:text-base">
-            Drop as many <span className="font-semibold text-ink">.docx</span> files as you like. Each becomes a blog post with its title, headings,
-            paragraphs, lists, tables, links and images kept exactly as written.
+          <h2 className="font-display font-extrabold text-xl sm:text-2xl text-ink mt-4">Upload documents</h2>
+          <p className="text-muted mt-2 max-w-[54ch] mx-auto text-sm sm:text-base">
+            Drop one file or many: <span className="font-semibold text-ink">Word (.docx, .doc)</span> or{' '}
+            <span className="font-semibold text-ink">PDF</span>. Each becomes a blog post with its title, headings, paragraphs, lists, tables, links
+            and images kept exactly as written.
           </p>
           <button onClick={() => inputRef.current?.click()} className="btn solid mt-6 inline-flex">
             Choose files
           </button>
+          <p className="text-xs text-muted mt-3 max-w-[56ch] mx-auto">
+            .docx gives the most faithful result. PDFs keep text, headings, lists, links and images, but tables arrive as text. Old .doc files
+            keep only the text.
+          </p>
           <input
             ref={inputRef}
             type="file"
             multiple
-            accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            accept={IMPORT_ACCEPT}
             className="hidden"
             onChange={(e) => {
               if (e.target.files?.length) add(e.target.files);
@@ -129,7 +134,7 @@ export default function BulkUploadView() {
             <summary className="cursor-pointer font-display font-semibold text-ink text-center">How SEO details are picked up</summary>
             <div className="mt-3 space-y-2">
               <p>
-                The first heading (Word's <em>Title</em> or <em>Heading 1</em> style) becomes the post title. Add any of these lines at the top or
+                The first heading (Word's <em>Title</em> or <em>Heading 1</em> style, or the largest text at the top of a PDF) becomes the post title. Add any of these lines at the top or
                 bottom of the document, or under an “SEO details” heading, and they fill the matching field instead of appearing in the post:
               </p>
               <pre className="bg-paper-2 border border-rule rounded-xl p-3 text-xs text-ink whitespace-pre-wrap">

@@ -1,11 +1,12 @@
-// Turns a Word document (.docx) into a blog post: the title, the body as the
-// Markdown the blog already renders, its images, and any SEO details the writer
-// put in the document. The writing itself is kept exactly as it is: nothing is
-// reworded, summarised or added.
+// Turns a document (Word .docx or .doc, or PDF) into a blog post: the title,
+// the body as the Markdown the blog already renders, its images, and any SEO
+// details the writer put in the document. The writing itself is kept exactly as
+// it is: nothing is reworded, summarised or added.
 //
-// Only the admin bulk upload imports this, so mammoth never ships to visitors.
+// Each format is first turned into simple HTML (headings, paragraphs, lists,
+// tables, links, images); one shared pipeline then reads it into a post.
+// Only the admin imports this, and each format's library loads on demand.
 
-import mammoth from 'mammoth';
 import { slugify } from './blog';
 import { IMAGE_PLACEHOLDER } from './bulkUpload';
 
@@ -43,6 +44,8 @@ export interface ParsedDoc {
   headingCount: number;
   tableCount: number;
   linkCount: number;
+  /** What this file format couldn't carry over, for flagging. */
+  notes: string[];
 }
 
 // Word styles that mammoth doesn't map by default.
@@ -379,16 +382,33 @@ function blocks(parent: Element, ctx: Ctx, out: string[]) {
   }
 }
 
-// ---------------------------------------------------------------- Entry point
+// ---------------------------------------------------------------- Entry points
 
 const fileTitle = (name: string) =>
   name
-    .replace(/\.docx$/i, '')
+    .replace(/\.[a-z0-9]+$/i, '')
     .replace(/[_]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 
-export async function parseDocx(file: File): Promise<ParsedDoc> {
+/** Reads any supported file into a post. */
+export async function parseDocument(file: File): Promise<ParsedDoc> {
+  const ext = file.name.match(/\.([a-z0-9]+)$/i)?.[1].toLowerCase();
+  if (ext === 'pdf') {
+    const { pdfToHtml } = await import('./import/pdf');
+    const { html, images, notes } = await pdfToHtml(await file.arrayBuffer());
+    return htmlToPost(html, images, file.name, notes, true);
+  }
+  if (ext === 'doc') {
+    const { docToHtml } = await import('./import/doc');
+    const { html, notes } = docToHtml(await file.arrayBuffer());
+    return htmlToPost(html, [], file.name, notes, true);
+  }
+  return parseDocx(file);
+}
+
+async function parseDocx(file: File): Promise<ParsedDoc> {
+  const { default: mammoth } = await import('mammoth');
   const arrayBuffer = await file.arrayBuffer();
   const images: DocImage[] = [];
 
@@ -403,18 +423,36 @@ export async function parseDocx(file: File): Promise<ParsedDoc> {
       }),
     }
   );
+  return htmlToPost(html, images, file.name, []);
+}
 
+/**
+ * The shared pipeline. `html` uses <img src="bulk-image:N"> for images[N];
+ * an <h1> as the first text is taken as the title. For formats without
+ * heading styles, `firstLineTitle` takes a short opening line as the title.
+ */
+export function htmlToPost(html: string, images: DocImage[], fileName: string, notes: string[], firstLineTitle = false): ParsedDoc {
   const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
   const body = doc.body;
 
-  // mammoth puts the image's alt text (Word's "Alt Text" box) on the tag.
+  // The image's alt text (Word's "Alt Text" box) is on the tag.
   body.querySelectorAll('img').forEach((img) => {
     const i = Number(img.getAttribute('src')?.slice(IMAGE_PLACEHOLDER.length));
-    if (images[i]) images[i].alt = (img.getAttribute('alt') ?? '').trim();
+    if (images[i] && !images[i].alt) images[i].alt = (img.getAttribute('alt') ?? '').trim();
   });
 
   const meta: DocMeta = { title: '', seoTitle: '', seoDescription: '', excerpt: '', slug: '', tags: [], keywords: '', coverImage: '', coverAlt: '', author: '' };
   extractMeta(body, meta);
+
+  if (firstLineTitle && !meta.title) {
+    const first = [...body.children].find((el) => text(el));
+    const t = text(first ?? null);
+    if (first && first.tagName !== 'H1' && /^(P|H[2-6])$/.test(first.tagName) && !body.querySelector('h1') && t.length < 150 && !/[.!?:;,]$/.test(t)) {
+      const h1 = doc.createElement('h1');
+      h1.innerHTML = first.innerHTML;
+      first.replaceWith(h1);
+    }
+  }
 
   // The title: the first top-level heading (Word's Title or Heading 1 style), else a "Title:" label, else the file name.
   let title = '';
@@ -431,7 +469,7 @@ export async function parseDocx(file: File): Promise<ParsedDoc> {
     // Drop a heading that only repeats the labelled title.
     if (h1 && text(h1).toLowerCase() === meta.title.toLowerCase()) h1.remove();
   }
-  if (!title) title = fileTitle(file.name);
+  if (!title) title = fileTitle(fileName);
 
   // The page shows the title as its only top-level heading. If the document has
   // more, every heading moves down a level so the outline keeps its shape.
@@ -465,5 +503,6 @@ export async function parseDocx(file: File): Promise<ParsedDoc> {
     headingCount: out.filter((b) => /^#{2,6} /.test(b)).length,
     tableCount: out.filter((b) => b.startsWith('| ')).length,
     linkCount: ctx.links,
+    notes,
   };
 }

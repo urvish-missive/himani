@@ -38,6 +38,8 @@ import {
 import Markdown from '../../../components/blog/Markdown';
 import { errorMessage, timeAgo } from '../shared';
 import AiDraftPanel from '../AiDraftPanel';
+import ImportDocPanel from '../ImportDocPanel';
+import type { Converted } from '../../../lib/bulkUpload';
 import { useConfirm, useToast } from '../../../components/ui/Feedback';
 
 interface Draft {
@@ -139,6 +141,27 @@ export default function PostEditorView() {
 
   const wasPublished = existing ? wentLive(existing) : false;
   const [scheduling, setScheduling] = useState(false);
+  // The file a new post was imported from, so a later bulk upload can spot it.
+  const [imported, setImported] = useState<{ hash: string; file: string } | null>(null);
+
+  // Fill the form from an imported document; asks first if there's writing to replace.
+  const applyImport = async (r: Converted & { hash: string }, fileName: string) => {
+    if (draft.content.trim()) {
+      const ok = await confirm({
+        title: 'Replace your current draft?',
+        message: 'The document will replace the title, text and details in the editor.',
+        confirmLabel: 'Replace with document',
+      });
+      if (!ok) return false;
+    }
+    const f = r.fields;
+    setError('');
+    setDraft((prev) => ({ ...prev, ...f, author: f.author || prev.author, scheduleAt: prev.scheduleAt }));
+    setSlugTouched(Boolean(f.slug));
+    setImported({ hash: r.hash, file: fileName.slice(0, 300) });
+    setTab('preview');
+    return true;
+  };
 
   // Fill the form from an AI draft; asks first if there's writing to replace.
   const applyDraft = async (d: GeneratedDraft) => {
@@ -181,7 +204,11 @@ export default function PostEditorView() {
         keywords: draft.keywords,
         scheduledAt: nextStatus === 'scheduled' ? fromLocalInput(draft.scheduleAt) : null,
         // Keeps the link to the Word file a bulk upload made this post from.
-        ...(existing?.sourceHash ? { sourceHash: existing.sourceHash, sourceFile: existing.sourceFile } : {}),
+        ...(existing?.sourceHash
+          ? { sourceHash: existing.sourceHash, sourceFile: existing.sourceFile }
+          : imported
+          ? { sourceHash: imported.hash, sourceFile: imported.file }
+          : {}),
       };
       const invalid = validatePost(post);
       if (invalid) return setError(invalid);
@@ -216,7 +243,7 @@ export default function PostEditorView() {
         setError(errorMessage(e));
       }
     },
-    [draft, id, isNew, navigate, savePost, status, toast, wasPublished]
+    [draft, id, isNew, navigate, savePost, status, toast, wasPublished, existing, imported]
   );
 
   // Ctrl/Cmd + S saves without changing the status.
@@ -334,6 +361,7 @@ export default function PostEditorView() {
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 items-start">
         {/* Main column */}
         <div className="space-y-5 min-w-0">
+          {isNew && <ImportDocPanel onImport={applyImport} />}
           <AiDraftPanel defaultOpen={isNew && (searchParams.get('ai') === '1' || !draft.content)} onDraft={applyDraft} />
           <div className="bg-card border border-rule rounded-2xl p-5 sm:p-6 space-y-5">
             <div>

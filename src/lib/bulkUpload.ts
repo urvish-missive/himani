@@ -22,10 +22,14 @@ import {
   type PostStatus,
   type SeoSuggestInput,
 } from './blog';
-import type { DocImage } from './docxImport';
+import type { DocImage } from './documentImport';
 
 /** Stands in for an image's URL in a parsed document until the image is uploaded. */
 export const IMAGE_PLACEHOLDER = 'bulk-image:';
+
+/** File types that can be imported, for file pickers. */
+export const IMPORT_ACCEPT =
+  '.docx,.doc,.pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/pdf';
 
 export type Stage =
   | 'queued'
@@ -94,7 +98,7 @@ interface State {
   settings: Settings;
 }
 
-const ACCEPT = /\.docx$/i;
+const ACCEPT = /\.(docx|doc|pdf)$/i;
 const MAX_FILE = 30 * 1024 * 1024;
 const CONCURRENCY = 2;
 
@@ -202,7 +206,7 @@ async function shrink(img: DocImage): Promise<{ blob: Blob; type: string }> {
 }
 
 /** Uploads the document's images to Cloud Storage. Resolves to each image's URL, or an error. */
-async function uploadImages(item: BulkItem, images: DocImage[], onProgress: (done: number) => void) {
+async function uploadImages(hash: string, images: DocImage[], onProgress: (done: number) => void) {
   const [{ firebaseApp }, { getStorage, ref, uploadBytes, getDownloadURL }] = await Promise.all([import('./firebase'), import('firebase/storage')]);
   const storage = getStorage(firebaseApp());
   const urls: (string | Error)[] = [];
@@ -215,7 +219,7 @@ async function uploadImages(item: BulkItem, images: DocImage[], onProgress: (don
       try {
         const { blob, type } = await shrink(img);
         // Named by the file's hash, so a retry overwrites rather than duplicates.
-        const path = `blog-images/${item.hash.slice(0, 20)}/${img.index + 1}.${EXT[type] ?? 'img'}`;
+        const path = `blog-images/${hash.slice(0, 20)}/${img.index + 1}.${EXT[type] ?? 'img'}`;
         const r = ref(storage, path);
         await uploadBytes(r, blob, { contentType: type, cacheControl: 'public, max-age=31536000, immutable' });
         urls[img.index] = await getDownloadURL(r);
@@ -235,6 +239,91 @@ async function uploadImages(item: BulkItem, images: DocImage[], onProgress: (don
   return urls;
 }
 
+export interface Converted {
+  fields: Fields;
+  /** Problems found in the document itself. */
+  docIssues: Issue[];
+  stats: NonNullable<BulkItem['stats']>;
+}
+
+/**
+ * Reads one file into post fields and uploads its images. `check` runs after
+ * reading and before uploading; returning false stops there (such as for a duplicate).
+ */
+async function convert(
+  file: File,
+  hash: string,
+  onProgress: (stage: 'images', progress: number) => void,
+  check: (slug: string) => Promise<boolean> = async () => true
+): Promise<Converted | null> {
+  const { parseDocument } = await import('./documentImport');
+  const doc = await parseDocument(file);
+  const slug = doc.meta.slug || slugify(doc.title);
+  if (!(await check(slug))) return null;
+
+  const docIssues: Issue[] = doc.notes.map((message) => ({ level: 'warning', field: 'content', message }));
+  let content = doc.content;
+  let coverImage = doc.meta.coverImage;
+  let coverAlt = doc.meta.coverAlt;
+
+  if (doc.images.length) {
+    onProgress('images', 40);
+    const urls = await uploadImages(hash, doc.images, (n) => onProgress('images', 40 + Math.round((n / doc.images.length) * 45)));
+    const failed = urls.filter((u): u is Error => u instanceof Error);
+    // Images that couldn't upload are taken out, and the post can't be published until they're added back.
+    content = content.replace(new RegExp(`!\\[([^\\]]*)\\]\\(${IMAGE_PLACEHOLDER}(\\d+)\\)`, 'g'), (_m, alt: string, i: string) => {
+      const url = urls[Number(i)];
+      return typeof url === 'string' ? `![${alt}](${url})` : '';
+    });
+    content = content.replace(/\n{3,}/g, '\n\n').trim();
+    if (doc.coverImageIndex != null) {
+      const url = urls[doc.coverImageIndex];
+      if (typeof url === 'string') {
+        coverImage = url;
+        coverAlt = coverAlt || doc.images[doc.coverImageIndex].alt;
+      }
+    }
+    [...new Set(failed.map((e) => e.message))].forEach((message) => docIssues.push({ level: 'error', field: 'content', message }));
+  }
+
+  if (doc.titleFrom === 'file') {
+    docIssues.push({ level: 'warning', field: 'title', message: 'No title heading in the document, so the file name was used.' });
+  }
+  if (content.length > POST_LIMITS.content) docIssues.push({ level: 'error', field: 'content', message: 'The document is too long for one post. Split it in two.' });
+
+  const fields: Fields = {
+    title: doc.title.slice(0, POST_LIMITS.title),
+    slug: slug.slice(0, POST_LIMITS.slug),
+    excerpt: (doc.meta.excerpt || doc.meta.seoDescription).slice(0, POST_LIMITS.excerpt),
+    content,
+    coverImage: coverImage.slice(0, POST_LIMITS.coverImage),
+    coverAlt: coverAlt.slice(0, POST_LIMITS.coverAlt),
+    tags: parseTags(doc.meta.tags.join(',')).join(', '),
+    author: (doc.meta.author || DEFAULT_AUTHOR).slice(0, 80),
+    seoTitle: doc.meta.seoTitle.slice(0, POST_LIMITS.seoTitle),
+    seoDescription: doc.meta.seoDescription.slice(0, POST_LIMITS.seoDescription),
+    keywords: doc.meta.keywords.slice(0, POST_LIMITS.keywords),
+  };
+  const words = content.replace(/!\[[^\]]*\]\([^)]*\)|[#>*_`~|\-[\]()\\]/g, ' ').split(/\s+/).filter(Boolean).length;
+  return { fields, docIssues, stats: { images: doc.images.length, headings: doc.headingCount, tables: doc.tableCount, links: doc.linkCount, words } };
+}
+
+/**
+ * Imports one document for the post editor: the same reading and image upload
+ * as a bulk upload, without the queue. Rejects with a readable message.
+ */
+export async function importSingleFile(file: File): Promise<Converted & { hash: string }> {
+  if (!ACCEPT.test(file.name)) throw new Error('Choose a .docx, .doc or .pdf file.');
+  if (file.size > MAX_FILE) throw new Error('That file is larger than 30 MB.');
+  try {
+    const hash = await sha256(await file.arrayBuffer());
+    const result = await convert(file, hash, () => {});
+    return { ...result!, hash };
+  } catch (err) {
+    throw new Error(friendly(err));
+  }
+}
+
 async function process(id: string) {
   const item = get(id);
   if (!item) return;
@@ -251,80 +340,35 @@ async function process(id: string) {
     }
     patch(id, { hash, progress: 15 });
 
-    const { parseDocx } = await import('./docxImport');
-    const doc = await parseDocx(item.file);
-    if (!get(id)) return; // removed meanwhile
-    patch(id, { progress: 35 });
-
-    // Was this file imported before?
-    let slug = doc.meta.slug || slugify(doc.title);
-    const dupes = await store.dispatch(blogApi.endpoints.findImportDuplicates.initiate({ hash, slug })).unwrap();
-    if (dupes.byHash && !item.allowDuplicate) {
-      const { id: postId, title, slug: s, status } = dupes.byHash;
-      patch(id, { stage: 'duplicate', progress: 100, duplicateOf: { id: postId, title, slug: s, status } });
-      return;
-    }
-
-    const docIssues: Issue[] = [];
-    let content = doc.content;
-    let coverImage = doc.meta.coverImage;
-    let coverAlt = doc.meta.coverAlt;
-
-    if (doc.images.length) {
-      patch(id, { stage: 'images', progress: 40 });
-      const urls = await uploadImages({ ...item, hash }, doc.images, (n) => patch(id, { progress: 40 + Math.round((n / doc.images.length) * 45) }));
-      const failed = urls.filter((u): u is Error => u instanceof Error);
-      // Images that couldn't upload are taken out, and the post can't be published until they're added back.
-      content = content.replace(new RegExp(`!\\[([^\\]]*)\\]\\(${IMAGE_PLACEHOLDER}(\\d+)\\)`, 'g'), (_m, alt: string, i: string) => {
-        const url = urls[Number(i)];
-        return typeof url === 'string' ? `![${alt}](${url})` : '';
-      });
-      content = content.replace(/\n{3,}/g, '\n\n').trim();
-      if (doc.coverImageIndex != null) {
-        const url = urls[doc.coverImageIndex];
-        if (typeof url === 'string') {
-          coverImage = url;
-          coverAlt = coverAlt || doc.images[doc.coverImageIndex].alt;
+    let slugTaken: BulkItem['slugTaken'] = null;
+    let freeSlug = '';
+    const result = await convert(
+      item.file,
+      hash,
+      (stage, progress) => get(id) && patch(id, { stage, progress }),
+      async (slug) => {
+        if (!get(id)) return false; // removed meanwhile
+        patch(id, { progress: 35 });
+        // Was this file imported before?
+        const dupes = await store.dispatch(blogApi.endpoints.findImportDuplicates.initiate({ hash, slug })).unwrap();
+        if (dupes.byHash && !item.allowDuplicate) {
+          const { id: postId, title, slug: s, status } = dupes.byHash;
+          patch(id, { stage: 'duplicate', progress: 100, duplicateOf: { id: postId, title, slug: s, status } });
+          return false;
         }
+        if (dupes.bySlug) {
+          // A deliberate re-import gets the next free URL instead of clashing with the first copy.
+          const taken = dupes.bySlug.slug;
+          if (item.allowDuplicate) freeSlug = nextFreeSlug(slug, (x) => x === taken);
+          else slugTaken = { id: dupes.bySlug.id, title: dupes.bySlug.title, slug: taken };
+        }
+        return true;
       }
-      [...new Set(failed.map((e) => e.message))].forEach((message) => docIssues.push({ level: 'error', field: 'content', message }));
-    }
+    );
+    if (!result || !get(id)) return;
+    if (freeSlug) result.fields.slug = freeSlug;
 
-    if (doc.titleFrom === 'file') {
-      docIssues.push({ level: 'warning', field: 'title', message: 'No title heading in the document, so the file name was used.' });
-    }
-    if (content.length > POST_LIMITS.content) docIssues.push({ level: 'error', field: 'content', message: 'The document is too long for one post. Split it in two.' });
-
-    patch(id, { stage: 'checking', progress: 90 });
-    // A deliberate re-import gets the next free URL instead of clashing with the first copy.
-    let slugTaken = dupes.bySlug ? { id: dupes.bySlug.id, title: dupes.bySlug.title, slug: dupes.bySlug.slug } : null;
-    if (slugTaken && item.allowDuplicate) {
-      const taken = slugTaken.slug;
-      slug = nextFreeSlug(slug, (s) => s === taken);
-      slugTaken = null;
-    }
-    const fields: Fields = {
-      title: doc.title.slice(0, POST_LIMITS.title),
-      slug: slug.slice(0, POST_LIMITS.slug),
-      excerpt: (doc.meta.excerpt || doc.meta.seoDescription).slice(0, POST_LIMITS.excerpt),
-      content,
-      coverImage: coverImage.slice(0, POST_LIMITS.coverImage),
-      coverAlt: coverAlt.slice(0, POST_LIMITS.coverAlt),
-      tags: parseTags(doc.meta.tags.join(',')).join(', '),
-      author: (doc.meta.author || DEFAULT_AUTHOR).slice(0, 80),
-      seoTitle: doc.meta.seoTitle.slice(0, POST_LIMITS.seoTitle),
-      seoDescription: doc.meta.seoDescription.slice(0, POST_LIMITS.seoDescription),
-      keywords: doc.meta.keywords.slice(0, POST_LIMITS.keywords),
-    };
-    const words = content.replace(/!\[[^\]]*\]\([^)]*\)|[#>*_`~|\-[\]()\\]/g, ' ').split(/\s+/).filter(Boolean).length;
-    patch(id, {
-      stage: 'ready',
-      progress: 100,
-      fields,
-      docIssues,
-      slugTaken,
-      stats: { images: doc.images.length, headings: doc.headingCount, tables: doc.tableCount, links: doc.linkCount, words },
-    });
+    patch(id, { stage: 'ready', progress: 100, fields: result.fields, docIssues: result.docIssues, slugTaken, stats: result.stats });
 
     const ready = get(id)!;
     if (ready.intent !== 'review') await save(id, ready.intent);
@@ -335,7 +379,9 @@ async function process(id: string) {
 
 function friendly(err: unknown) {
   const msg = (err as { message?: string })?.message ?? String(err);
-  if (/end of central directory|zip|corrupted/i.test(msg)) return "This file couldn't be opened as a Word document. Re-save it as .docx and try again.";
+  if (/end of central directory|zip|corrupted|CFB|Header Signature/i.test(msg)) return "This file couldn't be opened as a Word document. Re-save it as .docx and try again.";
+  if (/Invalid PDF|InvalidPDFException/i.test(msg)) return "This file couldn't be opened as a PDF. Re-save it and try again.";
+  if (/PasswordException|password/i.test(msg) && !/protected\./.test(msg)) return 'This file is password protected. Remove the password and try again.';
   return msg;
 }
 
@@ -412,7 +458,7 @@ export const bulkUpload = {
     const added: BulkItem[] = [];
     for (const file of files) {
       if (!ACCEPT.test(file.name)) {
-        skipped.push(`${file.name}: only .docx files can be imported${/\.doc$/i.test(file.name) ? ' (open it in Word and save as .docx)' : ''}.`);
+        skipped.push(`${file.name}: only Word (.docx, .doc) and PDF files can be imported.`);
         continue;
       }
       if (file.size > MAX_FILE) {

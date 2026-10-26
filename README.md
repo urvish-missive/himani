@@ -34,7 +34,9 @@ Five static pages that share one menu, one footer and one design system (lavende
 
 ## Bulk blog upload (admin)
 
-Admin → Blog → **Bulk upload** (`/admin/blog/bulk`) turns a batch of Word documents (.docx) into blog posts.
+Admin → Blog → **Bulk upload** (`/admin/blog/bulk`) turns one or many documents into blog posts: Word (.docx, .doc) or PDF. To import a single file straight into the editor, use **Import from a document** on the New post page.
+
+- **Formats:** .docx is the most faithful. PDFs have their headings, paragraphs, lists, links, images and simple tables rebuilt from the page layout (page numbers and running headers/footers are dropped), so check the preview. Old .doc files keep only their text and links; formatting, tables and pictures are flagged.
 
 - **Kept as written:** title (Word's *Title* or first *Heading 1*), headings, paragraphs, bold/italic, lists, tables, links and images. Nothing is reworded or added. Images are uploaded to Firebase Storage (large photos are resized to 2000px WebP).
 - **SEO details** are read from labelled lines at the top or bottom of the document, under an "SEO details" heading, or from a two-column table: `Meta Title`, `Meta Description`, `Slug`, `Tags`, `Focus Keyword`, `Excerpt`, `Featured Image`, `Image Alt`. Missing details are flagged; an optional AI button suggests only the empty SEO fields (never the article text).
