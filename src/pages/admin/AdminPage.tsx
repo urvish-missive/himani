@@ -1,7 +1,7 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
+import { onAuthStateChanged, sendPasswordResetEmail, signInWithCustomToken, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { Crown } from 'lucide-react';
 import { auth, isFirebaseConfigured } from '../../lib/firebase';
@@ -134,7 +134,115 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
+const PIN_LENGTH = 6;
+
+/** Sign in with the admin PIN, checked on the server by /api/pin-login. */
 function LoginScreen() {
+  const [useEmail, setUseEmail] = useState(false);
+  if (useEmail) return <EmailLoginScreen onUsePin={() => setUseEmail(false)} />;
+  return <PinLoginScreen onUseEmail={() => setUseEmail(true)} />;
+}
+
+function PinLoginScreen({ onUseEmail }: { onUseEmail: () => void }) {
+  const [pin, setPin] = useState('');
+  const [err, setErr] = useState('');
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // The input is disabled while checking, which drops focus; take it back for the next try.
+  useEffect(() => {
+    if (!busy) inputRef.current?.focus();
+  }, [busy]);
+
+  const submit = async (value: string) => {
+    if (busy || value.length !== PIN_LENGTH) return;
+    setBusy(true);
+    setErr('');
+    try {
+      const res = await fetch('/api/pin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: value }),
+      });
+      const body = await res.json().catch(() => null);
+      if (!res.ok || !body?.token) throw new Error(body?.error ?? `Sign-in failed (${res.status}).`);
+      await signInWithCustomToken(auth(), body.token);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : 'Sign-in failed.');
+      setPin('');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <Shell>
+      <Panel title="Enter your PIN">
+        <p className="text-sm text-muted">Manage leads and blog posts.</p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submit(pin);
+          }}
+          className="mt-6"
+        >
+          <label htmlFor="admin-pin" className="sr-only">
+            PIN
+          </label>
+          <div className="relative">
+            <input
+              ref={inputRef}
+              id="admin-pin"
+              type="password"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              autoFocus
+              maxLength={PIN_LENGTH}
+              value={pin}
+              disabled={busy}
+              onChange={(e) => {
+                const v = e.target.value.replace(/\D/g, '').slice(0, PIN_LENGTH);
+                setPin(v);
+                setErr('');
+                if (v.length === PIN_LENGTH) submit(v);
+              }}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-text"
+            />
+            {/* One box per digit; the hidden input above takes the typing. */}
+            <div className="grid grid-cols-6 gap-2 pointer-events-none" aria-hidden="true">
+              {Array.from({ length: PIN_LENGTH }, (_, i) => (
+                <span
+                  key={i}
+                  className={`h-14 rounded-xl border bg-paper flex items-center justify-center text-2xl text-ink transition-colors ${
+                    err ? 'border-bad' : i === pin.length ? 'border-accent' : 'border-rule'
+                  }`}
+                >
+                  {pin[i] ? '•' : ''}
+                </span>
+              ))}
+            </div>
+          </div>
+          {err && (
+            <p className="text-bad text-sm font-display mt-4" role="alert">
+              {err}
+            </p>
+          )}
+          <button type="submit" disabled={busy || pin.length !== PIN_LENGTH} className="btn solid w-full justify-center mt-6 disabled:opacity-60">
+            {busy ? 'Signing in…' : 'Sign in'}
+          </button>
+        </form>
+        <button onClick={onUseEmail} className="block w-full text-center text-sm text-muted hover:text-accent mt-5 font-display">
+          Sign in with email instead
+        </button>
+        <Link to="/" className="block text-center text-sm text-muted hover:text-accent mt-3 font-display">
+          ← Back to site
+        </Link>
+      </Panel>
+    </Shell>
+  );
+}
+
+function EmailLoginScreen({ onUsePin }: { onUsePin: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
@@ -206,7 +314,10 @@ function LoginScreen() {
             {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
-        <Link to="/" className="block text-center text-sm text-muted hover:text-accent mt-6 font-display">
+        <button onClick={onUsePin} className="block w-full text-center text-sm text-muted hover:text-accent mt-6 font-display">
+          Sign in with PIN instead
+        </button>
+        <Link to="/" className="block text-center text-sm text-muted hover:text-accent mt-3 font-display">
           ← Back to site
         </Link>
       </Panel>

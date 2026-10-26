@@ -48,3 +48,17 @@ Admin → Blog → **Bulk upload** (`/admin/blog/bulk`) turns a batch of Word do
 3. AI SEO suggestions use the same `GEMINI_API_KEY` / `GROQ_*` / `OPENROUTER_*` server variables as AI drafting.
 
 Scheduled posts become visible to visitors at their scheduled time (enforced by `firestore.rules`). The admin panel also marks them as published once due.
+
+## Admin sign-in with a PIN
+
+`/admin` asks for a 6-digit PIN. The PIN is checked on the server (`api/pin-login.ts`), never in the browser, and signs you in as the existing admin Firebase account. Email and password sign-in is still available from the "Sign in with email instead" link.
+
+Set these in Vercel → Project → Settings → Environment Variables (and in `.env` for local `npm run dev`), then redeploy. Never commit them.
+
+| Variable | Value |
+|---|---|
+| `ADMIN_PIN` | The PIN, digits only. |
+| `ADMIN_UID` | UID of your admin user (Firebase console → Authentication → Users, or shown on the "No admin access" screen). It must have a document in `/admins`. |
+| `FIREBASE_SERVICE_ACCOUNT` | Firebase console → Project settings → Service accounts → Generate new private key. Paste the whole JSON (or base64 of it). |
+
+To slow down guessing, each address gets 5 tries per 15 minutes and everyone together gets 30 per hour; counts are kept in the `pinLogins` Firestore collection, which the website can't read or write. Deploy the updated `firestore.rules`.

@@ -10,6 +10,7 @@ function devApi(env: Record<string, string>): Plugin {
   const routes: Record<string, [file: string, handler: string]> = {
     '/api/generate-post': ['/api/generate-post.ts', 'handleGeneratePost'],
     '/api/suggest-seo': ['/api/suggest-seo.ts', 'handleSuggestSeo'],
+    '/api/pin-login': ['/api/pin-login.ts', 'handlePinLogin'],
   };
   return {
     name: 'dev-api',
@@ -28,6 +29,7 @@ function devApi(env: Record<string, string>): Plugin {
             headers: {
               'content-type': String(req.headers['content-type'] ?? ''),
               authorization: String(req.headers.authorization ?? ''),
+              'x-forwarded-for': String(req.headers['x-forwarded-for'] ?? req.socket.remoteAddress ?? ''),
             },
             body: req.method === 'GET' || req.method === 'HEAD' ? undefined : Buffer.concat(chunks),
           });
